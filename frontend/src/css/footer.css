@@ -1,0 +1,56 @@
+.footerNav:hover {
+    background-color: #616161;
+    color: black;
+
+}
+
+.footerNav {
+    margin: 20px;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
+
+
+
+.footerKapcsolat>p {
+    padding: 10px;
+}
+
+.footerDiv {
+    min-height: 23rem;
+    background-color: black;
+    color: #aeb7c7;
+}
+
+footer {
+    font-size: medium;
+    background-color: black;
+}
+
+.fa-brands {
+    font-size: 4rem;
+    padding: 30px;
+    cursor: pointer;
+}
+
+
+.fa-facebook:hover {
+    color: #4267B2;
+}
+
+
+.fa-twitter:hover {
+    color: #00ACEE;
+}
+
+.fa-instagram:hover {
+
+    background: -webkit-linear-gradient(bottom left,#feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fa-viber:hover {
+    color: #7360F2;
+}
