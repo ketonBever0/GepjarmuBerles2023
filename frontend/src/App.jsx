@@ -6,6 +6,7 @@ import Main from "./components/Main"
 import Catalog from "./components/Catalog"
 import Faq from "./components/Faq"
 import AboutUs from "./components/AboutUs"
+import Footer from './components/Footer';
 
 
 function App() {
@@ -21,7 +22,10 @@ function App() {
           {/* <Route path="/contact" element={ } /> */}
           <Route path="/about" element={<AboutUs />} />
         </Routes>
+        <Footer />
       </Router>
+
+
       <Toaster />
     </div>
   )
