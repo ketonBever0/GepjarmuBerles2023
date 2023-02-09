@@ -5,14 +5,17 @@ const {
     getVehicleBrands,
     getVehicleBrandTypes,
     getVehiclePassengerSeatsCount,
-    filterVehicles
+    filterByBrandVehicles,
+    filterByBrandType,
+
 } = require('../controllers/autoController');
 
 router.get('/jarmuvek', getVehicles);
 router.get('/markak', getVehicleBrands);
 router.get('/modellek', getVehicleBrandTypes);
 router.get('/ferohelyek', getVehiclePassengerSeatsCount);
-router.get('/marka/:keresettMarka', filterVehicles);
+router.get('/marka/:keresettMarka', filterByBrandVehicles);
+router.get('/modell/:keresettModell', filterByBrandType)
 
 
 

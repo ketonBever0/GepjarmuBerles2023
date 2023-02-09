@@ -66,10 +66,28 @@ const filterByBrandVehicles = (req, res) => {
     );
 }
 
+const filterByBrandType = (req, res) => {
+    conn.query(
+        `
+        SELECT * FROM gepjarmuvek
+        WHERE modell = ?
+    `,
+    [req.params.keresettModell],
+    (err, rows) => {
+
+        if(err) res.status(400).send(err);
+        if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
+
+        res.json(rows);
+    }
+);
+}
+
 module.exports = {
     getVehicles,
     getVehicleBrands,
     getVehicleBrandTypes,
     getVehiclePassengerSeatsCount,
-    filterByBrandVehicles
+    filterByBrandVehicles,
+    filterByBrandType
 }
