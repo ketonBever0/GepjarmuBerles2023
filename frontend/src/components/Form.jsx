@@ -30,10 +30,12 @@ const Form = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/')
-            .then(res => res.json())
-            .then(data => setMarkak(data))
-            .catch(err => console.log(err));
+        if (FormData.marka != "") {
+            fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
+                .then(res => res.json())
+                .then(data => setModellek(data))
+                .catch(err => console.log(err));
+        }
     }, [FormData.marka])
 
 
@@ -60,6 +62,7 @@ const Form = () => {
                     {/* <input type="text" className="form-control" placeholder="Modell" /> */}
                     <select className="form-select" id='modell' onChange={handleChange} value={FormData.modell}>
                         <option selected value={null}>Modell</option>
+                        {Modellek && Modellek.map((modell, index) => (<option value={modell.modell} key={index}>{modell.modell}</option>))}
                     </select>
                 </div>
             </div>
