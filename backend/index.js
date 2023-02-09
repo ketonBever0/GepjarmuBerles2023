@@ -7,10 +7,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/api/gepjarmuberles/gepjarmuvek', require('./routes/autoRoutes'));
-app.use('/api/gepjuarmuberles/gepjarmutipusok', require('./routes/arkategoriaRoutes'));
+app.use('/api/gepjarmuberles/gepjarmutipusok', require('./routes/arkategoriaRoutes'));
 
 app.listen(8000, () => {
     console.log("Running");
+});
+
+app.get('/', (req, res) => {
+    res.send("Autók api");
 });
 
 
