@@ -87,7 +87,7 @@ const Form = () => {
                     <label for="modell">Modell</label>
                     <select className="form-select" id='modell' onChange={handleChange} value={FormData.modell}>
                         <option selected value={null}>Összes</option>
-                        {Modellek ? Modellek.map((modell, index) => (<option value={modell.modell} key={index}>{modell.modell}</option>)) : <option disabled>Válasszon márkát...</option>}
+                        {Modellek ? Modellek.map((modell, index) => <option value={modell.modell} key={index}>{modell.modell}</option>) : <option disabled>Válasszon márkát...</option>}
                     </select>
                 </div>
             </div>
