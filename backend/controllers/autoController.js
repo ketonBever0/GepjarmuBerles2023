@@ -51,7 +51,7 @@ const getVehiclePassengerSeatsCount = (req, res) => {
 
 const filterByBrandVehicles = (req, res) => {
     conn.query(
-            `
+        `
             SELECT * FROM gepjarmuvek
             WHERE marka = ?
         `,
@@ -69,18 +69,35 @@ const filterByBrandVehicles = (req, res) => {
 const filterByBrandType = (req, res) => {
     conn.query(
         `
-        SELECT * FROM gepjarmuvek
-        WHERE modell = ?
-    `,
-    [req.params.keresettModell],
-    (err, rows) => {
+            SELECT * FROM gepjarmuvek
+            WHERE modell = ?
+        `,
+        [req.params.keresettModell],
+        (err, rows) => {
 
-        if(err) res.status(400).send(err);
-        if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
+            if(err) res.status(400).send(err);
+            if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
 
-        res.json(rows);
-    }
-);
+            res.json(rows);
+        }
+    );
+}
+
+const filterByPassengerCount = (req, res) => {
+    conn.query(
+        `
+            SELECT * FROM gepjarmuvek
+            WHERE ferohely = ?
+        `,
+        [req.params.keresettFerohely],
+        (err, rows) => {
+
+            if(err) res.status(400).send(err);
+            if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
+
+            res.json(rows);
+        }
+    );
 }
 
 module.exports = {
@@ -89,5 +106,6 @@ module.exports = {
     getVehicleBrandTypes,
     getVehiclePassengerSeatsCount,
     filterByBrandVehicles,
-    filterByBrandType
+    filterByBrandType,
+    filterByPassengerCount
 }
