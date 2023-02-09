@@ -38,8 +38,22 @@ const getVehicleBrandTypes = (req, res) => {
     );
 }
 
+const getVehiclePassengerSeatsCount = (req, res) => {
+    conn.query(
+        "SELECT DISTINCT ferohely FROM gepjarmuvek",
+        [],
+        (err, rows) => {
+            if(err) res.status(400).send(err);
+            res.json(rows);
+        }
+    );
+}
+
+
+
 module.exports = {
     getVehicles,
     getVehicleBrands,
-    getVehicleBrandTypes
+    getVehicleBrandTypes,
+    getVehiclePassengerSeatsCount
 }
