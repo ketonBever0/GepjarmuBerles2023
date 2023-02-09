@@ -7,7 +7,7 @@ const Main = () => {
   return (
     <div>
         <FormContainer />
-        <ItemContainer />
+        {/* <ItemContainer title={"Kiemeltek"} /> */}
         <ReviewContainer />
     </div>
   )
