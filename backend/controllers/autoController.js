@@ -118,10 +118,15 @@ const filterByBrandAndVehicleType = (req, res) => {
         [marka, tipus],
         (err, rows) => {
 
-            if(err) res.status(400).send(err);
-            if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
-
-            res.json(rows);
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                if(rows.length == 0) {
+                    res.json({message: "Nincs ilyen adat!"});
+                } else {
+                    res.json(rows);
+                }
+            }
         }
     );
 }
