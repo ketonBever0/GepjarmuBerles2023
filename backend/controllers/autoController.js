@@ -43,8 +43,15 @@ const getVehicleBrandTypes = (req, res) => {
         `,
         [req.params.marka],
         (err, rows) => {
-            if(err) res.status(400).send(err);
-            res.json(rows);
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                if(rows.length == 0) {
+                    res.json({message: "Nincs ilyen adat!"});
+                } else {
+                    res.json(rows);
+                }
+            }
         }
     );
 }
@@ -182,6 +189,7 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
         }
     );
 }
+
 
 module.exports = {
     getVehicles,

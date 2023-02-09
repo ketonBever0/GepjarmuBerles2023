@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 const conn = mysql.createConnection({
-    "host":"localhost",
-    "user":"root",
-    "password":"",
-    "database":"gepjarmu"
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "gepjarmu"
 });
 
 const getVehicleTypes = (req, res) => {
