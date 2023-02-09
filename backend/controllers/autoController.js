@@ -28,10 +28,18 @@ const getVehicleBrands = (req, res) => {
 }
 
 const getVehicleBrandTypes = (req, res) => {
-    
+    conn.query(
+        "SELECT DISTINCT modell FROM gepjarmuvek",
+        [],
+        (err, rows) => {
+            if(err) res.status(400).send(err);
+            res.json(rows);
+        }
+    );
 }
 
 module.exports = {
     getVehicles,
-    getVehicleBrands
+    getVehicleBrands,
+    getVehicleBrandTypes
 }
