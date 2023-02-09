@@ -17,7 +17,7 @@ const ItemCard = ({ jarmu }) => {
                         <li class="list-group-item"><b>Üzemanyag kapacitás: </b>{jarmu.uzemanyag_kapacitas} liter</li>
                         {/* <li class="list-group-item">A third item</li> */}
                     </ul>
-                    <a href="#" className="btn btn-primary">{jarmu.egyedi_ar ? jarmu.egyedi_ar : "nincs ár"}</a>
+                    <a href="#" className="btn btn-primary">{jarmu.egyedi_ar ? jarmu.egyedi_ar : jarmu.kategoria_ar}</a>
                 </div>
             </div>
         </div>

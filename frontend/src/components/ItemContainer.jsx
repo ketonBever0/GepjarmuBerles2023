@@ -1,6 +1,5 @@
 import ItemCard from "./ItemCard";
-import { useState, useContext, useEffect } from "react";
-import JarmuContext from "./context/jarmuContext";
+import { useState, useEffect } from "react";
 
 
 const ItemContainer = ({ title }) => {

@@ -1,13 +1,23 @@
 import '../css/form.css'
+import { useContext } from 'react';
+import JarmuContext from './context/jarmuContext';
 
 const Form = () => {
+
+    const {
+        IsLoading,
+        Jarmuvek, setJarmuvek
+    } = useContext(JarmuContext);
+
+    
+
     return (
         <form>
             <div className="row mt-3">
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Márka" /> */}
                     <select className="form-select">
-                        <option selected value={null}>Típus</option>
+                        <option selected value={null}>Márka</option>
                     </select>
                 </div>
                 <div className="col">
