@@ -1,0 +1,27 @@
+.bg-primary2 {
+    background-color: #c2d6ef;
+}
+
+.bg-secondary2 {
+    background-color: #E2E3E5;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bg-secondary3 {
+    background-image: linear-gradient(to right, #fff , #c2d6ef, #fff);
+}
+
+.minwidth-50{
+    min-width: 50%;
+}
+
+.minwidth-60{
+    min-width: 60%;
+}
+
+.minwidth-100{
+    min-width: 100%;
+}

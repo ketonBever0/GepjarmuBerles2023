@@ -8,6 +8,7 @@ import Faq from "./components/Faq"
 import AboutUs from "./components/AboutUs"
 import Footer from './components/Footer';
 import { JarmuProvider } from './components/context/jarmuContext';
+import Contact from './components/Contact';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/katalogus" element={<Catalog />} />
             <Route path="/gyik" element={<Faq />} />
-            {/* <Route path="/contact" element={ } /> */}
+            <Route path="/contact" element={<Contact/>} />
             <Route path="/about" element={<AboutUs />} />
           </Routes>
           <Footer />
