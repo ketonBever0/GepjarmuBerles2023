@@ -8,7 +8,10 @@ const conn = mysql.createConnection({
 
 const getVehicleTypes = (req, res) => {
     conn.query(
-        "SELECT gepjarmu_tipus FROM arkategoriak",
+        `
+            SELECT gepjarmu_tipus FROM arkategoriak
+            ORDER BY arkategoria
+        `,
         [],
         (err, rows) => {
             if(err) res.status(400).send(err);
