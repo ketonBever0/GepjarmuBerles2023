@@ -6,6 +6,9 @@ const Form = () => {
 
     const [Markak, setMarkak] = useState(null);
     const [Modellek, setModellek] = useState(null);
+    const [Tipusok, setTipusok] = useState(null);
+    const [Ferohelyek, setFerohelyek] = useState(null);
+
 
     const [FormData, setFormData] = useState({
         marka: "",
@@ -30,13 +33,31 @@ const Form = () => {
 
 
     useEffect(() => {
-        if (FormData.marka != "") {
+        setModellek(null);
+        if (FormData.marka != "" || FormData.marka != null) {
             fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
                 .then(res => res.json())
                 .then(data => setModellek(data))
                 .catch(err => console.log(err));
+
         }
+
+
+
+        // if(FormData){
+
+        // }
     }, [FormData.marka])
+
+
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/ferohelyek')
+            .then(res => res.json())
+            .then(data => setFerohelyek(data))
+            .catch(err => console.log(err));
+    })
+
 
 
     const handleChange = (event) => {
@@ -53,7 +74,7 @@ const Form = () => {
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Márka" /> */}
                     <select className="form-select" id='marka' onChange={handleChange} value={FormData.marka}>
-                        <option selected value={null}>Márka</option>
+                        <option selected value={""}>Márka</option>
                         {Markak && Markak.map((marka, index) => <option value={marka.marka} key={index}>{marka.marka}</option>)}
                     </select>
                 </div>
@@ -79,6 +100,7 @@ const Form = () => {
                     {/* <input type="number" min={1} max={40} className="form-control" placeholder="Férőhely" /> */}
                     <select className="form-select" id='ferohely' onChange={handleChange} value={FormData.ferohely}>
                         <option selected value={null}>Férőhely</option>
+                        {Ferohelyek && Ferohelyek.map((ferohely, index) => <option value={ferohely.ferohely} key={index}>{ferohely.ferohely}</option>)}
                     </select>
                 </div>
             </div>
