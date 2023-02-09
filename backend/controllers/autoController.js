@@ -8,7 +8,11 @@ const conn = mysql.createConnection({
 
 const getVehicles = (req, res) => {
     conn.query(
-        "SELECT * FROM gepjarmuvek",
+        `
+            SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar"
+            FROM gepjarmuvek g, arkategoriak a
+            WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
+        `,
     [],
     (err, rows) => {
         if(err) res.status(400).send(err);
@@ -98,6 +102,10 @@ const filterByPassengerCount = (req, res) => {
             res.json(rows);
         }
     );
+}
+
+const filterByBrandAndVehicleType = (req, res) => {
+
 }
 
 module.exports = {
