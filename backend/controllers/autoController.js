@@ -106,6 +106,24 @@ const filterByPassengerCount = (req, res) => {
 
 const filterByBrandAndVehicleType = (req, res) => {
 
+    const marka = req.params.marka;
+    const tipus = req.params.tipus;
+
+    conn.query(
+        `
+            SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar"
+            FROM gepjarmuvek g, arkategoriak a
+            WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus AND g.marka = ? AND g.aka_gepjarmu_tipus = ?
+        `,
+        [marka, tipus],
+        (err, rows) => {
+
+            if(err) res.status(400).send(err);
+            if(rows.length == 0) res.json({message: "Nincs ilyen adat!"});
+
+            res.json(rows);
+        }
+    );
 }
 
 module.exports = {
@@ -115,5 +133,6 @@ module.exports = {
     getVehiclePassengerSeatsCount,
     filterByBrandVehicles,
     filterByBrandType,
-    filterByPassengerCount
+    filterByPassengerCount,
+    filterByBrandAndVehicleType
 }
