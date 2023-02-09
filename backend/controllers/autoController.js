@@ -160,7 +160,7 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
 
     const ferohely = req.params.ferohely;
     const tipus = req.params.tipus;
-    console.log(ferohely, tipus)
+
     conn.query(
         `
             SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar"
