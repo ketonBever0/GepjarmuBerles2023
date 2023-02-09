@@ -22,7 +22,10 @@ const getVehicles = (req, res) => {
 
 const getVehicleBrands = (req, res) => {
     conn.query(
-        "SELECT DISTINCT marka FROM gepjarmuvek",
+        `
+            SELECT DISTINCT marka FROM gepjarmuvek
+            ORDER BY marka;
+        `,
         [],
         (err, rows) => {
             if(err) res.status(400).send(err);
@@ -33,7 +36,10 @@ const getVehicleBrands = (req, res) => {
 
 const getVehicleBrandTypes = (req, res) => {
     conn.query(
-        "SELECT DISTINCT modell FROM gepjarmuvek",
+        `
+            SELECT DISTINCT modell FROM gepjarmuvek
+            ORDER BY modell
+        `,
         [],
         (err, rows) => {
             if(err) res.status(400).send(err);
@@ -44,7 +50,10 @@ const getVehicleBrandTypes = (req, res) => {
 
 const getVehiclePassengerSeatsCount = (req, res) => {
     conn.query(
-        "SELECT DISTINCT ferohely FROM gepjarmuvek",
+        `
+            SELECT DISTINCT ferohely FROM gepjarmuvek
+            ORDER BY ferohely;
+        `,
         [],
         (err, rows) => {
             if(err) res.status(400).send(err);
