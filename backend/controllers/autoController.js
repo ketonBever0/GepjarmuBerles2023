@@ -38,9 +38,10 @@ const getVehicleBrandTypes = (req, res) => {
     conn.query(
         `
             SELECT DISTINCT modell FROM gepjarmuvek
+            WHERE marka = ?
             ORDER BY modell
         `,
-        [],
+        [req.params.marka],
         (err, rows) => {
             if(err) res.status(400).send(err);
             res.json(rows);
