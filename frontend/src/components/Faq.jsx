@@ -119,7 +119,7 @@ const Faq = () => {
                             </button>
                         </h2>
                         <div id="flush-collapseEleven" className="accordion-collapse collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body"><p>Tele tankkal kell visszavinni az autót?</p></div>
+                            <div className="accordion-body"><p>A hiányzó mennyiséget figyelembe véve további díjat számolunk fel.</p></div>
                         </div>
                     </div>
                     <div className="accordion-item">
