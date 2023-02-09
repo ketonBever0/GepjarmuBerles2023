@@ -34,7 +34,7 @@ const Form = () => {
 
     useEffect(() => {
         setModellek(null);
-        if (FormData.marka != "" || FormData.marka != null) {
+        if (FormData.marka != "" || FormData.marka != null || FormData.marka != undefined) {
             fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
                 .then(res => res.json())
                 .then(data => setModellek(data))
@@ -72,6 +72,7 @@ const Form = () => {
 
     return (
         <form>
+
             <div className="row mt-3">
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Márka" /> */}
