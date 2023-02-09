@@ -42,13 +42,15 @@ const Form = () => {
 
         }
 
-
-
-        // if(FormData){
-
-        // }
     }, [FormData.marka])
 
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmutipusok')
+            .then(res => res.json())
+            .then(data => setTipusok(data))
+            .catch(err => console.log(err));
+    })
 
 
     useEffect(() => {
@@ -73,17 +75,19 @@ const Form = () => {
             <div className="row mt-3">
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Márka" /> */}
+                    <label for="marka">Márka</label>
                     <select className="form-select" id='marka' onChange={handleChange} value={FormData.marka}>
-                        <option selected value={""}>Márka</option>
+                        <option selected value={""}>Összes</option>
                         {Markak && Markak.map((marka, index) => <option value={marka.marka} key={index}>{marka.marka}</option>)}
                     </select>
                 </div>
 
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Modell" /> */}
+                    <label for="modell">Modell</label>
                     <select className="form-select" id='modell' onChange={handleChange} value={FormData.modell}>
-                        <option selected value={null}>Modell</option>
-                        {Modellek && Modellek.map((modell, index) => (<option value={modell.modell} key={index}>{modell.modell}</option>))}
+                        <option selected value={null}>Összes</option>
+                        {Modellek ? Modellek.map((modell, index) => (<option value={modell.modell} key={index}>{modell.modell}</option>)) : <option disabled>Válasszon márkát...</option>}
                     </select>
                 </div>
             </div>
@@ -91,15 +95,18 @@ const Form = () => {
             <div className="row mt-3">
                 <div className="col">
                     {/* <input type="text" className="form-control" placeholder="Járműtípus" /> */}
+                    <label for="jarmutipus">Járműtípus</label>
                     <select className="form-select" id='jarmutipus' onChange={handleChange} value={FormData.jarmutipus}>
-                        <option selected value={null}>Járműtípus</option>
+                        <option selected value={null}>Összes</option>
+                        {Tipusok && Tipusok.map((tipus, index) => <option value={tipus.gepjarmu_tipus} key={index}>{tipus.gepjarmu_tipus}</option>)}
                     </select>
                 </div>
 
                 <div className="col">
                     {/* <input type="number" min={1} max={40} className="form-control" placeholder="Férőhely" /> */}
+                    <label for="ferohely">Férőhely</label>
                     <select className="form-select" id='ferohely' onChange={handleChange} value={FormData.ferohely}>
-                        <option selected value={null}>Férőhely</option>
+                        <option selected value={null}>Összes</option>
                         {Ferohelyek && Ferohelyek.map((ferohely, index) => <option value={ferohely.ferohely} key={index}>{ferohely.ferohely}</option>)}
                     </select>
                 </div>
