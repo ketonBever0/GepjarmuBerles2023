@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/api/gepjarmuberles/gepjarmuvek', require('./routes/autoRoutes'));
+app.use('/api/gepjuarmuberles/gepjarmutipusok', require('./routes/arkategoriaRoutes'));
 
 app.listen(8000, () => {
     console.log("Running");
