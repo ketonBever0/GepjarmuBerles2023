@@ -146,6 +146,33 @@ const filterByBrandAndVehicleType = (req, res) => {
     );
 }
 
+const filterByPassengerCountAndVehicleType = (req, res) => {
+
+    const ferohely = req.params.ferohely;
+    const tipus = req.params.tipus;
+    console.log(ferohely, tipus)
+    conn.query(
+        `
+            SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar"
+            FROM gepjarmuvek g, arkategoriak a
+            WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus AND g.ferohely = ? AND g.aka_gepjarmu_tipus = ?
+        `,
+        [ferohely, tipus],
+        (err, rows) => {
+
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                if(rows.length == 0) {
+                    res.json({message: "Nincs ilyen adat!"});
+                } else {
+                    res.json(rows);
+                }
+            }
+        }
+    );
+}
+
 module.exports = {
     getVehicles,
     getVehicleBrands,
@@ -154,5 +181,6 @@ module.exports = {
     filterByBrandVehicles,
     filterByBrandType,
     filterByPassengerCount,
-    filterByBrandAndVehicleType
+    filterByBrandAndVehicleType,
+    filterByPassengerCountAndVehicleType
 }

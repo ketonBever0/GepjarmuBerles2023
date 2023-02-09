@@ -8,7 +8,8 @@ const {
     filterByBrandVehicles,
     filterByBrandType,
     filterByPassengerCount,
-    filterByBrandAndVehicleType
+    filterByBrandAndVehicleType,
+    filterByPassengerCountAndVehicleType,
 
 } = require('../controllers/autoController');
 
@@ -20,5 +21,6 @@ router.get('/marka/:keresettMarka', filterByBrandVehicles);
 router.get('/modell/:keresettModell', filterByBrandType);
 router.get('/ferohely/:keresettFerohely', filterByPassengerCount);
 router.get('/markatipus/marka/:marka/tipus/:tipus', filterByBrandAndVehicleType);
+router.get('/ferohelytipus/ferohely/:ferohely/tipus/:tipus', filterByPassengerCountAndVehicleType);
 
 module.exports = router;
