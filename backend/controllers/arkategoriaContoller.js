@@ -10,7 +10,7 @@ const getVehicleTypes = (req, res) => {
     conn.query(
         `
             SELECT gepjarmu_tipus FROM arkategoriak
-            ORDER BY arkategoria
+            ORDER BY gepjarmu_tipus
         `,
         [],
         (err, rows) => {
