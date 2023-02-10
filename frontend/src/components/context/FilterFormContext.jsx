@@ -19,7 +19,7 @@ export const FilterFormProvider = ({ children }) => {
         jarmutipus: ""
     });
 
-    
+
 
 
     useEffect(() => {
@@ -32,12 +32,14 @@ export const FilterFormProvider = ({ children }) => {
 
     useEffect(() => {
         setModellek(null);
-        if (FormData.marka != "" || FormData.marka != null || FormData.marka != undefined) {
-            fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
-                .then(res => res.json())
-                .then(data => setModellek(data))
-                .catch(err => console.log(err));
+        if (FormData.marka == "" || FormData.marka == null || FormData.marka == undefined) {
+            return
         }
+        fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
+            .then(res => res.json())
+            .then(data => setModellek(data))
+            .catch(err => console.log(err));
+        // console.log(FormData.marka);
 
     }, [FormData.marka])
 

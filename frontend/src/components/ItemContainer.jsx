@@ -1,20 +1,36 @@
 import ItemCard from "./ItemCard";
 import { useState, useEffect, useContext } from "react";
 import JarmuContext from "./context/jarmuContext";
+import FilterFormContext from "./context/FilterFormContext";
 
 
 const ItemContainer = ({ title }) => {
 
   const {
-    OsszesJarmu
+    OsszesJarmu,
+    FetchJarmuvek
   } = useContext(JarmuContext);
 
+  const {
+    FormData
+  } = useContext(FilterFormContext);
+
+  const { marka, modell, jarmutipus, ferohely } = FormData;
+
+  useEffect(() => {
+    FetchJarmuvek();
+  }, [marka, modell, jarmutipus, ferohely])
 
 
   return (
     <div className="row d-flex justify-content-center align-items-center g-3 my-5 bg-secondary p-3">
       <h1 className="text-center text-white">{title}</h1>
-      {OsszesJarmu && OsszesJarmu.map((jarmu, index) => (<ItemCard jarmu={jarmu} key={index} />))}
+      {OsszesJarmu && OsszesJarmu
+        .filter(x => x.marka == (marka == "" ? x.marka : marka))
+        .filter(x => x.modell == (modell == "" ? x.modell : modell))
+        .filter(x => x.aka_gepjarmu_tipus == (jarmutipus == "" ? x.aka_gepjarmu_tipus : jarmutipus))
+        .filter(x => x.ferohely == (ferohely == 0 ? x.ferohely : ferohely))
+        .map((jarmu, index) => (<ItemCard jarmu={jarmu} key={index} />))}
 
 
     </div>

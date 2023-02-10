@@ -6,7 +6,7 @@ const ItemCard = ({ jarmu }) => {
     return (
         <div className="col-md-4 d-flex justify-content-center h-">
             <div className="card" style={{ width: "18rem" }}>
-                <img className="card-img-top" src={jarmu.kep_url} alt="Card image cap" />
+                <img className="card-img-top" src={jarmu.kep_url ? jarmu.kep_url : "https://www.nicepng.com/png/detail/777-7772737_car-placeholder-image-lamborghini-gallardo.png"} alt="Card image cap" />
                 <div className="card-body">
                     <h5 className="card-title">{jarmu.marka} {jarmu.modell}</h5>
                     <div className="badge bg-primary">{jarmu.rendszam}</div>

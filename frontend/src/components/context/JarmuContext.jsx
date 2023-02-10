@@ -18,18 +18,12 @@ export const JarmuProvider = ({ children }) => {
 
 
 
-    useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek')
+    const FetchJarmuvek = async () => {
+        setIsLoading(true);
+        await fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek')
             .then(res => res.json())
             .then(data => setOsszesJarmu(data))
             .catch(err => console.log(err));
-        console.log(OsszesJarmu);
-    })
-
-
-    const FetchJarmuvek = async () => {
-        setIsLoading(true);
-        
         setIsLoading(false);
     }
 
