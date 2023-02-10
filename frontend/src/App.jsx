@@ -7,29 +7,34 @@ import Catalog from "./components/Catalog"
 import Faq from "./components/Faq"
 import AboutUs from "./components/AboutUs"
 import Footer from './components/Footer';
-import { JarmuProvider } from './components/context/jarmuContext';
 import Contact from './components/Contact';
+import { JarmuProvider } from './components/context/jarmuContext';
+import { FilterFormProvider } from './components/context/FilterFormContext';
 
 
 function App() {
   return (
     <div className="container-fluid">
       <JarmuProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="*" element={<Main />} />
-            <Route path="/" element={<Main />} />
-            <Route path="/katalogus" element={<Catalog />} />
-            <Route path="/gyik" element={<Faq />} />
-            <Route path="/contact" element={<Contact/>} />
-            <Route path="/about" element={<AboutUs />} />
-          </Routes>
-          <Footer />
-        </Router>
+        <FilterFormProvider>
+        
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="*" element={<Main />} />
+              <Route path="/" element={<Main />} />
+              <Route path="/katalogus" element={<Catalog />} />
+              <Route path="/gyik" element={<Faq />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<AboutUs />} />
+            </Routes>
+            <Footer />
+          </Router>
 
 
-        <Toaster />
+          <Toaster />
+
+        </FilterFormProvider>
       </JarmuProvider>
     </div>
   )
