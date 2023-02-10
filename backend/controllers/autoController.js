@@ -6,6 +6,7 @@ const conn = mysql.createConnection({
     "database":"gepjarmu"
 });
 
+//SELECT
 const getVehicles = (req, res) => {
     conn.query(
         `
@@ -190,7 +191,7 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
     );
 }
 
-// POST method műveletek
+// POST
 
 const addNewVehicle = (req, res) => {
     const {
@@ -248,6 +249,7 @@ const addNewVehicle = (req, res) => {
         });
 }
 
+// PATCH
 const modifyVehicle = (req, res) => {
     const {
         id,
@@ -306,7 +308,22 @@ const modifyVehicle = (req, res) => {
         });
 }
 
-
+const deleteVehicle = (req, res) => {
+    const {id} = req.body;
+    conn.query(
+        `
+            DELETE FROM gepjarmuvek
+            WHERE id = ?;
+        `, 
+        [id], 
+        (err) => {
+            if(err) {
+                res.status(400).json({message: "Sikertelen törlési kísérlet!"});
+            } else {
+                res.json({message: "Sikeres törlés!"});
+            }
+        });
+}
 
 module.exports = {
     getVehicles,
@@ -320,6 +337,5 @@ module.exports = {
     filterByPassengerCountAndVehicleType,
     addNewVehicle,
     modifyVehicle,
-
-
+    deleteVehicle
 }
