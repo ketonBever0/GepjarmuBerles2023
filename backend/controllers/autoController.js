@@ -241,7 +241,7 @@ const addNewVehicle = (req, res) => {
         ], 
         (err) => {
             if(err){
-                res.status(400).json({message: err.message});
+                res.status(400).json({message: "Sikertelen adatfelvitel!"});
             } else {
                 res.json({message: "Sikeres adatfelvitel!"});
             }
@@ -250,6 +250,7 @@ const addNewVehicle = (req, res) => {
 
 const modifyVehicle = (req, res) => {
     const {
+        id,
         rendszam,
         marka,
         modell,
@@ -266,13 +267,43 @@ const modifyVehicle = (req, res) => {
 
     conn.query(
         `
-
+            UPDATE gepjarmuvek 
+            SET rendszam = ?, 
+                marka = ?,
+                modell = ?,
+                kilometerora_allas = ?,
+                muszaki_ervenyesseg = ?,
+                uzemanyag_kapacitas = ?,
+                ferohely = ?,
+                kedvezmeny = ?,
+                egyedi_ar = ?,
+                aka_gepjarmu_tipus = ?,
+                thly_id = ?,
+                kep_url = ?
+            WHERE id = ?
         `, 
-        [], 
+        [
+            rendszam,
+            marka,
+            modell,
+            kmallas,
+            muszakiErvenyesseg,
+            uzemanyagkapacitas,
+            ferohely,
+            kedvezmeny,
+            egyediAr,
+            gepjarmuTipus,
+            thely,
+            kepUrl,
+            id
+        ], 
         (err) => {
-
+            if(err) {
+                res.status(400).json({message: "Sikertelen módosítási próbálkozás!"});
+            } else {
+                res.json({message: "Sikeres módosítás!"});
+            }
         });
-
 }
 
 
@@ -287,6 +318,8 @@ module.exports = {
     filterByPassengerCount,
     filterByBrandAndVehicleType,
     filterByPassengerCountAndVehicleType,
-    addNewVehicle
+    addNewVehicle,
+    modifyVehicle,
+
 
 }
