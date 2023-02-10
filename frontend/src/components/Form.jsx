@@ -1,21 +1,9 @@
 import '../css/form.css'
 import { useContext, useEffect, useState } from 'react';
 import JarmuContext from './context/jarmuContext';
+import FilterFormContext from './context/FilterFormContext';
 
 const Form = () => {
-
-    const [Markak, setMarkak] = useState(null);
-    const [Modellek, setModellek] = useState(null);
-    const [Tipusok, setTipusok] = useState(null);
-    const [Ferohelyek, setFerohelyek] = useState(null);
-
-
-    const [FormData, setFormData] = useState({
-        marka: "",
-        modell: "",
-        ferohely: 0,
-        jarmutipus: ""
-    });
 
 
     const {
@@ -24,41 +12,15 @@ const Form = () => {
     } = useContext(JarmuContext);
 
 
-    useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/markak')
-            .then(res => res.json())
-            .then(data => setMarkak(data))
-            .catch(err => console.log(err));
-    })
+    const {
+        Markak, Modellek, Tipusok, Ferohelyek,
+        FormData, setFormData
+    } = useContext(FilterFormContext);
 
 
-    useEffect(() => {
-        setModellek(null);
-        if (FormData.marka != "" || FormData.marka != null || FormData.marka != undefined) {
-            fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
-                .then(res => res.json())
-                .then(data => setModellek(data))
-                .catch(err => console.log(err));
-
-        }
-
-    }, [FormData.marka])
 
 
-    useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmutipusok')
-            .then(res => res.json())
-            .then(data => setTipusok(data))
-            .catch(err => console.log(err));
-    })
-
-
-    useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/ferohelyek')
-            .then(res => res.json())
-            .then(data => setFerohelyek(data))
-            .catch(err => console.log(err));
-    })
+    
 
 
 
@@ -75,7 +37,7 @@ const Form = () => {
 
             <div className="row mt-3">
                 <div className="col">
-                    <label for="marka">Márka</label>
+                    <label htmlFor="marka">Márka</label>
                     <select className="form-select" id='marka' onChange={handleChange} value={FormData.marka}>
                         <option selected value={""}>Összes</option>
                         {Markak && Markak.map((marka, index) => <option value={marka.marka} key={index}>{marka.marka}</option>)}
