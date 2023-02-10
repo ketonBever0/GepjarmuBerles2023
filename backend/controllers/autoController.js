@@ -9,7 +9,7 @@ const conn = mysql.createConnection({
 const getVehicles = (req, res) => {
     conn.query(
         `
-            SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar"
+            SELECT g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar", g.kep_url
             FROM gepjarmuvek g, arkategoriak a
             WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
         `,
@@ -264,6 +264,14 @@ const modifyVehicle = (req, res) => {
         kepUrl
     } = req.body;
 
+    conn.query(
+        `
+
+        `, 
+        [], 
+        (err) => {
+
+        });
 
 }
 
