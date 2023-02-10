@@ -15,7 +15,7 @@ const NavigationBar = () => {
                         <Link to={'/'} className="nav-link" aria-current="page">Főoldal</Link>
                         <Link to={'/katalogus'} className="nav-link">Járműveink</Link>
                         <Link to={'/gyik'} className="nav-link">GYIK</Link>
-                        <Link to={'/'} className="nav-link">Elérhetőségeink</Link>
+                        <Link to={'/contact'} className="nav-link">Elérhetőségeink</Link>
                         <Link to={'/about'} className="nav-link">Rólunk</Link>
                     </div>
                 </div>
