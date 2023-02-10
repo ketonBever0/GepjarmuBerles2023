@@ -5,7 +5,6 @@ import JarmuContext from "./context/jarmuContext";
 
 const ItemContainer = ({ title }) => {
 
-
   const {
     OsszesJarmu
   } = useContext(JarmuContext);
