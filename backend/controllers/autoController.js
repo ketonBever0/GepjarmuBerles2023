@@ -190,6 +190,66 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
     );
 }
 
+// POST method műveletek
+
+const addNewCar = (req, res) => {
+    const {
+        rendszam,
+        marka,
+        modell,
+        kmallas,
+        muszakiErvenyesseg,
+        uzemanyagkapacitas,
+        ferohely,
+        kedvezmeny,
+        egyediAr,
+        thely,
+        gepjarmuTipus,
+        kepUrl
+    } = req.body;
+
+    conn.query(
+        `INSERT INTO gepjarmuvek 
+        (   
+            rendszam,
+            marka,
+            modell,
+            kilometerora_allas,
+            muszaki_ervenyesseg,
+            uzemanyag_kapacitas,
+            ferohely,
+            kedvezmeny,
+            egyedi_ar,
+            aka_gepjarmu_tipus,
+            thly_id,
+            kepUrl
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+        [
+            rendszam,
+            marka,
+            modell,
+            kmallas,
+            muszakiErvenyesseg,
+            uzemanyagkapacitas,
+            ferohely,
+            kedvezmeny,
+            egyediAr,
+            gepjarmuTipus,
+            thely,
+            kepUrl
+        ], 
+        (err) => {
+            if(err){
+                res.status(400).json({message: err.message});
+            } else {
+                res.json({message: "Sikeres adatfelvitel!"});
+            }
+        });
+}
+
+
+
 
 module.exports = {
     getVehicles,
@@ -200,5 +260,7 @@ module.exports = {
     filterByBrandType,
     filterByPassengerCount,
     filterByBrandAndVehicleType,
-    filterByPassengerCountAndVehicleType
+    filterByPassengerCountAndVehicleType,
+    addNewCar,
+
 }

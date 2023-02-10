@@ -39,7 +39,6 @@ export const JarmuProvider = ({ children }) => {
     return <JarmuContext.Provider value={{
         Refresh, update,
         IsLoading, setIsLoading,
-
         Jarmuvek, setJarmuvek,
         FetchJarmuvek,
         OsszesJarmu, setOsszesJarmu
