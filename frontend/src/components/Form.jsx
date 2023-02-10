@@ -29,7 +29,7 @@ const Form = () => {
             .then(res => res.json())
             .then(data => setMarkak(data))
             .catch(err => console.log(err));
-    })
+    });
 
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const Form = () => {
 
         }
 
-    }, [FormData.marka])
+    }, [FormData.marka]);
 
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Form = () => {
             .then(res => res.json())
             .then(data => setTipusok(data))
             .catch(err => console.log(err));
-    })
+    });
 
 
     useEffect(() => {
@@ -58,9 +58,7 @@ const Form = () => {
             .then(res => res.json())
             .then(data => setFerohelyek(data))
             .catch(err => console.log(err));
-    })
-
-
+    });
 
     const handleChange = (event) => {
         setFormData({

@@ -8,8 +8,6 @@ const Catalog = () => {
     <div>
       <FormContainer />
       <ItemContainer title={"Járműveink"} />
-
-
     </div>
   )
 }

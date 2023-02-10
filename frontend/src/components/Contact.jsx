@@ -1,10 +1,9 @@
 import '../css/contact.css'
+
 const Contact = () => {
     return (
 
         <div class="h-100 bg-light p-5">
-
-
             <div>
                 <h2 class="text-center text-dark p-5">Lépj velünk kapcsolatba!</h2>
             </div>
