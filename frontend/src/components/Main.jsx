@@ -6,9 +6,8 @@ import ReviewContainer from './ReviewContainer'
 const Main = () => {
   return (
     <div>
-        <FormContainer />
-        {/* <ItemContainer title={"Kiemeltek"} /> */}
-        <ReviewContainer />
+      <ItemContainer title={"Kiemeltek"} />
+      <ReviewContainer />
     </div>
   )
 }

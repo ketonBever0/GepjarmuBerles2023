@@ -30,12 +30,12 @@ const Form = () => {
     };
 
     useEffect(() => {
-        if (FormData.marka == "") {
-            setFormData({
-                ...FormData,
-                modell: ""
-            })
-        }
+        // if (FormData.marka == "") {
+        setFormData({
+            ...FormData,
+            modell: ""
+        })
+        // }
     }, [FormData.marka])
 
 
