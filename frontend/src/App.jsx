@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Contact from './components/Contact';
 import { JarmuProvider } from './components/context/jarmuContext';
 import { FilterFormProvider } from './components/context/FilterFormContext';
+import VehicleAddForm from './components/VehicleAddForm';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/gyik" element={<Faq />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<AboutUs />} />
+              <Route path="/addvehicle" element={<VehicleAddForm />} />
             </Routes>
             <Footer />
           </Router>
