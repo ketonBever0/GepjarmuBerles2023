@@ -6,6 +6,7 @@ const conn = mysql.createConnection({
     "database":"gepjarmu"
 });
 
+//SELECT
 const getVehicles = (req, res) => {
     conn.query(
         `
@@ -190,7 +191,7 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
     );
 }
 
-// POST method műveletek
+// POST
 
 const addNewVehicle = (req, res) => {
     const {
@@ -241,15 +242,17 @@ const addNewVehicle = (req, res) => {
         ], 
         (err) => {
             if(err){
-                res.status(400).json({message: err.message});
+                res.status(400).json({message: "Sikertelen adatfelvitel!"});
             } else {
                 res.json({message: "Sikeres adatfelvitel!"});
             }
         });
 }
 
+// PATCH
 const modifyVehicle = (req, res) => {
     const {
+        id,
         rendszam,
         marka,
         modell,
@@ -266,16 +269,61 @@ const modifyVehicle = (req, res) => {
 
     conn.query(
         `
-
+            UPDATE gepjarmuvek 
+            SET rendszam = ?, 
+                marka = ?,
+                modell = ?,
+                kilometerora_allas = ?,
+                muszaki_ervenyesseg = ?,
+                uzemanyag_kapacitas = ?,
+                ferohely = ?,
+                kedvezmeny = ?,
+                egyedi_ar = ?,
+                aka_gepjarmu_tipus = ?,
+                thly_id = ?,
+                kep_url = ?
+            WHERE id = ?
         `, 
-        [], 
+        [
+            rendszam,
+            marka,
+            modell,
+            kmallas,
+            muszakiErvenyesseg,
+            uzemanyagkapacitas,
+            ferohely,
+            kedvezmeny,
+            egyediAr,
+            gepjarmuTipus,
+            thely,
+            kepUrl,
+            id
+        ], 
         (err) => {
-
+            if(err) {
+                res.status(400).json({message: "Sikertelen módosítási próbálkozás!"});
+            } else {
+                res.json({message: "Sikeres módosítás!"});
+            }
         });
-
 }
 
-
+const deleteVehicle = (req, res) => {
+    const {id} = req.body;
+    conn.query(
+        `
+            DELETE FROM gepjarmuvek
+            WHERE id = ?;
+        `, 
+        [id], 
+        (err) => {
+            if(err) {
+                res.status(400).json({message: "Sikertelen törlési kísérlet!"});
+            } else {
+                res.json({message: "Sikeres törlés!"});
+            }
+        });
+}
 
 module.exports = {
     getVehicles,
@@ -287,6 +335,7 @@ module.exports = {
     filterByPassengerCount,
     filterByBrandAndVehicleType,
     filterByPassengerCountAndVehicleType,
-    addNewVehicle
-
+    addNewVehicle,
+    modifyVehicle,
+    deleteVehicle
 }

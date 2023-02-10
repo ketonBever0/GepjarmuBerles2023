@@ -10,13 +10,16 @@ const {
     filterByPassengerCount,
     filterByBrandAndVehicleType,
     filterByPassengerCountAndVehicleType,
-    addNewVehicle
+    addNewVehicle,
+    modifyVehicle,
+    deleteVehicle
 
 } = require('../controllers/autoController');
 
 router.get('/jarmuvek', getVehicles);
 router.post('/jarmuvek', addNewVehicle);
-
+router.patch('/jarmuvek', modifyVehicle);
+router.delete('/jarmuvek', deleteVehicle);
 
 router.get('/markak', getVehicleBrands);
 router.get('/modellek/marka/:marka', getVehicleBrandTypes);

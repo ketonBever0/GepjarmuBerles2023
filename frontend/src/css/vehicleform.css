@@ -1,0 +1,27 @@
+.bg-secondary2 {
+    background-color: #E2E3E5;
+}
+
+.bg-primary3 {
+    background-color: #a9caf1;
+}
+
+.width-10rem {
+    width: 10rem;
+}
+
+.width-5rem {
+    width: 5rem;
+}
+
+.bg-cyan2{
+    background-color: #d6fff2;
+}
+
+.redStar {
+    color: red;
+}
+
+.pointer {
+    cursor:pointer;
+}
