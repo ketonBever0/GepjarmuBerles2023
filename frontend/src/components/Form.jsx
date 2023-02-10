@@ -8,7 +8,8 @@ const Form = () => {
 
     const {
         IsLoading,
-        Jarmuvek, setJarmuvek
+        Jarmuvek, setJarmuvek,
+        FetchJarmuvek
     } = useContext(JarmuContext);
 
 
@@ -16,11 +17,6 @@ const Form = () => {
         Markak, Modellek, Tipusok, Ferohelyek,
         FormData, setFormData
     } = useContext(FilterFormContext);
-
-
-
-
-    
 
 
 
@@ -32,8 +28,16 @@ const Form = () => {
     };
 
 
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        setJarmuvek(null);
+
+
+    }
+
+
     return (
-        <form>
+        <form onSubmit={onSubmit}>
 
             <div className="row mt-3">
                 <div className="col">

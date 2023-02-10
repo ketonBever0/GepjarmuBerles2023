@@ -1,21 +1,14 @@
 import ItemCard from "./ItemCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import JarmuContext from "./context/jarmuContext";
 
 
 const ItemContainer = ({ title }) => {
 
-  const [OsszesJarmu, setOsszesJarmu] = useState(null);
+  const {
+    OsszesJarmu
+  } = useContext(JarmuContext);
 
-
-
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek')
-      .then(res => res.json())
-      .then(data => setOsszesJarmu(data))
-      .catch(err => console.log(err));
-    // console.log(OsszesJarmu)
-  })
 
 
   return (

@@ -19,6 +19,8 @@ export const FilterFormProvider = ({ children }) => {
         jarmutipus: ""
     });
 
+    
+
 
     useEffect(() => {
         fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/markak')
