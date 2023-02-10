@@ -10,12 +10,12 @@ const {
     filterByPassengerCount,
     filterByBrandAndVehicleType,
     filterByPassengerCountAndVehicleType,
-    addNewCar
+    addNewVehicle
 
 } = require('../controllers/autoController');
 
 router.get('/jarmuvek', getVehicles);
-router.post('/jarmuvek', addNewCar);
+router.post('/jarmuvek', addNewVehicle);
 
 
 router.get('/markak', getVehicleBrands);

@@ -192,7 +192,7 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
 
 // POST method műveletek
 
-const addNewCar = (req, res) => {
+const addNewVehicle = (req, res) => {
     const {
         rendszam,
         marka,
@@ -222,7 +222,7 @@ const addNewCar = (req, res) => {
             egyedi_ar,
             aka_gepjarmu_tipus,
             thly_id,
-            kepUrl
+            kep_url
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
         [
@@ -248,6 +248,24 @@ const addNewCar = (req, res) => {
         });
 }
 
+const modifyVehicle = (req, res) => {
+    const {
+        rendszam,
+        marka,
+        modell,
+        kmallas,
+        muszakiErvenyesseg,
+        uzemanyagkapacitas,
+        ferohely,
+        kedvezmeny,
+        egyediAr,
+        thely,
+        gepjarmuTipus,
+        kepUrl
+    } = req.body;
+
+
+}
 
 
 
@@ -261,6 +279,6 @@ module.exports = {
     filterByPassengerCount,
     filterByBrandAndVehicleType,
     filterByPassengerCountAndVehicleType,
-    addNewCar,
+    addNewVehicle
 
 }
