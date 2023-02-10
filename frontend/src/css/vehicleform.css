@@ -18,6 +18,10 @@
     background-color: #d6fff2;
 }
 
+.minwidth-10rem {
+    min-width: 10rem;
+}
+
 .redStar {
     color: red;
 }
@@ -25,3 +29,5 @@
 .pointer {
     cursor:pointer;
 }
+
+
