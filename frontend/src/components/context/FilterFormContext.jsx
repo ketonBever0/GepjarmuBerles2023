@@ -7,12 +7,12 @@ const FilterFormContext = createContext();
 export const FilterFormProvider = ({ children }) => {
 
 
-    const [Markak, setMarkak] = useState(null);
-    const [Modellek, setModellek] = useState(null);
-    const [Tipusok, setTipusok] = useState(null);
-    const [Ferohelyek, setFerohelyek] = useState(null);
+    const [markak, setMarkak] = useState(null);
+    const [modellek, setModellek] = useState(null);
+    const [tipusok, setTipusok] = useState(null);
+    const [ferohelyek, setFerohelyek] = useState(null);
 
-    const [FormData, setFormData] = useState({
+    const [formData, setFormData] = useState({
         marka: "",
         modell: "",
         ferohely: 0,
@@ -32,16 +32,16 @@ export const FilterFormProvider = ({ children }) => {
 
     useEffect(() => {
         setModellek(null);
-        if (FormData.marka == "" || FormData.marka == null || FormData.marka == undefined) {
+        if (formData.marka == "" || formData.marka == null || formData.marka == undefined) {
             return
         }
-        fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${FormData.marka}`)
+        fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/modellek/marka/${formData.marka}`)
             .then(res => res.json())
             .then(data => setModellek(data))
             .catch(err => console.log(err));
-        // console.log(FormData.marka);
+        // console.log(formData.marka);
 
-    }, [FormData.marka])
+    }, [formData.marka])
 
 
     useEffect(() => {
@@ -61,8 +61,8 @@ export const FilterFormProvider = ({ children }) => {
 
 
     return <FilterFormContext.Provider value={{
-        Markak, Modellek, Tipusok, Ferohelyek,
-        FormData, setFormData
+        markak, modellek, tipusok, ferohelyek,
+        formData, setFormData
     }}>{children}</FilterFormContext.Provider>
 
 }

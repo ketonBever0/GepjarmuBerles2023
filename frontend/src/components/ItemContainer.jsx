@@ -8,20 +8,20 @@ import { MagnifyingGlass } from "react-loader-spinner";
 const ItemContainer = ({ title }) => {
 
   const {
-    OsszesJarmu,
-    FetchJarmuvek,
-    IsLoading,
+    osszesJarmu,
+    fetchJarmuvek,
+    isLoading,
     update
   } = useContext(JarmuContext);
 
   const {
-    FormData
+    formData
   } = useContext(FilterFormContext);
 
-  const { marka, modell, jarmutipus, ferohely } = FormData;
+  const { marka, modell, jarmutipus, ferohely } = formData;
 
   useEffect(() => {
-    FetchJarmuvek();
+    fetchJarmuvek();
     update();
   }, [marka, modell, jarmutipus, ferohely])
 
@@ -30,7 +30,7 @@ const ItemContainer = ({ title }) => {
     <div className="row d-flex justify-content-center align-items-center g-3 my-5 bg-secondary p-3">
       <h1 className="text-center text-white">{title}</h1>
       {
-        IsLoading ?
+        isLoading ?
           <MagnifyingGlass
             visible={true}
             height="80"
@@ -42,7 +42,7 @@ const ItemContainer = ({ title }) => {
             color='#e15b64'
           />
           :
-          (OsszesJarmu && OsszesJarmu
+          (osszesJarmu && osszesJarmu
             .filter(x => x.marka == (marka == "" ? x.marka : marka))
             .filter(x => x.modell == (modell == "" ? x.modell : modell))
             .filter(x => x.aka_gepjarmu_tipus == (jarmutipus == "" ? x.aka_gepjarmu_tipus : jarmutipus))

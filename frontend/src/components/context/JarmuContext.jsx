@@ -6,34 +6,35 @@ const JarmuContext = createContext();
 
 export const JarmuProvider = ({ children }) => {
 
-    const [Refresh, setRefresh] = useState(false);
-    const [IsLoading, setIsLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [Jarmuvek, setJarmuvek] = useState(null);
+    const [jarmuvek, setJarmuvek] = useState(null);
 
 
     const update = () => setRefresh(prev => !prev);
 
-    const [OsszesJarmu, setOsszesJarmu] = useState(null);
+    const [osszesJarmu, setOsszesJarmu] = useState(null);
 
 
 
-    const FetchJarmuvek = async () => {
+    const fetchJarmuvek = async () => {
         setIsLoading(true);
         await fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek')
             .then(res => res.json())
             .then(data => setOsszesJarmu(data))
             .catch(err => console.log(err));
         setIsLoading(false);
+        console.log(osszesJarmu);
     }
 
 
     return <JarmuContext.Provider value={{
-        Refresh, update,
-        IsLoading, setIsLoading,
-        Jarmuvek, setJarmuvek,
-        FetchJarmuvek,
-        OsszesJarmu, setOsszesJarmu
+        refresh, update,
+        isLoading, setIsLoading,
+        jarmuvek, setJarmuvek,
+        fetchJarmuvek,
+        osszesJarmu, setOsszesJarmu
 
     }}>{children}</JarmuContext.Provider>
 
