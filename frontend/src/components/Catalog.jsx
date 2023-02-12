@@ -7,7 +7,7 @@ const Catalog = () => {
   return (
     <div>
       <FormContainer />
-      <ItemContainer title={"Járműveink"} />
+      <ItemContainer title={"Járműveink"} onlyDiscounts={false} />
     </div>
   )
 }

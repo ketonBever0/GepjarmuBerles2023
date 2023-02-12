@@ -25,7 +25,7 @@ const BackgroundImage = () => {
                             <p>SZÉLES VÁLASZTÉK</p>
                         </li>
                         <li>
-                            <p>PROMO</p>
+                            <p>RUGALMAS ÜGYINTÉZÉS</p>
                         </li>
                     </ul>
                 </div>

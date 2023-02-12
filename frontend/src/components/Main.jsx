@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import JarmuContext from './context/jarmuContext'
 import FormContainer from './FormContainer'
 import ItemContainer from './ItemContainer'
 import ReviewContainer from './ReviewContainer'
@@ -6,7 +7,7 @@ import ReviewContainer from './ReviewContainer'
 const Main = () => {
   return (
     <div>
-      <ItemContainer title={"Kiemeltek"} />
+      <ItemContainer title={"Kiemeltek"} onlyDiscounts={true} />
       <ReviewContainer />
     </div>
   )

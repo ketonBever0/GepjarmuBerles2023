@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const NavigationBar = () => {
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary position-sticky">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top"> {/* position-sticky kiszedve */}
             <div className="container-fluid">
                 <div className="navbar-brand" href="#">Gépjármű Bérlés</div>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
