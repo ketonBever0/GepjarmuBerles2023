@@ -71,6 +71,27 @@ const getVehiclePassengerSeatsCount = (req, res) => {
     );
 }
 
+const getVehicleEstates = (req, res) => {
+    conn.query(
+        `
+            SELECT id, telepules_neve FROM telephelyek
+            ORDER BY id
+        `,
+        [req.params.marka],
+        (err, rows) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                if(rows.length == 0) {
+                    res.json({message: "Nincs ilyen adat!"});
+                } else {
+                    res.json(rows);
+                }
+            }
+        }
+    );
+}
+
 const filterByBrandVehicles = (req, res) => {
     conn.query(
         `
@@ -330,6 +351,7 @@ module.exports = {
     getVehicleBrands,
     getVehicleBrandTypes,
     getVehiclePassengerSeatsCount,
+    getVehicleEstates,
     filterByBrandVehicles,
     filterByBrandType,
     filterByPassengerCount,

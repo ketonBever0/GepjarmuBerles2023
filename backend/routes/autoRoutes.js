@@ -12,7 +12,8 @@ const {
     filterByPassengerCountAndVehicleType,
     addNewVehicle,
     modifyVehicle,
-    deleteVehicle
+    deleteVehicle,
+    getVehicleEstates
 
 } = require('../controllers/autoController');
 
@@ -20,6 +21,7 @@ router.get('/jarmuvek', getVehicles);
 router.get('/markak', getVehicleBrands);
 router.get('/modellek/marka/:marka', getVehicleBrandTypes);
 router.get('/ferohelyek', getVehiclePassengerSeatsCount);
+router.get('/telephelyek', getVehicleEstates);
 router.get('/marka/:keresettMarka', filterByBrandVehicles);
 router.get('/modell/:keresettModell', filterByBrandType);
 router.get('/ferohely/:keresettFerohely', filterByPassengerCount);

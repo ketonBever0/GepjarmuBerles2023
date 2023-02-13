@@ -5,7 +5,7 @@ import FilterFormContext from './context/FilterFormContext';
 const VehicleAddForm = () => {
 
 
-    const { tipusok } = useContext(FilterFormContext);
+    const { tipusok, telephelyek } = useContext(FilterFormContext);
 
 
     let formObj = {
@@ -147,14 +147,9 @@ const VehicleAddForm = () => {
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
                                 <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
-                                    {/* {
-                                        tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
-                                    } */}
-
-                                    <option value={1}>1-es</option>
-                                    <option value={1}>2-es</option>
-
-
+                                    {
+                                        telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
+                                    }
 
                                 </select>
                             </div>

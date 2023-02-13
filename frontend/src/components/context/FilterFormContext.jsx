@@ -11,6 +11,7 @@ export const FilterFormProvider = ({ children }) => {
     const [modellek, setModellek] = useState(null);
     const [tipusok, setTipusok] = useState(null);
     const [ferohelyek, setFerohelyek] = useState(null);
+    const [telephelyek, setTelephelyek] = useState([]);
 
     const [formData, setFormData] = useState({
         marka: "",
@@ -60,16 +61,16 @@ export const FilterFormProvider = ({ children }) => {
     })
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/ferohelyek')
+        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/telephelyek')
             .then(res => res.json())
-            .then(data => setFerohelyek(data))
+            .then(data => setTelephelyek(data))
             .catch(err => console.log(err));
     })
 
 
     return <FilterFormContext.Provider value={{
         markak, modellek, tipusok, ferohelyek,
-        formData, setFormData
+        formData, setFormData, telephelyek, setTelephelyek
     }}>{children}</FilterFormContext.Provider>
 
 }
