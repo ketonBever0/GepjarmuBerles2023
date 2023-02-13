@@ -59,6 +59,13 @@ export const FilterFormProvider = ({ children }) => {
             .catch(err => console.log(err));
     })
 
+    useEffect(() => {
+        fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/ferohelyek')
+            .then(res => res.json())
+            .then(data => setFerohelyek(data))
+            .catch(err => console.log(err));
+    })
+
 
     return <FilterFormContext.Provider value={{
         markak, modellek, tipusok, ferohelyek,
