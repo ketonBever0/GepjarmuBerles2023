@@ -25,7 +25,7 @@ export const JarmuProvider = ({ children }) => {
             .then(data => setOsszesJarmu(data))
             .catch(err => console.log(err));
         setIsLoading(false);
-        console.log(osszesJarmu);
+        // console.log(osszesJarmu);
     }
 
 
