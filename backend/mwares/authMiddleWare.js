@@ -1,13 +1,8 @@
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
-const conn = mysql.createConnection({
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "gepjarmu"
-});
+const db = require('../models/sequelizeConfig');
+const User = db.users;
 
-mysql.createConnection()
 
 const protect = (req,res,next) => {
     let token;
@@ -18,14 +13,18 @@ const protect = (req,res,next) => {
 
             token = req.headers.authorization.split(' ')[1];
             const idFromtoken = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = User.findById(idFromtoken.id).select('-password');
+            req.user = User.findAll({
+                where:{
+                    id: idFromtoken.id
+                }
+            });
+
             next();
             
         } catch (error) {
             res.status(401);
             throw new Error("Be kell jelentkezni!");
         }
-        
 
     }
     if(!token){

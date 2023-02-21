@@ -39,6 +39,23 @@ const register = async(req, res) => {
     res.json({token: token});
 }
 
+const login = async(req, res) => {
+
+    const {email, jelszo} = req.body;
+    if(!email || !jelszo) return res.status(400).json({ message: "Hiányos adatok"});
+    const users = await User.findAll({
+        where: {
+            email: email
+        }
+    });
+    if (!users[0]) return res.status(400).json({ message: "Nem létező email cím!"});
+    if (!await bcrypt.compare(jelszo, users[0].jelszo)) return res.status(400).json({ message: "Hibás jelszó!"});
+
+    const token = generateToken(users[0].id);
+    res.json({token: token});
+}
+
 module.exports = {
-    register
+    register,
+    login
 }
