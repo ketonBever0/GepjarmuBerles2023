@@ -16,9 +16,8 @@ const register = async(req, res) => {
             email: email
         }
     });
-    if(user){
-        return res.json({message: "Az email cím már foglalt!"});
-    }
+    if(user) return res.json({message: "Az email-cím már foglalt!"});
+    console.log("jeon")
 }
 
 module.exports = {
