@@ -1,0 +1,53 @@
+.redStar {
+    color: red;
+}
+
+.bg-dark2 {
+    background-image: linear-gradient(to bottom right, #5989c5, #4498fffa);
+}
+
+.inputStyleSignup {
+    border-style: none;
+    border-bottom: 1px solid #000000fa;
+    background-color: transparent;
+    padding: 5px;
+    margin: 15px;
+}
+
+.inputStyleSignup:focus {
+    background-color: rgb(122, 214, 214);
+    border-style: none;
+    outline: none;
+    box-shadow: 5px 5px 0px #243952;
+}
+
+.signup_btn:hover {
+    box-shadow: 5px 5px 0px #243952;
+    background-color: rgb(108, 209, 209);
+}
+
+.signup_btn {
+    background-color: rgb(47, 168, 168);
+}
+
+form>div {
+    font-size: 1.1rem;
+}
+
+.header_signup {
+    padding-bottom: 1.1rem;
+    border-bottom: 2px solid #243952;
+    text-shadow: 2px 2px 3px black;
+    margin: 15px;
+}
+
+
+.cont-shadow {
+    box-shadow: 10px 10px 0px #c8e0ff;
+}
+
+@media only screen and (min-width: 900px) {
+    .container {
+        width: 50%;
+    }
+}
