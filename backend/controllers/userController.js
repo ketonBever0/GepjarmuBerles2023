@@ -19,7 +19,6 @@ const register = async(req, res) => {
 
     if (users[0]) return res.status(400).json({ message: "Az email cím már foglalt!"});
     
-
     const hashedPassword = await bcrypt.hash(jelszo, 10);
 
     const newUser = await User.create({
