@@ -23,11 +23,10 @@
 
 .signup_btn:hover {
     box-shadow: 5px 5px 0px #243952;
-    background-color: rgb(108, 209, 209);
 }
 
 .signup_btn {
-    background-color: rgb(47, 168, 168);
+    font-size: large;
 }
 
 form>div {

@@ -3,11 +3,10 @@
 }
 .login_btn:hover {
     box-shadow: 5px 5px 0px #243952;
-    background-color: rgb(108, 209, 209);
 }
 
 .login_btn {
-    background-color: rgb(47, 168, 168);
+    font-size: large;
 }
 
 .bg-primary2 {
@@ -36,9 +35,9 @@ form>div {
 .header_login {
     padding-bottom: 1.1rem;
     border-bottom: 2px solid #243952;
-    text-shadow: 2px 2px 0px white;
-
+    text-shadow: 2px 2px 3px black;
     margin: 15px;
+    color: white;
 }
 
 .cont-shadow {
