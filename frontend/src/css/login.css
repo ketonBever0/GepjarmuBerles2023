@@ -1,0 +1,52 @@
+.redStar {
+    color: red;
+}
+.login_btn:hover {
+    box-shadow: 5px 5px 0px #243952;
+    background-color: rgb(108, 209, 209);
+}
+
+.login_btn {
+    background-color: rgb(47, 168, 168);
+}
+
+.bg-primary2 {
+    background-image: linear-gradient(to bottom right, #5989c5, #4498fffa);
+}
+
+.inputStyleLogin {
+    border-style: none;
+    border-bottom: 1px solid #000000;
+    background-color: transparent;
+    padding: 5px;
+    margin: 15px;
+}
+
+.inputStyleLogin:focus {
+    background-color: rgb(122, 214, 214);
+    border-style: none;
+    outline: none;
+    box-shadow: 5px 5px 0px #314a68fa;
+}
+
+form>div {
+    font-size: 1.1rem;
+}
+
+.header_login {
+    padding-bottom: 1.1rem;
+    border-bottom: 2px solid #243952;
+    text-shadow: 2px 2px 0px white;
+
+    margin: 15px;
+}
+
+.cont-shadow {
+    box-shadow: 10px 10px 0px #14263d;
+}
+
+@media only screen and (min-width: 900px) {
+    .container  {
+        width: 50%;
+    }
+}

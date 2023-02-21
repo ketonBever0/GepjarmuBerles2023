@@ -11,6 +11,8 @@ import Contact from './components/Contact';
 import { JarmuProvider } from './components/context/jarmuContext';
 import { FilterFormProvider } from './components/context/FilterFormContext';
 import VehicleAddForm from './components/VehicleAddForm';
+import Login from './components/Login';
+import Register from './components/Register'
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/addvehicle" element={<VehicleAddForm />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
             <Footer />
           </Router>
