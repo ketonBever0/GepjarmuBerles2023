@@ -14,7 +14,7 @@ export const KosarProvider = ({ children }) => {
 
     const addToBasket = (jarmu) => {
         if (!kosar.includes(jarmu)) setKosar([...kosar, jarmu]); else Notify.tError("Ez az elem már a kosárban van!");
-        console.log(kosar);
+        // console.log(kosar);
     }
 
 
