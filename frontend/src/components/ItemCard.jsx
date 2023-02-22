@@ -1,5 +1,15 @@
+import { useContext } from "react"
+import { Link } from "react-router-dom"
+import KosarContext from "./context/KosarContext"
 
 const ItemCard = ({ jarmu }) => {
+
+
+    const {
+        addToBasket
+    } = useContext(KosarContext);
+
+
 
     const arazas = () => {
         if (jarmu.kedvezmeny) {
@@ -8,6 +18,8 @@ const ItemCard = ({ jarmu }) => {
             return jarmu.egyedi_ar ? jarmu.egyedi_ar : jarmu.kategoria_ar
         }
     }
+
+
 
     return (
         <div className="col-md-4 d-flex justify-content-center h-">
@@ -24,7 +36,7 @@ const ItemCard = ({ jarmu }) => {
                         {/* <li className="list-group-item">A third item</li> */}
                     </ul>
                     {jarmu.kedvezmeny && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
-                    <a href="#" className="btn btn-primary px-4 py-3 my-3"><h5>{arazas()} ft/nap</h5></a>
+                    <button className="btn btn-primary px-4 py-3 my-3" onClick={(e) => { e.preventDefault(); addToBasket(jarmu) }}><h5>{arazas()} ft/nap</h5></button>
                 </div>
             </div>
         </div>

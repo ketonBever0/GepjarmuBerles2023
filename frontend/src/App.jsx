@@ -13,6 +13,9 @@ import { FilterFormProvider } from './components/context/FilterFormContext';
 import VehicleAddForm from './components/VehicleAddForm';
 import Login from './components/Login';
 import Register from './components/Register'
+import { KosarProvider } from './components/context/KosarContext';
+import CartContainer from './components/CartContainer';
+
 
 
 function App() {
@@ -20,26 +23,30 @@ function App() {
     <div className="container-fluid">
       <JarmuProvider>
         <FilterFormProvider>
-        
-          <Router>
-            <Header />
-            <Routes>
-              <Route path="*" element={<Main />} />
-              <Route path="/" element={<Main />} />
-              <Route path="/katalogus" element={<Catalog />} />
-              <Route path="/gyik" element={<Faq />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/addvehicle" element={<VehicleAddForm />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
-            <Footer />
-          </Router>
+          <KosarProvider>
+
+            <Router>
+              <Header />
+              <Routes>
+                <Route path="*" element={<Main />} />
+                <Route path="/" element={<Main />} />
+                <Route path="/katalogus" element={<Catalog />} />
+                <Route path="/gyik" element={<Faq />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/addvehicle" element={<VehicleAddForm />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+              <Footer />
+            </Router>
+            <CartContainer />
 
 
-          <Toaster />
 
+            <Toaster />
+
+          </KosarProvider>
         </FilterFormProvider>
       </JarmuProvider>
     </div>
