@@ -1,10 +1,12 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import KosarContext from "./context/KosarContext"
+import DeleteBtn from "./DeleteBtn"
 
 const ItemCard = ({ jarmu }) => {
 
-
+    const token=sessionStorage.getItem('usertoken');
+    
     const {
         addToBasket
     } = useContext(KosarContext);
@@ -37,6 +39,18 @@ const ItemCard = ({ jarmu }) => {
                     </ul>
                     {jarmu.kedvezmeny && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
                     <button className="btn btn-primary px-4 py-3 my-3" onClick={(e) => { e.preventDefault(); addToBasket(jarmu) }}><h5>{arazas()} ft/nap</h5></button>
+                    {
+                            token ? 
+                            (
+                            <>
+                                <DeleteBtn gepj_id={jarmu.id}/>
+                            </>
+                            ):
+                            (
+                            <></>
+                            )
+                            }
+                    
                 </div>
             </div>
         </div>

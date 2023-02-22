@@ -2,6 +2,7 @@ import '../css/footer.css'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
+    const token=sessionStorage.getItem('usertoken');
     return (
         <div className="row">
             <footer>
@@ -50,6 +51,15 @@ const Footer = () => {
                                 <Link to={"/katalogus"} className="list-group-item list-group-item-action footerNav">Katalógus</Link>
                                 <Link to={"/gyik"} className="list-group-item list-group-item-action footerNav">GY.I.K.</Link>
                                 <Link to={"/about"} className="list-group-item list-group-item-action footerNav">Rólunk</Link>
+                                <Link to={"/register"} className="list-group-item list-group-item-action footerNav">Regisztráció</Link>
+                                
+                                {
+                            token ? 
+                            (
+                            <></>
+                            ):
+                            (<><Link to={"/login"} className="list-group-item list-group-item-action footerNav">Bejelentkezés</Link></>)
+                        }
 
                             </div>
                         </div>

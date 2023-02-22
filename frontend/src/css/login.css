@@ -30,6 +30,12 @@
     box-shadow: 5px 5px 0px #314a68fa;
 }
 
+.inputStyleLoginContent {
+    background-color: white;
+    border-style: none;
+    outline: none;
+}
+
 form>div {
     font-size: 1.1rem;
 }

@@ -1,24 +1,27 @@
 import '../css/register.css'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
-
 import Notify from './allUse/Toast';
+import JarmuContext from './context/JarmuContext';
+
 
 const Register = () => {
 
-    const verifyPassword = () => {  
-        var pw = document.getElementById("jelszo").value; 
-        var pw2 = document.getElementById("jelszo2").value; 
+    const navigate = useNavigate();
+
+    const verifyPassword = () => {
+        var pw = document.getElementById("jelszo").value;
+        var pw2 = document.getElementById("jelszo2").value;
         var verify = document.getElementById("pwVerify");
-        if(pw != pw2) {  
+        if (pw != pw2) {
             verify.classList.add("errorAlert");
-            verify.innerHTML = " A két jelszó nem egyezik!"; 
+            verify.innerHTML = " A két jelszó nem egyezik!";
             verify.scrollIntoView({
                 behavior: "smooth",
                 block: "center",
-                inline:"center"
-              });
-           return false;
+                inline: "center"
+            });
+            return false;
         } else {
             return true;
         }
@@ -33,13 +36,6 @@ const Register = () => {
     //     }
     // }
 
-    const [refresh, setRefresh] = useState(false);
-
-    const update = () => {
-        setRefresh(prev => !prev);
-    }
-
-    const navigate = useNavigate();
 
     let formObj = {
         nev: "",
@@ -66,7 +62,7 @@ const Register = () => {
                 if (!token.message) {
                     sessionStorage.setItem('usertoken', token);
                     Notify.tSuccess("A regisztráció sikeres!")
-                    navigate('/');
+                    //navigate('/');
                 } else {
                     Notify.tError(token.message);
                 }
@@ -77,7 +73,7 @@ const Register = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (verifyPassword()){
+        if (verifyPassword()) {
             sendData(formData, 'POST');
         }
     }
@@ -85,7 +81,10 @@ const Register = () => {
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
         console.log(formData);
-        
+        if (e.target.value != "") {
+            e.target.classList.add("inputStyleSignupContent");
+        }
+
     }
 
     return (
@@ -164,7 +163,7 @@ const Register = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" className="btn btn-primary m-4 signup_btn"/>
+                                    <input type="submit" className="btn btn-primary m-4 signup_btn" />
                                 </form>
                                 <p className=''>A piros csillaggal (<span className='redStar'>*</span>) jelölt mezők kitöltése kötelező!</p>
                             </div>

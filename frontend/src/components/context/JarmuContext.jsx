@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
-import Norify from "../allUse/Toast";
+import { useNavigate } from 'react-router-dom';
+import Notify from "../allUse/Toast";
 
 
 const JarmuContext = createContext();
@@ -7,10 +8,12 @@ const JarmuContext = createContext();
 export const JarmuProvider = ({ children }) => {
 
     const [refresh, setRefresh] = useState(false);
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const [jarmuvek, setJarmuvek] = useState(null);
 
+    const navigate = useNavigate();
 
     const update = () => setRefresh(prev => !prev);
 
@@ -28,13 +31,17 @@ export const JarmuProvider = ({ children }) => {
         // console.log(osszesJarmu);
     }
 
+    const logout = () => {
+        sessionStorage.removeItem('usertoken');
+        update();
+    }
 
     return <JarmuContext.Provider value={{
         refresh, update,
         isLoading, setIsLoading,
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
-        osszesJarmu, setOsszesJarmu
+        osszesJarmu, setOsszesJarmu, logout, navigate
 
     }}>{children}</JarmuContext.Provider>
 

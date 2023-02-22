@@ -89,7 +89,7 @@ const Faq = () => {
                             </button>
                         </h2>
                         <div id="flush-collapseEight" className="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body"><p>A gépjárművekre napi díjat számolunk fel, ebbe beletartozik a visszavitel napja, és a hiányzó üzemanyag díja is.</p></div>
+                            <div className="accordion-body"><p>A gépjárművekre napi díjat számolunk fel, ebbe beletartozik a visszavitel napja és a hiányzó üzemanyag díja is.</p></div>
                         </div>
                     </div>
                     <div className="accordion-item">
@@ -109,7 +109,7 @@ const Faq = () => {
                             </button>
                         </h2>
                         <div id="flush-collapseTen" className="accordion-collapse collapse" aria-labelledby="flush-headingTen" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body"><p>Igen, ... hónappal.</p></div>
+                            <div className="accordion-body"><p>Igen, 6 hónappal.</p></div>
                         </div>
                     </div>
                     <div className="accordion-item">
@@ -119,17 +119,17 @@ const Faq = () => {
                             </button>
                         </h2>
                         <div id="flush-collapseEleven" className="accordion-collapse collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body"><p>A hiányzó mennyiséget figyelembe véve további díjat számolunk fel.</p></div>
+                            <div className="accordion-body"><p>Nem, de az üzemanyag hiányzó mennyiségét is beleszámoljuk a teljes fizetendő összegbe.</p></div>
                         </div>
                     </div>
                     <div className="accordion-item">
                         <h2 className="accordion-header" id="flush-headingTwelve">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
-                                Nem, de az üzemanyag hiányzó mennyiségét is beleszámoljuk a teljes fizetendő összegbe.
+                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">Van lehetőség hamarabb visszavinni a gépjárművet?
+                                
                             </button>
                         </h2>
                         <div id="flush-collapseTwelve" className="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body"><p>Van lehetőség hamarabb visszavinni a gépjárművet?</p></div>
+                            <div className="accordion-body"><p>Igen, ezesetben a fennmaradó napokat nem kell kifizetni.</p></div>
                         </div>
                     </div>
                 </div>
