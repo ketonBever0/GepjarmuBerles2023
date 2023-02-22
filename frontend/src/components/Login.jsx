@@ -57,7 +57,7 @@ const Login = () => {
             <div class="bg-beige d-flex justify-content-center">
                 <div class="container my-5 cont-shadow m-5">
                     <div class="row d-grid">
-                        <div class="col-sm p-5 text-center d-flex justify-content-center bg-primary2  min-width container2">
+                        <div class="col-sm p-5 text-center d-flex justify-content-center bg-primary2 text-light  min-width container2">
                             <div class="w-100">
                                 <h3 class="pt-4 header_login">Bejelentkezés</h3>
                                 <form onSubmit={onSubmit} class="container w-100">
