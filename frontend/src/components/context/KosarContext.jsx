@@ -13,7 +13,7 @@ export const KosarProvider = ({ children }) => {
     const update = prev => setRefresh(!prev);
 
     const addToBasket = (jarmu) => {
-        if (!kosar.includes(jarmu)) setKosar([...kosar, jarmu]); else Notify.tError("Ez az elem már a kosárban van!");
+        if (!kosar.includes(jarmu)) setKosar([...kosar, jarmu]); else Notify.tError("Ez az jármű már a kosárban van!");
         // console.log(kosar);
     }
 
