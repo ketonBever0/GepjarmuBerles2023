@@ -12,6 +12,8 @@
     background-color: transparent;
     padding: 5px;
     margin: 15px;
+    font-size: medium;
+    text-align: center;
 }
 
 .inputStyleSignup:focus {
