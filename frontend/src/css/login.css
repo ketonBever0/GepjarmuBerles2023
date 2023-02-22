@@ -24,7 +24,7 @@
 }
 
 .inputStyleLogin:focus {
-    background-color: rgb(122, 214, 214);
+    background-color: white;
     border-style: none;
     outline: none;
     box-shadow: 5px 5px 0px #314a68fa;

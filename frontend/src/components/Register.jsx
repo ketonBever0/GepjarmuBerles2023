@@ -11,12 +11,13 @@ const Register = () => {
         var pw2 = document.getElementById("jelszo2").value; 
         var verify = document.getElementById("pwVerify");
         if(pw != pw2) {  
-            verify.style.color = "white";
-            verify.style.background = "red";
-            verify.style.padding = "8px";
-            verify.style.boxShadow = "5px 5px 0px #243952";
+            verify.classList.add("errorAlert");
             verify.innerHTML = " A két jelszó nem egyezik!"; 
-            verify.scrollIntoView();
+            verify.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline:"center"
+              });
            return false;
         } else {
             return true;
@@ -84,6 +85,7 @@ const Register = () => {
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
         console.log(formData);
+        
     }
 
     return (
