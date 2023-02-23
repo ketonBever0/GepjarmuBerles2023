@@ -1,4 +1,8 @@
-# Readme
+## Környezeti változók
+### Backend
+- JWT_TOKEN=(bármilyen string)
+
+# Telepítés
 1. Telepíts a gépre XAMPP-ot és Node.js-t
 2. A Control Panelen indítsd el az Apache-ot és a MySQL-t, majd az utóbbi mellett nyomj az Admin gombra
 3. Csinálj egy gepjarmuvek adatbázist és importáld be a táblákat
