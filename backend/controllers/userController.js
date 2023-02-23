@@ -11,13 +11,13 @@ const register = async(req, res) => {
     
     const { nev, adoszam, iranyitoszam, telepulesNev, kozteruletNev, kozteruletJelleg, hazszam, telefonszam, email, jelszo, kedvezmeny } = req.body;
     if(!email || !nev || !iranyitoszam || !telepulesNev || !kozteruletNev || !kozteruletJelleg || !hazszam || !telefonszam) return res.status(400).json({ message: "Hiányos adatok"});
-    const users = await User.findAll({
+    const user = await User.findOne({
         where: {
             email: email
         }
     });
 
-    if (users[0]) return res.status(400).json({ message: "Az email cím már foglalt!"});
+    if (user !== null) return res.status(400).json({ message: "Az email cím már foglalt!"});
     
     const hashedPassword = await bcrypt.hash(jelszo, 10);
 
@@ -43,12 +43,12 @@ const login = async(req, res) => {
 
     const {email, jelszo} = req.body;
     if(!email || !jelszo) return res.status(400).json({ message: "Hiányos adatok"});
-    const users = await User.findAll({
+    const user = await User.findOne({
         where: {
             email: email
         }
     });
-    if (!users[0]) return res.status(400).json({ message: "Nem létező email cím!"});
+    if (user !== null) return res.status(400).json({ message: "Nem létező email cím!"});
     if (!await bcrypt.compare(jelszo, users[0].jelszo)) return res.status(400).json({ message: "Hibás jelszó!"});
 
     const token = generateToken(users[0].id);

@@ -1,3 +1,5 @@
+const ArkategoriaModel = require("./ArkategoriaModel");
+
 module.exports = (sequelize, DataTypes) => {
     const Vehicle = sequelize.define("gepjarmuvek", {
         id: {
@@ -33,7 +35,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         aka_gepjarmu_tipus: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            references: {
+                model: ArkategoriaModel,
+                key: 'gepjarmu_tipus'
+            }
         },
         thly_id: {
             type: DataTypes.INTEGER
@@ -48,5 +54,6 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: false,
     });
 
+    Vehicle.hasMany(ArkategoriaModel);
     return Vehicle;
 }
