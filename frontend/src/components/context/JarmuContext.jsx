@@ -37,9 +37,9 @@ export const JarmuProvider = ({ children }) => {
 
     }
 
-    const [adatObj, setAdatObj] = useState({});
+    const [adatObj, setAdatObj] = useState({});     //adatObj lesz az adott gépjármű adat objektum
 
-    const updateNavigate = (adat) => {
+    const settingCurrentVehicle = (adat) => {      //beállítjuk a gépjármű adatokat itt, hogy az elérhető legyen az update felületnek (VehicleUpdateForm)
         setAdatObj(adat);
     }
 
@@ -49,7 +49,7 @@ export const JarmuProvider = ({ children }) => {
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
         osszesJarmu, setOsszesJarmu,
-        logout, adatObj, updateNavigate
+        logout, adatObj, settingCurrentVehicle
 
     }}>{children}</JarmuContext.Provider>
 
