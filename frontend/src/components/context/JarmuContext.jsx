@@ -12,7 +12,8 @@ export const JarmuProvider = ({ children }) => {
 
     const [jarmuvek, setJarmuvek] = useState(null);
 
-    const update = () => setRefresh(prev => !prev);
+
+    const update = prev => setRefresh(!prev);
 
     const [osszesJarmu, setOsszesJarmu] = useState(null);
 
@@ -44,7 +45,8 @@ export const JarmuProvider = ({ children }) => {
         isLoading, setIsLoading,
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
-        osszesJarmu, setOsszesJarmu, logout
+        osszesJarmu, setOsszesJarmu,
+        logout
 
     }}>{children}</JarmuContext.Provider>
 

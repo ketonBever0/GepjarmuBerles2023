@@ -20,15 +20,16 @@ function Kosar() {
             {
                 kosar.length > 0 ?
                     kosar.map((jarmu, index) => (
-                            <div key={index} className="row row-cols-3 my-2 mx-auto border border-dark">
-                                <div className="col">{jarmu.rendszam}</div>
-                                <div className="col">{jarmu.marka}<br/>{jarmu.modell}</div>
-                                <div className="col d-flex justify-content-end"><button className='btn rounded-circle p-0' onClick={(e => { e.preventDefault(); setKosar(kosar.filter(x => x.rendszam != jarmu.rendszam)) })}><XCircleFill color='red' size={20} /></button></div>
-                            </div>
+                        <div key={index} className="row row-cols-3 my-2 mx-auto border border-dark">
+                            <div className="col">{jarmu.rendszam}</div>
+                            <div className="col">{jarmu.marka}<br />{jarmu.modell}</div>
+                            <div className="col d-flex justify-content-end"><button className='btn rounded-circle p-0' onClick={(e => { e.preventDefault(); setKosar(kosar.filter(x => x.rendszam != jarmu.rendszam)) })}><XCircleFill color='red' size={20} /></button></div>
+                        </div>
                     ))
                     :
                     <div>Üres</div>
             }
+            <button className='btn btn-primary' disabled={kosar.length==0} onClick={e=>{e.preventDefault();}}>Tovább</button>
 
         </div>
     )
