@@ -29,10 +29,10 @@ export const JarmuProvider = ({ children }) => {
         // console.log(osszesJarmu);
     }
 
-    const logout = () => {
-        sessionStorage.removeItem('usertoken');
-        update();
-    }
+    // const logout = () => {
+    //     sessionStorage.removeItem('usertoken');
+    //     update();
+    // }
 
     return <JarmuContext.Provider value={{
         refresh, update,
@@ -43,9 +43,6 @@ export const JarmuProvider = ({ children }) => {
         logout
 
     }}>{children}</JarmuContext.Provider>
-
-
-
 
 }
 

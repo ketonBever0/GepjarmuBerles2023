@@ -2,14 +2,14 @@ import '../css/login.css'
 import { useState, useContext } from "react";
 import {useNavigate} from "react-router-dom";
 import Notify from './allUse/Toast';
-import JarmuContext from './context/JarmuContext';
+import JarmuContext from '../components/context/JarmuContext';
 
 
 
 const Login = () => {
 
-    //const {update} = useContext(JarmuContext)
-    //const navigate=useNavigate();
+    const {update} = useContext(JarmuContext);
+    const navigate = useNavigate();
 
     let formObj = {
         email: "",
@@ -32,7 +32,7 @@ const Login = () => {
 
             //update();
 
-            //navigate('/');
+            navigate('/');
           } else {
             Notify.tError(token.message);
           }
