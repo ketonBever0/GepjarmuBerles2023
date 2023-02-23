@@ -2,7 +2,7 @@ import '../css/login.css'
 import { useState, useContext } from "react";
 import {useNavigate} from "react-router-dom";
 import Notify from './allUse/Toast';
-import JarmuContext from '../components/context/JarmuContext';
+import JarmuContext from './context/JarmuContext';
 
 
 
@@ -30,7 +30,7 @@ const Login = () => {
             sessionStorage.setItem('usertoken',token);
             Notify.tSuccess("Sikeres bejelentkezés!")
 
-            //update();
+            update();
 
             navigate('/');
           } else {

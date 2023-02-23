@@ -7,13 +7,8 @@ import "../css/navigationbar.css"
 
 const NavigationBar = () => {
 
-        const logout = () => {
-        sessionStorage.removeItem('usertoken');
-        //update();
-    }
-
     const navigate = useNavigate();
-    //const {logout} = useContext(JarmuContext);
+    const {logout} = useContext(JarmuContext);
 
     const token=sessionStorage.getItem('usertoken');
 
@@ -37,7 +32,7 @@ const NavigationBar = () => {
                         {
                             token ? 
                             (
-                            <><a onClick={()=>{logout();navigate('/')}} className="nav-link">Kijelentkezés</a></>
+                            <><a onClick={()=>{logout(); navigate('/')}} className="nav-link">Kijelentkezés</a></>
                             ):
                             (<><Link to={'/login'} className="nav-link">Bejelentkezés</Link></>)
                         }

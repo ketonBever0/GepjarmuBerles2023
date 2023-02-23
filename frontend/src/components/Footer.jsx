@@ -54,11 +54,11 @@ const Footer = () => {
                                 <Link to={"/register"} className="list-group-item list-group-item-action footerNav">Regisztráció</Link>
                                 
                                 {
-                            token ? 
+                            !token ? 
                             (
-                            <></>
+                            <><Link to={"/login"} className="list-group-item list-group-item-action footerNav">Bejelentkezés</Link></>
                             ):
-                            (<><Link to={"/login"} className="list-group-item list-group-item-action footerNav">Bejelentkezés</Link></>)
+                            (<></>)
                         }
 
                             </div>

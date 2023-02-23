@@ -7,7 +7,7 @@ const JarmuContext = createContext();
 export const JarmuProvider = ({ children }) => {
 
     const [refresh, setRefresh] = useState(false);
-    
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [jarmuvek, setJarmuvek] = useState(null);
@@ -28,17 +28,23 @@ export const JarmuProvider = ({ children }) => {
         // console.log(osszesJarmu);
     }
 
-    // const logout = () => {
-    //     sessionStorage.removeItem('usertoken');
-    //     update();
-    // }
+    const logout = () => {
+        let kerdes = window.confirm("Biztosan ki szeretne lépni?");
+        if (kerdes) {
+            sessionStorage.removeItem('usertoken');
+            update();
+        }
+
+
+
+    }
 
     return <JarmuContext.Provider value={{
         refresh, update,
         isLoading, setIsLoading,
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
-        osszesJarmu, setOsszesJarmu, //logout
+        osszesJarmu, setOsszesJarmu, logout
 
     }}>{children}</JarmuContext.Provider>
 
