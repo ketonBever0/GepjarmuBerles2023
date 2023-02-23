@@ -1,13 +1,10 @@
 import { useContext, useState } from 'react';
 import FilterFormContext from './context/FilterFormContext';
 import JarmuContext from './context/JarmuContext';
-import UpdateBtn from './UpdateBtn';
 
 const VehicleUpdateForm = () => {
 
-    const {adatObj, tipusok} = useContext(JarmuContext);
-
-    const gepjarmu = adatObj.gepj;
+    const {adatObj, tipusok} = useContext(JarmuContext);    //megkaptuk az adott gépjármű adatokat a Contextből, ennek a propjait (pl. rendszám) használhatjuk arra, hogy az input mezőkbe beletegyük value-ként a módosítandó gépj. adatait
 
     let formObj = {
         id: 0,
@@ -50,13 +47,13 @@ const VehicleUpdateForm = () => {
         console.log(e.target.value, e.target.type);
     }
 
-    const logging = () => {
-        console.log("gepj adat: ", adatObj);
-    }
+    // const logging = () => {
+    //     console.log("adatObj adat: ", adatObj);
+    // }
 
     return (
         <div>
-            <button onClick={logging} className='btn btn-info'>hi</button>
+            {/* <button onClick={logging} className='btn btn-info'>Mutasd az adatObj state-jét</button> */}
 
             <form onSubmit={onSubmit} className="w-100 bg-cyan2">
                 <h5 className="text-dark p-4 text-center">Gépjármű módosítása:</h5>
@@ -138,7 +135,7 @@ const VehicleUpdateForm = () => {
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="gepjarmuTipus"><span className="redStar">* </span>Gépjármű típus:</label>
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
+                                <select defaultValue={adatObj.gepj.gepjarmu_tipus} onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
                                     {
                                         tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
                                     }
@@ -152,7 +149,7 @@ const VehicleUpdateForm = () => {
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
                                 <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
-                                    {/* {
+                                    {/* { select-ben defaultvalue={adatObj.gepj.}
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
                                     } */}
 

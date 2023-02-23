@@ -44,7 +44,7 @@ const ItemCard = ({ jarmu }) => {
                             (
                             <>
                                 <DeleteBtn gepj_id={jarmu.id}/>
-                                <UpdateBtn gepj={jarmu}/>
+                                <UpdateBtn gepj={jarmu}/>       {/* csak bejelentkezéskor látható, átadjuk neki az adott gépjármű adatait, majd az UpdateBtn.jsx-ben használjuk tovább. */}
                             </>
                             ):
                             (
