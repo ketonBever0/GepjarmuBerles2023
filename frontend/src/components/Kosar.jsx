@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { XCircle, XCircleFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
+import Notify from './allUse/Toast';
 import KosarContext from './context/KosarContext';
 
 function Kosar() {
@@ -13,6 +14,8 @@ function Kosar() {
     } = useContext(KosarContext);
 
     const navigate = useNavigate();
+
+    const token = sessionStorage.getItem("token");
 
 
     return (
@@ -42,7 +45,12 @@ function Kosar() {
                     // console.log(JSON.parse(localStorage.getItem("kosarBackup")));
                     setKosar([]);
 
-                    navigate('/checkout');
+                    if (token) {
+                        navigate('/checkout');
+                    } else {
+                        // Notify.tError("Ehhez be kell jelentkezni!");
+                        navigate('/login');
+                    }
                 }
             }>Tovább</button>
 
