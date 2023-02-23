@@ -27,7 +27,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
 
 
   return (
-    <div className="row d-flex justify-content-center align-items-center g-3 my-5 bg-secondary p-3">
+    <div className="row d-flex justify-content-center g-3 my-5 bg-secondary p-3">
       <h1 className="text-center text-white m-4">{title}</h1>
       {
         isLoading ?
@@ -44,7 +44,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
           :
           (onlyDiscounts ?
             (osszesJarmu && osszesJarmu
-              .filter(x => x.kedvezmeny != null)
+              .filter(x => x.kedvezmeny != null && x.kedvezmeny != 0)
               .map((jarmu, index) => (<ItemCard jarmu={jarmu} key={index} />))
             )
             :

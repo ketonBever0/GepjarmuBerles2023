@@ -21,7 +21,7 @@ const NavigationBar = () => {
             confirmable: "Igen",
             cancellable: "Nem"
         },
-        closeOnOverlayClick: true
+        closeOnOverlayClick: true,
     }
 
     return (
