@@ -13,5 +13,4 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.users = require('./UserModel')(sequelize, Sequelize.DataTypes);
 db.vehicles = require('./VehicleModel')(sequelize, Sequelize.DataTypes);
-db.arkategoriak = require('./ArkategoriaModel')(sequelize, Sequelize.DataTypes);
 module.exports = db;

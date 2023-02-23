@@ -8,7 +8,7 @@ import Faq from "./components/Faq"
 import AboutUs from "./components/AboutUs"
 import Footer from './components/Footer';
 import Contact from './components/Contact';
-import { JarmuProvider } from './components/context/JarmuContext';
+import { JarmuProvider } from './components/context/jarmuContext';
 import { FilterFormProvider } from './components/context/FilterFormContext';
 import VehicleAddForm from './components/VehicleAddForm';
 import Login from './components/Login';
