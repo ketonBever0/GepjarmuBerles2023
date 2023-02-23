@@ -3,10 +3,11 @@ import FilterFormContext from './context/FilterFormContext';
 import JarmuContext from './context/JarmuContext';
 import UpdateBtn from './UpdateBtn';
 
-const VehicleUpdateForm = (gepj) => {
+const VehicleUpdateForm = () => {
 
-    const {osszesJarmu} = useContext(JarmuContext);
+    const {adatObj, tipusok} = useContext(JarmuContext);
 
+    const gepjarmu = adatObj.gepj;
 
     let formObj = {
         id: 0,
@@ -40,8 +41,8 @@ const VehicleUpdateForm = (gepj) => {
     }
 
     const onSubmit = (e) => {
-        // e.preventDefault();
-        // adatKuldes(formData, 'PATCH');
+        e.preventDefault();
+        adatKuldes(formData, 'PATCH');
     }
 
     const writeData = (e) => {
@@ -50,7 +51,7 @@ const VehicleUpdateForm = (gepj) => {
     }
 
     const logging = () => {
-        console.log("gepj adat: ", gepj);
+        console.log("gepj adat: ", adatObj);
     }
 
     return (
@@ -66,28 +67,28 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="rendszam"><span className="redStar">* </span>Rendszám:</label>
                                 <input onChange={writeData} required type="text" className="form-control bg-secondary2 border-secondary minwidth-50"
-                                    id="rendszam" />
+                                    id="rendszam" value={adatObj.gepj.rendszam} />
                             </div>
                         </div>
 
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto col">
                                 <label htmlFor="marka">Márka:<span className="redStar text-right">*</span></label>
-                                <input onChange={writeData} required type="text" className="form-control bg-secondary2 border-secondary minwidth-50" id="marka" />
+                                <input onChange={writeData} required type="text" className="form-control bg-secondary2 border-secondary minwidth-50" id="marka" value={adatObj.gepj.marka} />
                             </div>
                         </div>
 
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="modell"><span className="redStar">* </span>Modell:</label>
-                                <input onChange={writeData} required type="text" className="form-control bg-secondary2 border-secondary minwidth-50" id="modell" />
+                                <input onChange={writeData} required type="text" className="form-control bg-secondary2 border-secondary minwidth-50" id="modell" value={adatObj.gepj.modell} />
                             </div>
                         </div>
 
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kmallas"><span className="redStar">* </span>Kilométeróra-állás:</label>
-                                <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50" id="kmallas" />
+                                <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50" id="kmallas" value={adatObj.gepj.kmallas} />
                             </div>
                         </div>
                     </div>
@@ -96,8 +97,7 @@ const VehicleUpdateForm = (gepj) => {
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto ">
                                 <label htmlFor="muszakiErvenyesseg"><span className="redStar">* </span>Műszaki érvényesség:</label>
-                                <input onChange={writeData} required type="date" className="form-control bg-secondary2 border-secondary minwidth-50 pointer"
-                                    id="muszakiErvenyesseg" />
+                                <input onChange={writeData} required type="date" className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="muszakiErvenyesseg" value={adatObj.gepj.muszakiErvenyesseg} />
                             </div>
                         </div>
 
@@ -105,7 +105,7 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="uzemanyagkapacitas" className='overflow'><span className="redStar">* </span>Üzemanyag-kapacitás:</label>
                                 <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50"
-                                    id="uzemanyagkapacitas" />
+                                    id="uzemanyagkapacitas" value={adatObj.gepj.uzemanyagkapacitas} />
                             </div>
                         </div>
 
@@ -113,7 +113,7 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="ferohely"><span className="redStar">* </span>Férőhely:</label>
                                 <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50"
-                                    id="ferohely" />
+                                    id="ferohely"  value={adatObj.gepj.ferohely}/>
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kedvezmeny">Kedvezmény (%):</label>
                                 <input onChange={writeData} type="number" placeholder="(opcionális)"
-                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="kedvezmeny" />
+                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="kedvezmeny"  value={adatObj.gepj.kedvezmeny}/>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="egyediAr"><span className="redStar">* </span>Egyedi ár:</label>
                                 <input onChange={writeData} type='number' placeholder="(opcionális)"
-                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr" />
+                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr"  value={adatObj.gepj.egyediAr}/>
                             </div>
                         </div>
 
@@ -139,9 +139,9 @@ const VehicleUpdateForm = (gepj) => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="gepjarmuTipus"><span className="redStar">* </span>Gépjármű típus:</label>
                                 <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
-                                    {/* {
+                                    {
                                         tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
-                                    } */}
+                                    }
 
                                 </select>
                             </div>

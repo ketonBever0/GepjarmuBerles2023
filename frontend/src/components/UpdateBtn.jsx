@@ -9,16 +9,16 @@ const UpdateBtn = ({gepj}) => {
 
     const navigate = useNavigate();
 
-    const { update } = useContext(JarmuContext)
+    const { update, updateNavigate } = useContext(JarmuContext)
 
-    const updateItem = async (adat) => {
-        console.log(adat);
-        navigate('/updatevehicle',(adat));
+    const navToUpdateForm = async () => {
+         await updateNavigate({gepj}); 
+         navigate('/updatevehicle')
     }
 
     return (
         <div>
-            <button onClick={() => updateItem(gepj)} className='btn btn-primary'>Módosítás</button>
+            <button onClick={() => navToUpdateForm()} className='btn btn-primary'>Módosítás</button>
         </div>
     )
 }

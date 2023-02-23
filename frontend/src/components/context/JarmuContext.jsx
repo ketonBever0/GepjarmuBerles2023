@@ -12,7 +12,6 @@ export const JarmuProvider = ({ children }) => {
 
     const [jarmuvek, setJarmuvek] = useState(null);
 
-
     const update = prev => setRefresh(!prev);
 
     const [osszesJarmu, setOsszesJarmu] = useState(null);
@@ -36,8 +35,12 @@ export const JarmuProvider = ({ children }) => {
             update();
         }
 
+    }
 
+    const [adatObj, setAdatObj] = useState({});
 
+    const updateNavigate = (adat) => {
+        setAdatObj(adat);
     }
 
     return <JarmuContext.Provider value={{
@@ -46,7 +49,7 @@ export const JarmuProvider = ({ children }) => {
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
         osszesJarmu, setOsszesJarmu,
-        logout
+        logout, adatObj, updateNavigate
 
     }}>{children}</JarmuContext.Provider>
 
