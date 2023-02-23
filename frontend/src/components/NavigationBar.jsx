@@ -44,15 +44,15 @@ const NavigationBar = () => {
                             token ?
                                 (
                                     <><a onClick={async () => {
-                                        if (await confirm("Biztosan ki szeretne lépni?")) {
+                                        if (await confirm("Biztosan ki szeretne lépni?", confirmBoxOptions)) {
                                             setKosar([]); logout(); Notify.tSuccess("Sikeres kijelentkezés!"); navigate('/')
                                         }
                                     }} className="nav-link">Kijelentkezés</a></>
                                 ) :
                                 (
                                     <>
-                                        <Link to={'/login'} className="nav-link">Bejelentkezés</Link>
                                         <Link to={'/register'} className="nav-link">Regisztráció</Link>
+                                        <Link to={'/login'} className="nav-link">Bejelentkezés</Link>
                                     </>
                                 )
                         }
