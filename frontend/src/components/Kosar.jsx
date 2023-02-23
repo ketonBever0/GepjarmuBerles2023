@@ -8,7 +8,8 @@ function Kosar() {
     const {
         kosar, setKosar,
         update, refresh,
-        isOpen, setIsOpen
+        isOpen, setIsOpen,
+        setKosarBackup
     } = useContext(KosarContext);
 
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ function Kosar() {
                 e => {
                     e.preventDefault();
                     localStorage.setItem("kosarBackup", JSON.stringify(kosar));
+                    setKosarBackup(kosar);
                     setIsOpen(false);
                     // console.log(JSON.parse(localStorage.getItem("kosarBackup")));
                     setKosar([]);

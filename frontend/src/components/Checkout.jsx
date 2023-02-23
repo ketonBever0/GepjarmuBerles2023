@@ -5,34 +5,32 @@ import KosarContext from './context/KosarContext'
 function Checkout() {
 
     const {
-        kosar, setKosar,
         kosarBackup, setKosarBackup,
         update, refresh
     } = useContext(KosarContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
 
-    const location = useLocation();
-
-    // useEffect(() => {
-    //     setKosar(JSON.parse(localStorage.getItem("kosarBackup")));
-    // }, [])
 
 
     useEffect(() => {
-        setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
-        console.log(kosarBackup);
-    }, [refresh]);
-
-    useEffect(() => {
-        kosarBackup && kosarBackup.map((elem, index) => {
+        setTotalPrice(0);
+        kosarBackup && kosarBackup.map((elem) => {
             if (elem.kedvezmeny) {
                 setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)));
             } else {
                 setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar : elem.kategoria_ar));
             }
         });
-    }, [kosarBackup]);
+    }, [refresh, kosarBackup]);
+
+
+    useEffect(() => {
+        // setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
+        kosarBackup && localStorage.setItem("kosarBackup", JSON.stringify(kosarBackup));
+        setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
+        // kosarBackup && console.log(kosarBackup);
+    }, [refresh]);
 
     const arazas = (elem) => {
         if (elem.kedvezmeny) {
@@ -44,12 +42,13 @@ function Checkout() {
         }
     }
 
+
     return (
         <div>
             <h1 className="text-center mt-4">Összesítés</h1>
             <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
                 <h3 className="text-center mt-2">{totalPrice} ft/nap</h3>
-                <button className='btn btn-primary mb-5' disabled={!kosarBackup} onClick={e => { e.preventDefault(); }}>Bérlés</button>
+                <button className='btn btn-primary mb-5' disabled={!kosarBackup || totalPrice==0} onClick={e => { e.preventDefault(); }}>Bérlés</button>
                 {kosarBackup ?
                     kosarBackup.map((elem, index) => (
                         <div className="col-md-4 d-flex justify-content-center h-">
@@ -70,8 +69,9 @@ function Checkout() {
                                     <button className="btn btn-danger px-4 py-3 my-3" onClick={
                                         async e => {
                                             e.preventDefault();
+                                            // localStorage.removeItem("kosarBackup");
                                             await setKosarBackup(kosarBackup.filter(x => x.rendszam != elem.rendszam));
-                                            () => localStorage.setItem("kosarBackup", JSON.stringify(kosarBackup));
+                                            // localStorage.setItem("kosarBackup", JSON.stringify(kosarBackup));
                                             update();
                                         }
                                     }><h5>Törlés</h5></button>
