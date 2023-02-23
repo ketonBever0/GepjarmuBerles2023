@@ -1,7 +1,7 @@
 import ItemCard from "./ItemCard";
 import { useState, useEffect, useContext } from "react";
-import JarmuContext from "./context/JarmuContext";
-import FilterFormContext from "./context/FilterFormContext";
+import JarmuContext from "../context/JarmuContext";
+import FilterFormContext from "../context/FilterFormContext";
 import { MagnifyingGlass } from "react-loader-spinner";
 
 

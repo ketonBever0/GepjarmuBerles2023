@@ -1,5 +1,5 @@
-import FormContainer from "./FormContainer"
-import ItemContainer from "./ItemContainer"
+import FormContainer from "./form/FormContainer"
+import ItemContainer from "./Items/ItemContainer"
 
 const Catalog = () => {
 

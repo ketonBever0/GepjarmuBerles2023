@@ -3,12 +3,14 @@ import { useContext } from 'react';
 //import { useNavigate } from 'react-router-dom';
 import JarmuContext from '../components/context/JarmuContext';
 import "../css/navigationbar.css"
+import KosarContext from './context/KosarContext';
 
 
 const NavigationBar = () => {
 
     const navigate = useNavigate();
     const { logout } = useContext(JarmuContext);
+    const { kosar, setKosar } = useContext(KosarContext);
 
     const token = sessionStorage.getItem('usertoken');
 
@@ -31,7 +33,7 @@ const NavigationBar = () => {
                         {
                             token ?
                                 (
-                                    <><a onClick={() => { logout(); navigate('/') }} className="nav-link">Kijelentkezés</a></>
+                                    <><a onClick={() => { setKosar([]); logout(); navigate('/') }} className="nav-link">Kijelentkezés</a></>
                                 ) :
                                 (
                                     <>
@@ -44,7 +46,7 @@ const NavigationBar = () => {
                     </div>
                 </div>
             </div>
-        </nav >
+        </nav>
     )
 }
 

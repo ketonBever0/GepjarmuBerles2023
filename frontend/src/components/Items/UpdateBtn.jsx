@@ -1,9 +1,9 @@
-import '../css/register.css'
+import '../../css/register.css'
 import { useState, useContext } from 'react';
-import Notify from './allUse/Toast';
-import JarmuContext from './context/JarmuContext';
+import Notify from '../allUse/Toast';
+import JarmuContext from '../context/JarmuContext';
 import { useNavigate } from 'react-router-dom';
-import VehicleUpdateForm from './VehicleUpdateForm';
+import VehicleUpdateForm from '../VehicleUpdateForm';
 
 const UpdateBtn = ({gepj}) => {
 

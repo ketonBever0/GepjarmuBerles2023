@@ -1,6 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 // import Test from "./components/Test";
 import Main from "./components/Main"
 import Catalog from "./components/Catalog"
@@ -14,9 +14,9 @@ import VehicleAddForm from './components/VehicleAddForm';
 import Login from './components/Login';
 import Register from './components/Register'
 import { KosarProvider } from './components/context/KosarContext';
-import CartContainer from './components/CartContainer';
+import CartContainer from './components/kosar/CartContainer';
 import VehicleUpdateForm from './components/VehicleUpdateForm';
-import Checkout from './components/Checkout';
+import Checkout from './components/kosar/Checkout';
 
 
 

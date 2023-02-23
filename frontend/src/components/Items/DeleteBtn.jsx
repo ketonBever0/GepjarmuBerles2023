@@ -1,7 +1,7 @@
-import '../css/register.css'
+import '../../css/register.css'
 import { useState, useContext } from 'react';
-import Notify from './allUse/Toast';
-import JarmuContext from './context/JarmuContext';
+import Notify from '../allUse/Toast';
+import JarmuContext from '../context/JarmuContext';
 
 const DeleteBtn = (gepj_id) => {
 

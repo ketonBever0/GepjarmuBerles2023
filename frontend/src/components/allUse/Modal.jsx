@@ -1,7 +1,7 @@
-import '../css/register.css'
+import '../../css/register.css'
 import { useState, useContext } from 'react';
-import Notify from './allUse/Toast';
-import JarmuContext from '../components/context/JarmuContext';
+import Notify from './Toast';
+import JarmuContext from '../context/JarmuContext';
 //import JarmuContext from './context/JarmuContext';
 
 const Modal = (uzenet, funkcio) => {
