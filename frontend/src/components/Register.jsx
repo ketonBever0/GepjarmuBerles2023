@@ -2,7 +2,7 @@ import '../css/register.css'
 import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import Notify from './allUse/Toast';
-import JarmuContext from './context/JarmuContext';
+import JarmuContext from '../components/context/JarmuContext';
 
 
 const Register = () => {
@@ -62,7 +62,8 @@ const Register = () => {
                 if (!token.message) {
                     sessionStorage.setItem('usertoken', token);
                     Notify.tSuccess("A regisztráció sikeres!")
-                    //navigate('/');
+                    navigate('/');
+                    //update();
                 } else {
                     Notify.tError(token.message);
                 }
