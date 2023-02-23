@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { Link } from "react-router-dom"
 import KosarContext from "./context/KosarContext"
 import DeleteBtn from "./DeleteBtn"
+import UpdateBtn from "./UpdateBtn"
 
 const ItemCard = ({ jarmu }) => {
 
@@ -20,7 +21,6 @@ const ItemCard = ({ jarmu }) => {
             return jarmu.egyedi_ar ? jarmu.egyedi_ar : jarmu.kategoria_ar
         }
     }
-
 
 
     return (
@@ -44,6 +44,7 @@ const ItemCard = ({ jarmu }) => {
                             (
                             <>
                                 <DeleteBtn gepj_id={jarmu.id}/>
+                                <UpdateBtn gepj={jarmu}/>
                             </>
                             ):
                             (

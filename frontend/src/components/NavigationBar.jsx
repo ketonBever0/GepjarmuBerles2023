@@ -7,13 +7,8 @@ import "../css/navigationbar.css"
 
 const NavigationBar = () => {
 
-    const logout = () => {
-        sessionStorage.removeItem('usertoken');
-        //update();
-    }
-
     const navigate = useNavigate();
-    //const {logout} = useContext(JarmuContext);
+    const {logout} = useContext(JarmuContext);
 
     const token = sessionStorage.getItem('usertoken');
 

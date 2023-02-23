@@ -7,6 +7,7 @@ import JarmuContext from '../components/context/JarmuContext';
 
 const Register = () => {
 
+    const { update } = useContext(JarmuContext);
     const navigate = useNavigate();
 
     const verifyPassword = () => {
@@ -63,7 +64,7 @@ const Register = () => {
                     sessionStorage.setItem('usertoken', token);
                     Notify.tSuccess("A regisztráció sikeres!")
                     navigate('/');
-                    //update();
+                    update();
                 } else {
                     Notify.tError(token.message);
                 }
@@ -88,6 +89,13 @@ const Register = () => {
 
     }
 
+    const writeDatajelszo2 = (e) => {
+        if (e.target.value != "") {
+            e.target.classList.add("inputStyleSignupContent");
+        }
+
+    }
+
     return (
         <div>
             <div className="bg-beige d-flex justify-content-center">
@@ -106,32 +114,20 @@ const Register = () => {
                                                     <input onChange={writeData} value={formData.nev} required type="text" id="nev" className="inputStyleSignup"
                                                     />
                                                 </div>
-                                                <div className="form-group pt-2">
-                                                    <label><span className="redStar">* </span>E-mail cím:</label><br />
-                                                    <input onChange={writeData} value={formData.email} required type="email" id="email" className="inputStyleSignup"
-                                                    />
-                                                </div>
-                                                <div className="form-group pt-2 mx-auto">
-                                                    <label><span className="redStar">* </span>Jelszó:</label><br />
-                                                    <input onChange={writeData} value={formData.jelszo} required type="password" id="jelszo" className="inputStyleSignup"
-                                                    ></input>
-                                                </div>
-                                                <div className="form-group pt-2 mx-auto">
-                                                    <label><span className="redStar">* </span>Jelszó mégegyszer:</label><br />
-                                                    <input required type="password" id="jelszo2" className="inputStyleSignup"
-                                                    />
-                                                </div>
-                                                <p id='pwVerify' className='errorMsg'></p>
+
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Irányítószám:</label><br />
                                                     <input onChange={writeData} value={formData.iranyitoszam} required type="text" id="iranyitoszam" className="inputStyleSignup"
                                                     />
                                                 </div>
-                                            </div>
-                                            <div className="col-md">
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Település neve:</label><br />
                                                     <input onChange={writeData} value={formData.telepules_nev} required type="text" id="telepulesNev" className="inputStyleSignup"
+                                                    />
+                                                </div>
+                                                <div className="form-group pt-2 mx-auto">
+                                                    <label><span className="redStar">* </span>Közterület neve:</label><br />
+                                                    <input onChange={writeData} value={formData.kozterulet_nev} required type="text" id="kozteruletNev" className="inputStyleSignup"
                                                     />
                                                 </div>
                                                 <div className="form-group pt-2 mx-auto">
@@ -140,11 +136,10 @@ const Register = () => {
                                                     <input onChange={writeData} value={formData.kozterulet_jelleg} required type="text" id="kozteruletJelleg" className="inputStyleSignup"
                                                     />
                                                 </div>
-                                                <div className="form-group pt-2 mx-auto">
-                                                    <label><span className="redStar">* </span>Közterület neve:</label><br />
-                                                    <input onChange={writeData} value={formData.kozterulet_nev} required type="text" id="kozteruletNev" className="inputStyleSignup"
-                                                    />
-                                                </div>
+
+                                            </div>
+                                            <div className="col-md">
+
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Házszám:</label><br />
                                                     <input onChange={writeData} value={formData.hazszam} required type="text" id="hazszam" className="inputStyleSignup"
@@ -161,6 +156,25 @@ const Register = () => {
                                                     <input onChange={writeData} value={formData.adoszam} type="text" id="adoszam" className="inputStyleSignup"
                                                     />
                                                 </div>
+                                                <div className="form-group pt-2">
+                                                    <label><span className="redStar">* </span>E-mail cím:</label><br />
+                                                    <input onChange={writeData} value={formData.email} required type="email" id="email" className="inputStyleSignup"
+                                                    />
+                                                </div>
+                                                <div className="form-group pt-2 mx-auto">
+                                                    <label><span className="redStar">* </span>Jelszó:</label><br />
+                                                    <input onChange={writeData} value={formData.jelszo} required type="password" id="jelszo" className="inputStyleSignup"
+                                                    ></input>
+                                                </div>
+
+                                            </div>
+                                            <div>
+                                                <div className="form-group pt-2 mx-auto">
+                                                    <label><span className="redStar">* </span>Jelszó mégegyszer:</label><br />
+                                                    <input onChange={writeDatajelszo2} required type="password" id="jelszo2" className="inputStyleSignup"
+                                                    />
+                                                </div>
+                                                <p id='pwVerify' className='errorMsg'></p>
                                             </div>
                                         </div>
                                     </div>
