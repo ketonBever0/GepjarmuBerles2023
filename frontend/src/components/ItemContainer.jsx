@@ -22,7 +22,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
 
   useEffect(() => {
     fetchJarmuvek();
-    update();
+    // update();
   }, [marka, modell, jarmutipus, ferohely])
 
 

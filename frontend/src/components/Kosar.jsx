@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { XCircle, XCircleFill } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 import KosarContext from './context/KosarContext';
 
 function Kosar() {
@@ -10,7 +11,7 @@ function Kosar() {
         isOpen, setIsOpen
     } = useContext(KosarContext);
 
-
+    const navigate = useNavigate();
 
 
     return (
@@ -29,7 +30,17 @@ function Kosar() {
                     :
                     <div>Üres</div>
             }
-            <button className='btn btn-primary' disabled={kosar.length==0} onClick={e=>{e.preventDefault();}}>Tovább</button>
+            <button className='btn btn-primary' disabled={kosar.length == 0} onClick={
+                e => {
+                    e.preventDefault();
+                    localStorage.setItem("kosarBackup", JSON.stringify(kosar));
+                    setIsOpen(false);
+                    // console.log(JSON.parse(localStorage.getItem("kosarBackup")));
+                    setKosar([]);
+
+                    navigate('/checkout');
+                }
+            }>Tovább</button>
 
         </div>
     )

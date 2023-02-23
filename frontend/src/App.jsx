@@ -16,6 +16,7 @@ import Register from './components/Register'
 import { KosarProvider } from './components/context/KosarContext';
 import CartContainer from './components/CartContainer';
 import VehicleUpdateForm from './components/VehicleUpdateForm';
+import Checkout from './components/Checkout';
 
 
 
@@ -39,10 +40,11 @@ function App() {
                 <Route path="/updatevehicle" element={<VehicleUpdateForm />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/checkout" element={<Checkout />} />
               </Routes>
               <Footer />
+              <CartContainer />
             </Router>
-            <CartContainer />
 
 
 
