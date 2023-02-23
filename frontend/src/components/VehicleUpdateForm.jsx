@@ -1,11 +1,15 @@
 import { useContext, useState } from 'react';
 import FilterFormContext from './context/FilterFormContext';
 import JarmuContext from './context/JarmuContext';
+import UpdateBtn from './UpdateBtn';
 
-const VehicleUpdateForm = () => {
+const VehicleUpdateForm = (gepj) => {
+
+    const {osszesJarmu} = useContext(JarmuContext);
+
 
     let formObj = {
-        //id: {gepj_id},
+        id: 0,
         rendszam: "",
         marka: "",
         modell: "",
@@ -46,13 +50,15 @@ const VehicleUpdateForm = () => {
     }
 
     const logging = () => {
-        console.log()
+        console.log("gepj adat: ", gepj);
     }
 
     return (
         <div>
+            <button onClick={logging} className='btn btn-info'>hi</button>
+
             <form onSubmit={onSubmit} className="w-100 bg-cyan2">
-                <h5 className="text-dark p-4 text-center">Új gépjármű felvétele:</h5>
+                <h5 className="text-dark p-4 text-center">Gépjármű módosítása:</h5>
                 <div className="container d-grid gap-5 p-5">
                     <div className="row">
 
@@ -133,9 +139,9 @@ const VehicleUpdateForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="gepjarmuTipus"><span className="redStar">* </span>Gépjármű típus:</label>
                                 <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
-                                    {
+                                    {/* {
                                         tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
-                                    }
+                                    } */}
 
                                 </select>
                             </div>
@@ -146,9 +152,9 @@ const VehicleUpdateForm = () => {
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
                                 <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
-                                    {
+                                    {/* {
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
-                                    }
+                                    } */}
 
                                 </select>
                             </div>
@@ -163,7 +169,7 @@ const VehicleUpdateForm = () => {
                         </div>
                     </div>
 
-                    <input onClick={logging} type="submit" value={"Küldés!"} className="btn btn-primary width-5rem m-auto" id="gepjarmuKuldesGomb"></input>
+                    <input type="submit" value={"Küldés!"} className="btn btn-primary width-5rem m-auto" id="gepjarmuKuldesGomb"></input>
                     <span> <i className="fas fa-info-circle text-xl"></i> <span className="redStar">*</span> A csillaggal megjelöltek kitöltése kötelező!</span>
                 </div>
             </form>

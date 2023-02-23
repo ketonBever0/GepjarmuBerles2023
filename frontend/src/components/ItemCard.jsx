@@ -23,7 +23,6 @@ const ItemCard = ({ jarmu }) => {
     }
 
 
-
     return (
         <div className="col-md-4 d-flex justify-content-center h-">
             <div className="card" style={{ width: "18rem" }}>
@@ -45,7 +44,7 @@ const ItemCard = ({ jarmu }) => {
                             (
                             <>
                                 <DeleteBtn gepj_id={jarmu.id}/>
-                                <UpdateBtn gepj_id={jarmu.id}/>
+                                <UpdateBtn gepj={jarmu}/>
                             </>
                             ):
                             (
