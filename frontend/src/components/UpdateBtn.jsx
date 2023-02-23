@@ -9,7 +9,7 @@ const UpdateBtn = ({gepj}) => {
 
     const navigate = useNavigate();
 
-    const { update, updateNavigate } = useContext(JarmuContext)
+    const { update, updateNavigate } = useContext(JarmuContext);
 
     const navToUpdateForm = async () => {
          await updateNavigate({gepj}); 
