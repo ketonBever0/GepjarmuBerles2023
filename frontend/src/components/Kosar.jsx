@@ -31,6 +31,8 @@ function Kosar() {
                     :
                     <div>Üres</div>
             }
+            <button className='btn btn-danger' disabled={kosar.length == 0} onClick={e => { e.preventDefault(); setKosar([]); }}>Ürítés</button>
+
             <button className='btn btn-primary' disabled={kosar.length == 0} onClick={
                 e => {
                     e.preventDefault();
