@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import JarmuContext from '../components/context/JarmuContext';
 import "../css/navigationbar.css"
 import KosarContext from './context/KosarContext';
+import { confirm } from "react-confirm-box";
+import Notify from './allUse/Toast';
 
 
 const NavigationBar = () => {
@@ -13,6 +15,14 @@ const NavigationBar = () => {
     const { kosar, setKosar } = useContext(KosarContext);
 
     const token = sessionStorage.getItem('usertoken');
+
+    const confirmBoxOptions = {
+        labels: {
+            confirmable: "Igen",
+            cancellable: "Nem"
+        },
+        closeOnOverlayClick: true
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top"> {/* position-sticky kiszedve */}
@@ -33,7 +43,11 @@ const NavigationBar = () => {
                         {
                             token ?
                                 (
-                                    <><a onClick={() => { setKosar([]); logout(); navigate('/') }} className="nav-link">Kijelentkezés</a></>
+                                    <><a onClick={async () => {
+                                        if (await confirm("Biztosan ki szeretne lépni?")) {
+                                            setKosar([]); logout(); Notify.tSuccess("Sikeres kijelentkezés!"); navigate('/')
+                                        }
+                                    }} className="nav-link">Kijelentkezés</a></>
                                 ) :
                                 (
                                     <>
@@ -42,6 +56,8 @@ const NavigationBar = () => {
                                     </>
                                 )
                         }
+
+
 
                     </div>
                 </div>

@@ -29,11 +29,11 @@ export const JarmuProvider = ({ children }) => {
     }
 
     const logout = () => {
-        let kerdes = window.confirm("Biztosan ki szeretne lépni?");
-        if (kerdes) {
+        // let kerdes = window.confirm("Biztosan ki szeretne lépni?");
+        // if (kerdes) {
             sessionStorage.removeItem('usertoken');
             update();
-        }
+        // }
 
     }
 
