@@ -1,4 +1,4 @@
-import FormCim from "./FormCim"
+import FormCim from "./form/FormCim"
 
 const AboutUs = () => {
   return (

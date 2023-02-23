@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import KosarContext from './context/KosarContext'
+import KosarContext from '../context/KosarContext'
 
 function Checkout() {
 

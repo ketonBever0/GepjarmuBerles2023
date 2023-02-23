@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import { Link } from "react-router-dom"
-import KosarContext from "./context/KosarContext"
+import { Link, useNavigate } from "react-router-dom"
+import KosarContext from "../context/KosarContext"
 import DeleteBtn from "./DeleteBtn"
 import UpdateBtn from "./UpdateBtn"
 
@@ -11,6 +11,8 @@ const ItemCard = ({ jarmu }) => {
     const {
         addToBasket
     } = useContext(KosarContext);
+
+    const navigate = useNavigate();
 
 
 
@@ -38,7 +40,13 @@ const ItemCard = ({ jarmu }) => {
                         {/* <li className="list-group-item">A third item</li> */}
                     </ul>
                     {jarmu.kedvezmeny != null && jarmu.kedvezmeny != 0 && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
-                    <button className="btn btn-primary px-4 py-3 my-3" onClick={(e) => { e.preventDefault(); addToBasket(jarmu) }}><h5>{arazas()} ft/nap</h5></button>
+                    <button className="btn btn-primary px-4 py-3 my-3" onClick={
+                        (e) => {
+                            e.preventDefault();
+                            if (token) addToBasket(jarmu);
+                            else navigate('/login');
+                        }
+                    }><h5>{arazas()} ft/nap</h5></button>
                     {
                         token ?
                             (

@@ -1,4 +1,4 @@
-import NavigationBar from "./NavigationBar"
+import NavigationBar from "../NavigationBar"
 import BackgroundImage from "./BackgroundImage"
 const Header = () => {
   return (

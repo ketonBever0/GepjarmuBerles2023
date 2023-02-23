@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import JarmuContext from './context/jarmuContext'
-import FormContainer from './FormContainer'
-import ItemContainer from './ItemContainer'
+import FormContainer from './form/FormContainer'
+import ItemContainer from './Items/ItemContainer'
 import ReviewContainer from './ReviewContainer'
 
 const Main = () => {

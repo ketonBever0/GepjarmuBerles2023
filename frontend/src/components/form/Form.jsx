@@ -1,7 +1,7 @@
-import '../css/form.css'
+import '../../css/form.css'
 import { useContext, useEffect, useState } from 'react';
-import JarmuContext from './context/JarmuContext';
-import FilterFormContext from './context/FilterFormContext';
+import JarmuContext from '../context/JarmuContext';
+import FilterFormContext from '../context/FilterFormContext';
 
 const Form = () => {
 
