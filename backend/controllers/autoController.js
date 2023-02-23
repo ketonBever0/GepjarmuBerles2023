@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+
 const conn = mysql.createConnection({
     "host": "localhost",
     "user": "root",
@@ -6,8 +7,20 @@ const conn = mysql.createConnection({
     "database": "gepjarmu"
 });
 
+const db = require('../models/sequelizeConfig');
+const Vehicle = db.vehicles;
+
 //SELECT
-const getVehicles = (req, res) => {
+const getVehicles = async(req, res) => {
+    const vehicles = await Vehicle.findAll({
+        attributes: {
+            exclude: ['kilometerora_allas']
+        },
+        include: [{
+            model: db.arkategoriak,
+            attributes: ['gepjarmu_tipus', 'berleti_dij']
+        }]
+    });
     conn.query(
         `
             SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar", g.kep_url
@@ -17,8 +30,9 @@ const getVehicles = (req, res) => {
     [],
     (err, rows) => {
         if(err) res.status(400).send(err);
-        res.json(rows);
     });
+
+    res.json(vehicles);
 }
 
 const getVehicleBrands = (req, res) => {

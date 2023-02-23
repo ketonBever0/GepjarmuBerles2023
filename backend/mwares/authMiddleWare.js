@@ -18,7 +18,6 @@ const protect = (req,res,next) => {
                     id: idFromtoken.id
                 }
             });
-
             next();
             
         } catch (error) {
