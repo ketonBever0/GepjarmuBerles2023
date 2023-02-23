@@ -9,6 +9,7 @@ export const KosarProvider = ({ children }) => {
     const [kosarMennyiseg, setKosarMennyiseg] = useState(0);
     const [refresh, setRefresh] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [kosarBackup, setKosarBackup] = useState(null);
 
     const update = prev => setRefresh(!prev);
 
@@ -18,13 +19,23 @@ export const KosarProvider = ({ children }) => {
     }
 
 
+    // useEffect(() => {
+    //     localStorage.setItem("kosarBackup", kosar);
+    // }, [kosar])
+
+
+    const sendRent = () => {
+
+    }
 
     return <KosarContext.Provider value={{
         kosar, setKosar,
         kosarMennyiseg, setKosarMennyiseg,
         update, refresh,
         isOpen, setIsOpen,
-        addToBasket
+        addToBasket,
+        kosarBackup, setKosarBackup,
+        sendRent
     }}>{children}</KosarContext.Provider>
 
 }

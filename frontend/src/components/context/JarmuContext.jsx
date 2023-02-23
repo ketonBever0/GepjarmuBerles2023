@@ -29,10 +29,16 @@ export const JarmuProvider = ({ children }) => {
         // console.log(osszesJarmu);
     }
 
-    // const logout = () => {
-    //     sessionStorage.removeItem('usertoken');
-    //     update();
-    // }
+    const logout = () => {
+        let kerdes = window.confirm("Biztosan ki szeretne lépni?");
+        if (kerdes) {
+            sessionStorage.removeItem('usertoken');
+            update();
+        }
+
+
+
+    }
 
     return <JarmuContext.Provider value={{
         refresh, update,

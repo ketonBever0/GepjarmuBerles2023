@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { XCircle, XCircleFill } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
+import Notify from './allUse/Toast';
 import KosarContext from './context/KosarContext';
 
 function Kosar() {
@@ -7,10 +9,13 @@ function Kosar() {
     const {
         kosar, setKosar,
         update, refresh,
-        isOpen, setIsOpen
+        isOpen, setIsOpen,
+        setKosarBackup
     } = useContext(KosarContext);
 
+    const navigate = useNavigate();
 
+    const token = sessionStorage.getItem("token");
 
 
     return (
@@ -29,7 +34,25 @@ function Kosar() {
                     :
                     <div>Üres</div>
             }
-            <button className='btn btn-primary' disabled={kosar.length==0} onClick={e=>{e.preventDefault();}}>Tovább</button>
+            <button className='btn btn-danger' disabled={kosar.length == 0} onClick={e => { e.preventDefault(); setKosar([]); }}>Ürítés</button>
+
+            <button className='btn btn-primary' disabled={kosar.length == 0} onClick={
+                e => {
+                    e.preventDefault();
+                    localStorage.setItem("kosarBackup", JSON.stringify(kosar));
+                    setKosarBackup(kosar);
+                    setIsOpen(false);
+                    // console.log(JSON.parse(localStorage.getItem("kosarBackup")));
+                    setKosar([]);
+
+                    if (token) {
+                        navigate('/checkout');
+                    } else {
+                        // Notify.tError("Ehhez be kell jelentkezni!");
+                        navigate('/login');
+                    }
+                }
+            }>Tovább</button>
 
         </div>
     )

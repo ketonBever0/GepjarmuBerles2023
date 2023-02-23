@@ -7,15 +7,10 @@ import "../css/navigationbar.css"
 
 const NavigationBar = () => {
 
-        const logout = () => {
-        sessionStorage.removeItem('usertoken');
-        //update();
-    }
-
     const navigate = useNavigate();
-    //const {logout} = useContext(JarmuContext);
+    const {logout} = useContext(JarmuContext);
 
-    const token=sessionStorage.getItem('usertoken');
+    const token = sessionStorage.getItem('usertoken');
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top"> {/* position-sticky kiszedve */}
@@ -33,19 +28,23 @@ const NavigationBar = () => {
                         <Link to={'/gyik'} className="nav-link">GYIK</Link>
                         <Link to={'/contact'} className="nav-link">Elérhetőségeink</Link>
                         <Link to={'/about'} className="nav-link">Rólunk</Link>
-                        <Link to={'/register'} className="nav-link">Regisztráció</Link>
                         {
-                            token ? 
-                            (
-                            <><a onClick={()=>{logout();navigate('/')}} className="nav-link">Kijelentkezés</a></>
-                            ):
-                            (<><Link to={'/login'} className="nav-link">Bejelentkezés</Link></>)
+                            token ?
+                                (
+                                    <><a onClick={() => { logout(); navigate('/') }} className="nav-link">Kijelentkezés</a></>
+                                ) :
+                                (
+                                    <>
+                                        <Link to={'/login'} className="nav-link">Bejelentkezés</Link>
+                                        <Link to={'/register'} className="nav-link">Regisztráció</Link>
+                                    </>
+                                )
                         }
 
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav >
     )
 }
 

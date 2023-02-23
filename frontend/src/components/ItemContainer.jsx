@@ -1,6 +1,6 @@
 import ItemCard from "./ItemCard";
 import { useState, useEffect, useContext } from "react";
-import JarmuContext from "./context/jarmuContext";
+import JarmuContext from "./context/JarmuContext";
 import FilterFormContext from "./context/FilterFormContext";
 import { MagnifyingGlass } from "react-loader-spinner";
 
@@ -22,7 +22,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
 
   useEffect(() => {
     fetchJarmuvek();
-    update();
+    // update();
   }, [marka, modell, jarmutipus, ferohely])
 
 
