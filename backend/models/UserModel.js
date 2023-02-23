@@ -39,12 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         kedvezmeny: {
             type: DataTypes.INTEGER
         }
-    },{
+    },
+    {
         tableName: "berlok",
         timestamps: false,
         createdAt: false,
         updatedAt: false,
-    });
-    
+    }
+);
     return User;
 }

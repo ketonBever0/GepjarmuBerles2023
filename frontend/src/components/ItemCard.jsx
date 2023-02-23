@@ -6,8 +6,8 @@ import UpdateBtn from "./UpdateBtn"
 
 const ItemCard = ({ jarmu }) => {
 
-    const token=sessionStorage.getItem('usertoken');
-    
+    const token = sessionStorage.getItem('usertoken');
+
     const {
         addToBasket
     } = useContext(KosarContext);
@@ -37,10 +37,10 @@ const ItemCard = ({ jarmu }) => {
                         <li className="list-group-item"><b>Rendszám:</b> {jarmu.rendszam}</li>
                         {/* <li className="list-group-item">A third item</li> */}
                     </ul>
-                    {jarmu.kedvezmeny && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
+                    {jarmu.kedvezmeny != null && jarmu.kedvezmeny != 0 && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
                     <button className="btn btn-primary px-4 py-3 my-3" onClick={(e) => { e.preventDefault(); addToBasket(jarmu) }}><h5>{arazas()} ft/nap</h5></button>
                     {
-                            token ? 
+                        token ?
                             (
                             <>
                                 <DeleteBtn gepj_id={jarmu.id}/>
@@ -48,10 +48,10 @@ const ItemCard = ({ jarmu }) => {
                             </>
                             ):
                             (
-                            <></>
+                                <></>
                             )
-                            }
-                    
+                    }
+
                 </div>
             </div>
         </div>
