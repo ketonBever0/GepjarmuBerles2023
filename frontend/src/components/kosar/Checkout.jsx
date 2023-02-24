@@ -47,8 +47,8 @@ function Checkout() {
         <div>
             <h1 className="text-center mt-4">Összesítés</h1>
             <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
-                <h3 className="text-center mt-2">{totalPrice} ft/nap</h3>
-                <button className='btn btn-primary mb-5' disabled={!kosarBackup || totalPrice==0} onClick={e => { e.preventDefault(); }}>Bérlés</button>
+                <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
+                <button className='btn btn-primary mb-5 w-75' style={{height:"4rem", fontSize:"20pt"}} disabled={!kosarBackup || totalPrice == 0} onClick={e => { e.preventDefault(); }}>Bérlés leadása</button>
                 {kosarBackup ?
                     kosarBackup.map((elem, index) => (
                         <div className="col-md-4 d-flex justify-content-center h-">
@@ -62,10 +62,11 @@ function Checkout() {
                                         <li className="list-group-item"><b>Férőhely: </b>{elem.ferohely}</li>
                                         <li className="list-group-item"><b>Üzemanyag kapacitás: </b>{elem.uzemanyag_kapacitas} liter</li>
                                         <li className="list-group-item"><b>Rendszám:</b> {elem.rendszam}</li>
-                                        {/* <li className="list-group-item">A third item</li> */}
                                     </ul>
                                     {elem.kedvezmeny && <div className="d-block badge bg-success p-2"><h5>{elem.kedvezmeny}% kedvezmény</h5></div>}
-                                    <div>{arazas(elem)}</div>
+                                    <ul className="list-group list-group-flush mb-4">
+                                        <div className='list-group-item mt-4'><h3><b>Ár:</b> {arazas(elem)} ft/nap</h3></div>
+                                    </ul>
                                     <button className="btn btn-danger px-4 py-3 my-3" onClick={
                                         async e => {
                                             e.preventDefault();

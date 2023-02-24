@@ -4,7 +4,7 @@ const db = require("../models/sequelizeConfig");
 const User = db.users;
 
 const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30s'});
 }
 
 const register = async(req, res) => {
