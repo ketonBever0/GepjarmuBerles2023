@@ -6,7 +6,8 @@ function Checkout() {
 
     const {
         kosarBackup, setKosarBackup,
-        update, refresh
+        update, refresh,
+        sendRent
     } = useContext(KosarContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
@@ -26,10 +27,8 @@ function Checkout() {
 
 
     useEffect(() => {
-        // setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
         kosarBackup && localStorage.setItem("kosarBackup", JSON.stringify(kosarBackup));
         setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
-        // kosarBackup && console.log(kosarBackup);
     }, [refresh]);
 
     const arazas = (elem) => {
@@ -48,7 +47,10 @@ function Checkout() {
             <h1 className="text-center mt-4">Összesítés</h1>
             <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
                 <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
-                <button className='btn btn-primary mb-5 w-75' style={{height:"4rem", fontSize:"20pt"}} disabled={!kosarBackup || totalPrice == 0} onClick={e => { e.preventDefault(); }}>Bérlés leadása</button>
+                <button className='btn btn-primary mb-5 w-75' style={{ height: "4rem", fontSize: "20pt" }} disabled={!kosarBackup || totalPrice == 0} onClick={e => {
+                    e.preventDefault();
+                    sendRent(kosarBackup);
+                }}>Bérlés leadása</button>
                 {kosarBackup ?
                     kosarBackup.map((elem, index) => (
                         <div className="col-md-4 d-flex justify-content-center h-">

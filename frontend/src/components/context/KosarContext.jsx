@@ -23,9 +23,35 @@ export const KosarProvider = ({ children }) => {
     //     localStorage.setItem("kosarBackup", kosar);
     // }, [kosar])
 
+    const sendRentToApi = async (product) => {
+        await fetch('http:/localhost:8000/api/gepjarmuberles/berlesnyugtak/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                berlesKezdete: "",
+                berlesVege: null,
+                idotartam: "",
+                gepjarmu_allapot: null,
+                uzemanyagszint: null,
+                napiDij: "",
+                kedvezmeny: "",
+                bloId: "",
+                gjuId: ""
 
-    const sendRent = () => {
+            }
+        })
+    }
 
+
+    const sendRent = async (products) => {
+        // console.log(products);
+
+        products != null && products.length != 0 &&
+            products.map((product, index) => {
+                console.log(product);
+            });
     }
 
     return <KosarContext.Provider value={{
