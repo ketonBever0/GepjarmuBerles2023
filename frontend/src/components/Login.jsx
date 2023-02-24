@@ -1,6 +1,6 @@
 import '../css/login.css'
 import { useState, useContext } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Notify from './allUse/Toast';
 import JarmuContext from './context/JarmuContext';
 
@@ -8,7 +8,7 @@ import JarmuContext from './context/JarmuContext';
 
 const Login = () => {
 
-    const {update} = useContext(JarmuContext);
+    const { update } = useContext(JarmuContext);
     const navigate = useNavigate();
 
     let formObj = {
@@ -18,33 +18,33 @@ const Login = () => {
 
     const [formData, setFormData] = useState(formObj);
 
-    const sendData=(formData,method)=>{
-        fetch('http://localhost:8000/api/gepjarmuberles/users/login',{
-          method:method,
-          headers:{'Content-type':'application/json'},
-          body:JSON.stringify(formData)
+    const sendData = (formData, method) => {
+        fetch('http://localhost:8000/api/gepjarmuberles/users/login', {
+            method: method,
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(formData)
         })
-        .then(res=>res.json())
-        .then(token=>{
-          if(!token.message){
-            sessionStorage.setItem('usertoken',token);
-            Notify.tSuccess("Sikeres bejelentkezés!")
+            .then(res => res.json())
+            .then(token => {
+                if (!token.message) {
+                    sessionStorage.setItem('usertoken', token.token);
+                    Notify.tSuccess("Sikeres bejelentkezés!")
 
-            update();
+                    update();
 
-            navigate('/');
-          } else {
-            Notify.tError(token.message);
-          }
-        })
-        .catch(err=>Notify.tError(err));
-      }
-        
-    
-      const onSubmit = (e) => {
-            e.preventDefault();   
-            sendData(formData,'POST');
-      }
+                    navigate('/');
+                } else {
+                    Notify.tError(token.message);
+                }
+            })
+            .catch(err => Notify.tError(err));
+    }
+
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        sendData(formData, 'POST');
+    }
 
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
