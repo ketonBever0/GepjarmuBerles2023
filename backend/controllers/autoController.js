@@ -14,19 +14,17 @@ const getVehicles = async (req, res) => {
     const vehicles = await Vehicle.findAll({
         include: Arkategoria
     });
-    // conn.query(
-    //     `
-    //         SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar", g.kep_url
-    //         FROM gepjarmuvek g, arkategoriak a
-    //         WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
-    //     `,
-    // [],
-    // (err, rows) => {
-    //     if(err) res.status(400).send(err);
-    //     res.json(rows);
-    // });
-
-    res.json(vehicles);
+    conn.query(
+         `
+             SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar", g.kep_url
+             FROM gepjarmuvek g, arkategoriak a
+             WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
+         `,
+    [],
+    (err, rows) => {
+        if(err) res.status(400).send(err);
+        res.json(rows);
+    });
 }
 
 const getVehicleBrands = (req, res) => {
