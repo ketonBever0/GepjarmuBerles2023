@@ -12,10 +12,7 @@ function Checkout() {
     } = useContext(KosarContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
-    const [rentalTimes, setRentalTimes] = useState({
-        berlesKezdete: null,
-        idotartam: null
-    });
+
 
 
     useEffect(() => {
@@ -46,21 +43,30 @@ function Checkout() {
         }
     }
 
-    // const addLeadingZero = (digit) => {
-    //     const intDigit = intDigit(digit);
-    //     if(intDigit<10){
-            
-    //     }
-    // }
+    const addLeadingZero = (digit) => {
+        var intDigit = parseInt(digit);
+        if (intDigit < 10) {
+            intDigit = `0${intDigit}`
+        }
+        return intDigit
+    }
 
     const date = new Date();
+    const formatedDate = `${date.getFullYear()}-${addLeadingZero(date.getMonth() + 1)}-${addLeadingZero(date.getDate())}`;
+
+
+
+    const [rentalTimes, setRentalTimes] = useState({
+        berlesKezdete: formatedDate,
+        idotartam: 0
+    });
 
     useEffect(() => {
         setRentalData({
             kosar: kosarBackup || null,
             rentalTimes: rentalTimes || null
         });
-        console.log(`${date.JSON}`)
+        // console.log(formatedDate);
     }, [kosarBackup, rentalTimes])
 
 
@@ -68,6 +74,11 @@ function Checkout() {
         setRentalTimes({
             ...rentalTimes,
             [e.target.id]: e.target.value
+        })
+        // console.log(rentalTimes)
+        setRentalData({
+            ...rentalData,
+            rentalTimes: rentalTimes
         })
     }
 
@@ -84,7 +95,7 @@ function Checkout() {
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="berlesKezdete"><span className="redStar">* </span>Bérlés kezdete:</label>
-                                <input required type="date" value={rentalTimes.berlesKezdete} defaultValue={`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`} className="form-control bg-secondary2 border-secondary minwidth-50" id="berlesKezdete" />
+                                <input required type="date" value={rentalTimes.berlesKezdete} defaultValue={formatedDate} min={formatedDate} className="form-control bg-secondary2 border-secondary minwidth-50" id="berlesKezdete" />
                             </div>
                         </div>
 
