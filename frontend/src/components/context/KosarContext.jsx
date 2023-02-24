@@ -46,12 +46,30 @@ export const KosarProvider = ({ children }) => {
     }
 
 
-    const sendRent = async (products) => {
+    const sendRent = async (data) => {
         // console.log(products);
 
-        products != null && products.length != 0 &&
-            products.map((product, index) => {
-                sendRentToApi(product);
+        data != null && data.length != 0 &&
+            data.kosar.map(async (item, index) => {
+                // sendRentToApi(product);
+                await fetch('http://localhost:8000/api/gepjarmuberles/berlesnyugtak/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: {
+                        berlesKezdete: data.rentalTimes.berlesKezdete,
+                        berlesVege: null,
+                        idotartam: data.rentalTimes.idotartam == null || data.rentalTimes.idotartam == 0 ? null : data.rentalTimes.idotartam,
+                        gepjarmu_allapot: null,
+                        uzemanyagszint: null,
+                        napiDij: item.egyedi_ar || item.kategoria_ar,
+                        kedvezmeny: item.kedvezmeny || null,
+                        bloId: data.userData.id,
+                        gjuId: item.id
+
+                    }
+                })
             });
     }
 
