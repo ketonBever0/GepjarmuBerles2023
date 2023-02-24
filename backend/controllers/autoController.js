@@ -11,9 +11,9 @@ const conn = mysql.createConnection({
 
 //SELECT
 const getVehicles = async (req, res) => {
-    const vehicles = await Vehicle.findAll({
-        include: Arkategoria
-    });
+    // const vehicles = await Vehicle.findAll({
+    //     include: Arkategoria
+    // });
     conn.query(
          `
              SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, a.berleti_dij as "kategoria_ar", g.kep_url
