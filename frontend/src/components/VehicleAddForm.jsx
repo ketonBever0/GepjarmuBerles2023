@@ -124,7 +124,7 @@ const VehicleAddForm = () => {
                     <div className="row">
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
-                                <label htmlFor="egyediAr"><span className="redStar">* </span>Egyedi ár:</label>
+                                <label htmlFor="egyediAr">Egyedi ár:</label>
                                 <input onChange={writeData} type='number' placeholder="(opcionális)"
                                     className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr" />
                             </div>

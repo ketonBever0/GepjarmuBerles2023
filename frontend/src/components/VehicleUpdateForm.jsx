@@ -1,28 +1,68 @@
 import { useContext, useState } from 'react';
 import FilterFormContext from './context/FilterFormContext';
 import JarmuContext from './context/JarmuContext';
+import UserContext from './context/UserContext';
 import UpdateBtn from './Items/UpdateBtn';
+import Notify from './allUse/Toast';
 
 const VehicleUpdateForm = () => {
 
-    const {adatObj, tipusok} = useContext(JarmuContext);    //megkaptuk az adott gépjármű adatokat a Contextből, ennek a propjait (pl. rendszám) használhatjuk arra, hogy az input mezőkbe beletegyük value-ként a módosítandó gépj. adatait
+    const {adatObj} = useContext(UserContext);    //megkaptuk az adott gépjármű adatokat a Contextből, ennek a propjait (pl. rendszám) használhatjuk arra, hogy az input mezőkbe beletegyük value-ként a módosítandó gépj. adatait
+    
 
-    let formObj = {
-        id: 0,
-        rendszam: "",
-        marka: "",
-        modell: "",
-        kmallas: 0,
-        muszakiErvenyesseg: "",
-        uzemanyagkapacitas: 0,
-        ferohely: 0,
-        kedvezmeny: 0,
-        egyediAr: 0,
-        gepjarmuTipus: "",
-        thely: "",
-        kepUrl: ""
+
+
+    const {tipusok, telephelyek} = useContext(FilterFormContext);
+    
+    const addLeadingZero = (digit) => {
+        var intDigit = parseInt(digit);
+        if (intDigit < 10) {
+            return ('0'+intDigit)
+        }
+    }
+
+    const stringToDate = (toBeParsedString) => {
+        const myDate = new Date(toBeParsedString);
+        
+        const myYear = myDate.getFullYear();
+        const myMonth = myDate.getMonth();
+        const myDay = myDate.getDay();
+        return ( myYear + '-' + addLeadingZero(myMonth) + '-' + addLeadingZero(myDay) );
+    }
+
+    
+
+    let formObj = {     //alaphelyzetben a formObj adatai a beérkezett gépjármű adatai.
+        id: adatObj.gepj.id,
+        rendszam: adatObj.gepj.rendszam,
+        marka: adatObj.gepj.marka,
+        modell: adatObj.gepj.modell,
+        kmallas: adatObj.gepj.kilometerora_allas,
+        muszakiErvenyesseg: stringToDate(adatObj.gepj.muszaki_ervenyesseg),
+        uzemanyagkapacitas: adatObj.gepj.uzemanyag_kapacitas,
+        ferohely: adatObj.gepj.ferohely,
+        kedvezmeny: adatObj.gepj.kedvezmeny,
+        egyediAr: adatObj.gepj.egyedi_ar,
+        gepjarmuTipus: adatObj.gepj.aka_gepjarmu_tipus,
+        thely: adatObj.gepj.thly_id,
+        kepUrl: adatObj.gepj.kep_url
     };
 
+    sessionStorage.setItem(
+        formObj.id = adatObj.gepj.id,
+        formObj.rendszam = adatObj.gepj.rendszam,
+        formObj.marka = adatObj.gepj.marka,
+        formObj.modell = adatObj.gepj.modell,
+        formObj.kmallas = adatObj.gepj.kilometerora_allas,
+        formObj.muszakiErvenyesseg = stringToDate(adatObj.gepj.muszaki_ervenyesseg),
+        formObj.uzemanyagkapacitas = adatObj.gepj.uzemanyag_kapacitas,
+        formObj.ferohely = adatObj.gepj.ferohely,
+        formObj.kedvezmeny = adatObj.gepj.kedvezmeny,
+        formObj.egyediAr = adatObj.gepj.egyedi_ar,
+        formObj.gepjarmuTipus = adatObj.gepj.aka_gepjarmu_tipus,
+        formObj.thely = adatObj.gepj.thly_id,
+        formObj.kepUrl = adatObj.gepj.kep_url
+    );
     const [formData, setFormData] = useState(formObj);
 
     const adatKuldes = (adat, method) => {
@@ -32,9 +72,9 @@ const VehicleUpdateForm = () => {
             body: JSON.stringify(adat)
         })
             .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
+            .then(response => Notify.tSuccess("response: ",JSON.stringify(response)))
             .then(console.log(adat))
-            .catch(err => console.log(err));
+            .catch(err => Notify.tError(err));
 
     }
 
@@ -45,16 +85,26 @@ const VehicleUpdateForm = () => {
 
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
-        console.log(e.target.value, e.target.type);
+        //console.log(e.target.value, e.target.type);
+        console.log(formData);
     }
 
-    // const logging = () => {
-    //     console.log("adatObj adat: ", adatObj);
-    // }
+
+
+    const logging = () => {
+        console.log("adatObj adat: ", adatObj);
+        // console.log(adatObj.gepj.muszaki_ervenyesseg, typeof(adatObj.gepj.muszaki_ervenyesseg));
+        // const myDate = new Date(adatObj.gepj.muszaki_ervenyesseg);
+        // console.log(myDate);
+        // const myYear = myDate.getFullYear();
+        // const myMonth = myDate.getMonth();
+        // const myDay = myDate.getDay();
+        // console.log(myYear+'-'+myMonth+'-'+myDay);
+    }
 
     return (
         <div>
-            {/* <button onClick={logging} className='btn btn-info'>Mutasd az adatObj state-jét</button> */}
+            <button onClick={logging} className='btn btn-info'>Mutasd az adatObj state-jét</button>
 
             <form onSubmit={onSubmit} className="w-100 bg-cyan2">
                 <h5 className="text-dark p-4 text-center">Gépjármű módosítása:</h5>
@@ -86,7 +136,7 @@ const VehicleUpdateForm = () => {
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kmallas"><span className="redStar">* </span>Kilométeróra-állás:</label>
-                                <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50" id="kmallas" value={adatObj.gepj.kmallas} />
+                                <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50" id="kmallas" value={adatObj.gepj.kilometerora_allas} />
                             </div>
                         </div>
                     </div>
@@ -95,7 +145,7 @@ const VehicleUpdateForm = () => {
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto ">
                                 <label htmlFor="muszakiErvenyesseg"><span className="redStar">* </span>Műszaki érvényesség:</label>
-                                <input onChange={writeData} required type="date" className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="muszakiErvenyesseg" value={adatObj.gepj.muszakiErvenyesseg} />
+                                <input onChange={writeData} required type="date" className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="muszakiErvenyesseg" value={stringToDate(adatObj.gepj.muszaki_ervenyesseg)} />
                             </div>
                         </div>
 
@@ -103,7 +153,7 @@ const VehicleUpdateForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="uzemanyagkapacitas" className='overflow'><span className="redStar">* </span>Üzemanyag-kapacitás:</label>
                                 <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50"
-                                    id="uzemanyagkapacitas" value={adatObj.gepj.uzemanyagkapacitas} />
+                                    id="uzemanyagkapacitas"  value={adatObj.gepj.uzemanyag_kapacitas} />
                             </div>
                         </div>
 
@@ -111,7 +161,7 @@ const VehicleUpdateForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="ferohely"><span className="redStar">* </span>Férőhely:</label>
                                 <input onChange={writeData} required type="number" className="form-control bg-secondary2 border-secondary minwidth-50"
-                                    id="ferohely"  value={adatObj.gepj.ferohely}/>
+                                    id="ferohely"  value={adatObj.gepj.ferohely} />
                             </div>
                         </div>
 
@@ -119,7 +169,7 @@ const VehicleUpdateForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kedvezmeny">Kedvezmény (%):</label>
                                 <input onChange={writeData} type="number" placeholder="(opcionális)"
-                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="kedvezmeny"  value={adatObj.gepj.kedvezmeny}/>
+                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="kedvezmeny"  value={adatObj.gepj.kedvezmeny} />
                             </div>
                         </div>
                     </div>
@@ -127,16 +177,16 @@ const VehicleUpdateForm = () => {
                     <div className="row">
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
-                                <label htmlFor="egyediAr"><span className="redStar">* </span>Egyedi ár:</label>
+                                <label htmlFor="egyediAr">Egyedi ár:</label>
                                 <input onChange={writeData} type='number' placeholder="(opcionális)"
-                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr"  value={adatObj.gepj.egyediAr}/>
+                                    className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr"  value={adatObj.gepj.egyedi_ar}/>
                             </div>
                         </div>
 
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="gepjarmuTipus"><span className="redStar">* </span>Gépjármű típus:</label>
-                                <select defaultValue={adatObj.gepj.gepjarmu_tipus} onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
+                                <select defaultValue={adatObj.gepj.aka_gepjarmu_tipus} onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
                                     {
                                         tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
                                     }
@@ -149,10 +199,10 @@ const VehicleUpdateForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
-                                    {/* { select-ben defaultvalue={adatObj.gepj.}
+                                <select defaultValue={adatObj.gepj.thly_id} onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
+                                    {
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
-                                    } */}
+                                    }
 
                                 </select>
                             </div>

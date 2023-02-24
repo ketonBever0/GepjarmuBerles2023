@@ -6,12 +6,13 @@ import "../css/navigationbar.css"
 import KosarContext from './context/KosarContext';
 import { confirm } from "react-confirm-box";
 import Notify from './allUse/Toast';
+import UserContext from './context/UserContext';
 
 
 const NavigationBar = () => {
 
     const navigate = useNavigate();
-    const { logout } = useContext(JarmuContext);
+    const { logout } = useContext(UserContext);
     const { kosar, setKosar } = useContext(KosarContext);
 
     const token = sessionStorage.getItem('usertoken');

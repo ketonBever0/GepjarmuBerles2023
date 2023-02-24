@@ -17,6 +17,7 @@ import { KosarProvider } from './components/context/KosarContext';
 import CartContainer from './components/kosar/CartContainer';
 import VehicleUpdateForm from './components/VehicleUpdateForm';
 import Checkout from './components/kosar/Checkout';
+import { UserProvider } from './components/context/UserContext';
 
 
 
@@ -26,30 +27,29 @@ function App() {
       <JarmuProvider>
         <FilterFormProvider>
           <KosarProvider>
+            <UserProvider>
 
-            <Router>
-              <Header />
-              <Routes>
-                <Route path="*" element={<Main />} />
-                <Route path="/" element={<Main />} />
-                <Route path="/katalogus" element={<Catalog />} />
-                <Route path="/gyik" element={<Faq />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<AboutUs />} />
-                <Route path="/addvehicle" element={<VehicleAddForm />} />
-                <Route path="/updatevehicle" element={<VehicleUpdateForm />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/checkout" element={<Checkout />} />
-              </Routes>
-              <Footer />
-              <CartContainer />
-            </Router>
+              <Router>
+                <Header />
+                <Routes>
+                  <Route path="*" element={<Main />} />
+                  <Route path="/" element={<Main />} />
+                  <Route path="/katalogus" element={<Catalog />} />
+                  <Route path="/gyik" element={<Faq />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<AboutUs />} />
+                  <Route path="/addvehicle" element={<VehicleAddForm />} />
+                  <Route path="/updatevehicle" element={<VehicleUpdateForm />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                </Routes>
+                <Footer />
+                <CartContainer />
+              </Router>
 
-
-
-            <Toaster />
-
+              <Toaster />
+            </UserProvider>
           </KosarProvider>
         </FilterFormProvider>
       </JarmuProvider>

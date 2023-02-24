@@ -17,6 +17,7 @@ export const JarmuProvider = ({ children }) => {
     const [osszesJarmu, setOsszesJarmu] = useState(null);
 
 
+    
 
     const fetchJarmuvek = async () => {
         setIsLoading(true);
@@ -28,28 +29,13 @@ export const JarmuProvider = ({ children }) => {
         // console.log(osszesJarmu);
     }
 
-    const logout = () => {
-        // let kerdes = window.confirm("Biztosan ki szeretne lépni?");
-        // if (kerdes) {
-            sessionStorage.removeItem('usertoken');
-            update();
-        // }
-
-    }
-
-    const [adatObj, setAdatObj] = useState({});     //adatObj lesz az adott gépjármű adat objektum
-
-    const settingCurrentVehicle = (adat) => {      //beállítjuk a gépjármű adatokat itt, hogy az elérhető legyen az update felületnek (VehicleUpdateForm)
-        setAdatObj(adat);
-    }
 
     return <JarmuContext.Provider value={{
         refresh, update,
         isLoading, setIsLoading,
         jarmuvek, setJarmuvek,
         fetchJarmuvek,
-        osszesJarmu, setOsszesJarmu,
-        logout, adatObj, settingCurrentVehicle
+        osszesJarmu, setOsszesJarmu
 
     }}>{children}</JarmuContext.Provider>
 
