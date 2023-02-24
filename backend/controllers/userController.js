@@ -4,7 +4,9 @@ const db = require("../models/sequelizeConfig");
 const User = db.users;
 
 const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+    const hashData = {userid: id }
+    const accessToken = jwt.sign(hashData, process.env.JWT_SECRET, {expiresIn: "1d"});
+    return accessToken;
 }
 
 const register = async(req, res) => {
@@ -55,7 +57,19 @@ const login = async(req, res) => {
     res.json({token: token});
 }
 
+const userData = async(req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const id = jwt.decode(token).userid;
+    const user = await User.findOne({
+         where: {
+             id: id
+         }
+    });
+   res.json(user);
+}
+
 module.exports = {
     register,
-    login
+    login,
+    userData
 }

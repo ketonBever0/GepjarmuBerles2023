@@ -6,10 +6,10 @@ const KosarContext = createContext();
 export const KosarProvider = ({ children }) => {
 
     const [kosar, setKosar] = useState([]);
-    const [kosarMennyiseg, setKosarMennyiseg] = useState(0);
     const [refresh, setRefresh] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [kosarBackup, setKosarBackup] = useState(null);
+    const [rentalData, setRentalData] = useState(null);
 
     const update = prev => setRefresh(!prev);
 
@@ -23,18 +23,45 @@ export const KosarProvider = ({ children }) => {
     //     localStorage.setItem("kosarBackup", kosar);
     // }, [kosar])
 
+    const sendRentToApi = async (product) => {
+        console.log(product);
+        await fetch('http:/localhost:8000/api/gepjarmuberles/berlesnyugtak/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                berlesKezdete: "",
+                berlesVege: null,
+                idotartam: "",
+                gepjarmu_allapot: null,
+                uzemanyagszint: null,
+                napiDij: product.egyedi_ar || kategoria_ar,
+                kedvezmeny: product.kedvezmeny || null,
+                bloId: "",
+                gjuId: product.id
 
-    const sendRent = () => {
+            }
+        })
+    }
 
+
+    const sendRent = async (products) => {
+        // console.log(products);
+
+        products != null && products.length != 0 &&
+            products.map((product, index) => {
+                sendRentToApi(product);
+            });
     }
 
     return <KosarContext.Provider value={{
         kosar, setKosar,
-        kosarMennyiseg, setKosarMennyiseg,
         update, refresh,
         isOpen, setIsOpen,
         addToBasket,
         kosarBackup, setKosarBackup,
+        rentalData, setRentalData,
         sendRent
     }}>{children}</KosarContext.Provider>
 

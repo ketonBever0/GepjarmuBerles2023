@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/vehicleform.css'
 import FilterFormContext from './context/FilterFormContext';
 
@@ -49,6 +50,14 @@ const VehicleAddForm = () => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
         console.log(e.target.value, e.target.type);
     }
+
+    const navigate = useNavigate();
+    const token = sessionStorage.getItem('usertoken');
+
+    useEffect(() => {
+        if (!token) navigate('/login');
+    }, [])
+
 
     return (
         <div>
@@ -155,16 +164,25 @@ const VehicleAddForm = () => {
                             </div>
                         </div>
 
-                        <div className="col-sm bg-secondary2 rounded">
+
+
+                        {/* <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
-                                <label htmlFor="kepUrl"><span className="redStar">* </span>Kép URL:</label>
-                                <input onChange={writeData} type="text" className="form-control bg-secondary2 border-secondary minwidth-50" required
+                                <label htmlFor="kepUrl"><span className="redStar">* </span>Kép:</label>
+                                <input onChange={writeData} type="file" className="custom-file-input bg-secondary2 border-secondary minwidth-50" required
                                     id="kepUrl" />
                             </div>
+                        </div> */}
+                    </div>
+
+                    <div className="input-group mb-3 bg-primary3 rounded">
+                        <div className="rounded my-4 width-10rem mx-auto">
+                            <label className="custom-file-label" htmlFor="kepUrl"><span className="redStar">* </span>Kép:</label>
+                            <input type="file" className="custom-file-input" id="kepUrl" />
                         </div>
                     </div>
 
-                    <input type="submit" value={"Küldés!"} className="btn btn-primary width-5rem m-auto" id="gepjarmuKuldesGomb"></input>
+                    <input type="submit" value={"Küldés!"} className="btn btn-primary width-5rem border-secondary bg-secondary2" id="gepjarmuKuldesGomb"></input>
                     <span> <i className="fas fa-info-circle text-xl"></i> <span className="redStar">*</span> A csillaggal megjelöltek kitöltése kötelező!</span>
                 </div>
             </form>

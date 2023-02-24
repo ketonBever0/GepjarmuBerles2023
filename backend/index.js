@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api/gepjarmuberles/gepjarmuvek', require('./routes/autoRoutes'));
 app.use('/api/gepjarmuberles/gepjarmutipusok', require('./routes/arkategoriaRoutes'));
 app.use('/api/gepjarmuberles/users', require('./routes/userRoutes'));
+app.use('/api/gepjarmuberles/berlesnyugtak', require('./routes/berlesnyugtaRoutes'));
 
 const db = require('./models/sequelizeConfig');
 db.sequelize.sync();

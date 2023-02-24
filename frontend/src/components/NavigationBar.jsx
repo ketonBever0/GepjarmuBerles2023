@@ -18,11 +18,18 @@ const NavigationBar = () => {
     const token = sessionStorage.getItem('usertoken');
 
     const confirmBoxOptions = {
-        labels: {
-            confirmable: "Igen",
-            cancellable: "Nem"
-        },
         closeOnOverlayClick: true,
+        render: (message, onConfirm, onCancel) => {
+            return (
+                <div className='bg-info p-5 border rounded' style={{ position: "fixed", left: "40rem", top: "20rem", height: "fit-content" }}>
+                    <h1 className='mb-5'>{message}</h1>
+                    <div className="d-flex justify-content-around">
+                        <button className='btn btn-danger p-3' onClick={onConfirm}>Igen</button>
+                        <button className='btn btn-primary p-3' onClick={onCancel}>Nem</button>
+                    </div>
+                </div>
+            )
+        }
     }
 
     return (
