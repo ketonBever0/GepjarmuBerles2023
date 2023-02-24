@@ -7,11 +7,15 @@ function Checkout() {
     const {
         kosarBackup, setKosarBackup,
         update, refresh,
+        rentalData, setRentalData,
         sendRent
     } = useContext(KosarContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
-
+    const [rentalTimes, setRentalTimes] = useState({
+        berlesKezdete: null,
+        idotartam: null
+    });
 
 
     useEffect(() => {
@@ -31,6 +35,7 @@ function Checkout() {
         setKosarBackup(JSON.parse(localStorage.getItem("kosarBackup")));
     }, [refresh]);
 
+
     const arazas = (elem) => {
         if (elem.kedvezmeny) {
             // setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)));
@@ -41,10 +46,59 @@ function Checkout() {
         }
     }
 
+    // const addLeadingZero = (digit) => {
+    //     const intDigit = intDigit(digit);
+    //     if(intDigit<10){
+            
+    //     }
+    // }
+
+    const date = new Date();
+
+    useEffect(() => {
+        setRentalData({
+            kosar: kosarBackup || null,
+            rentalTimes: rentalTimes || null
+        });
+        console.log(`${date.JSON}`)
+    }, [kosarBackup, rentalTimes])
+
+
+    const handleChange = (e) => {
+        setRentalTimes({
+            ...rentalTimes,
+            [e.target.id]: e.target.value
+        })
+    }
+
 
     return (
         <div>
             <h1 className="text-center mt-4">Összesítés</h1>
+
+            <form className="w-100 bg-cyan2" onChange={handleChange}>
+                <h3 className="text-dark p-4 text-center">Bérlési idő</h3>
+                <div className="container d-grid gap-5 p-5">
+                    <div className="row">
+
+                        <div className="col-sm bg-primary3 rounded">
+                            <div className="form-group my-4 width-10rem mx-auto">
+                                <label htmlFor="berlesKezdete"><span className="redStar">* </span>Bérlés kezdete:</label>
+                                <input required type="date" value={rentalTimes.berlesKezdete} defaultValue={`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`} className="form-control bg-secondary2 border-secondary minwidth-50" id="berlesKezdete" />
+                            </div>
+                        </div>
+
+                        <div className="col-sm bg-secondary2 rounded">
+                            <div className="form-group my-4 width-10rem mx-auto col">
+                                <label htmlFor="idotartam"><span className="redStar">* </span>Várható időtartam:</label>
+                                <input type="number" min={0} value={rentalTimes.idotartam} defaultValue={0} className="form-control bg-secondary2 border-secondary minwidth-50" id="idotartam" />
+                                <h6 className='mt-1'>Ha előre nem ismert, hagyja üresen vagy adjon meg 0-t.</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
                 <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
                 <button className='btn btn-primary mb-5 w-75' style={{ height: "4rem", fontSize: "20pt" }} disabled={!kosarBackup || totalPrice == 0} onClick={e => {
