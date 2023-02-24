@@ -23,27 +23,6 @@ export const KosarProvider = ({ children }) => {
     //     localStorage.setItem("kosarBackup", kosar);
     // }, [kosar])
 
-    const sendRentToApi = async (product) => {
-        console.log(product);
-        await fetch('http:/localhost:8000/api/gepjarmuberles/berlesnyugtak/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: {
-                berlesKezdete: "",
-                berlesVege: null,
-                idotartam: "",
-                gepjarmu_allapot: null,
-                uzemanyagszint: null,
-                napiDij: product.egyedi_ar || kategoria_ar,
-                kedvezmeny: product.kedvezmeny || null,
-                bloId: "",
-                gjuId: product.id
-
-            }
-        })
-    }
 
 
     const sendRent = async (data) => {
@@ -52,12 +31,13 @@ export const KosarProvider = ({ children }) => {
         data != null && data.length != 0 &&
             data.kosar.map(async (item, index) => {
                 // sendRentToApi(product);
+
                 await fetch('http://localhost:8000/api/gepjarmuberles/berlesnyugtak/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: {
+                    body: JSON.stringify({
                         berlesKezdete: data.rentalTimes.berlesKezdete,
                         berlesVege: null,
                         idotartam: data.rentalTimes.idotartam == null || data.rentalTimes.idotartam == 0 ? null : data.rentalTimes.idotartam,
@@ -68,7 +48,7 @@ export const KosarProvider = ({ children }) => {
                         bloId: data.userData.id,
                         gjuId: item.id
 
-                    }
+                    })
                 })
             });
     }

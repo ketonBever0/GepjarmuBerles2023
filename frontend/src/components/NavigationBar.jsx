@@ -53,7 +53,11 @@ const NavigationBar = () => {
                                 (
                                     <><a onClick={async () => {
                                         if (await confirm("Biztosan ki szeretne lépni?", confirmBoxOptions)) {
-                                            setKosar([]); logout(); Notify.tSuccess("Sikeres kijelentkezés!"); navigate('/')
+                                            setKosar([]);
+                                            logout();
+                                            localStorage.removeItem("kosarBackup");
+                                            Notify.tSuccess("Sikeres kijelentkezés!");
+                                            navigate('/');
                                         }
                                     }} className="nav-link">Kijelentkezés</a></>
                                 ) :

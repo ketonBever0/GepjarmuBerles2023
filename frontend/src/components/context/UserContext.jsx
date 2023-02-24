@@ -5,12 +5,16 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
+    const [refresh, setRefresh] = useState(false);
+
+    const update = prev => setRefresh(!prev);
+
     const logout = () => {
-        let kerdes = window.confirm("Biztosan ki szeretne lépni?");
-        if (kerdes) {
-            sessionStorage.removeItem('usertoken');
-            update();
-        }
+        // let kerdes = window.confirm("Biztosan ki szeretne lépni?");
+        // if (kerdes) {
+        sessionStorage.removeItem('usertoken');
+        update();
+        // }
 
     }
 
