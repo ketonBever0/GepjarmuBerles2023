@@ -225,20 +225,15 @@ const isAvailable = (req, res) => {
     const { id } = req.params;
     conn.query(
         `
-            SELECT g.id, g.rendszam, g.marka, g.modell, g.kilometerora_allas, g.muszaki_ervenyesseg, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.thly_id, g.aka_gepjarmu_tipus, g.kep_url, in_b.berles_kezdete, in_b.berles_vege, in_b.gju_id, in_sz.kezdo_datum, in_sz.befejezo_datum, in_sz.gju_id
+            SELECT g.id, g.rendszam, g.marka, g.modell, g.kilometerora_allas, g.muszaki_ervenyesseg, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.thly_id, g.aka_gepjarmu_tipus, g.kep_url, b.berles_kezdete, b.idotartam, b.berles_vege, b.blo_id, sz.kezdo_datum, sz.befejezo_datum
             FROM gepjarmuvek g
-            JOIN (
-                SELECT *
-                FROM berlesnyugtak
-            ) in_b ON (g.id=in_b.gju_id)
-            JOIN (
-                SELECT *
-                FROM szervizelesek
-            ) in_sz ON (g.id=in_sz.gju_id)
+            LEFT JOIN berlesnyugtak b ON (g.id=b.gju_id)
+            LEFT JOIN szervizelesek sz ON (g.id=sz.gju_id)
             WHERE g.id=?
             AND (
-                in_b.berles_vege IS NULL
-            OR in_sz.befejezo_datum IS NULL
+                (b.berles_kezdete IS NOT NULL AND b.berles_vege IS NULL)
+                OR (sz.kezdo_datum IS NOT NULL AND sz.befejezo_datum IS NULL)
+                OR CURDATE() >= DATE_SUB(g.muszaki_ervenyesseg, INTERVAL 14 DAY)
             )
         `,
         [id],
