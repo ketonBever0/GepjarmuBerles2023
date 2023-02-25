@@ -20,11 +20,11 @@ const getVehicles = async (req, res) => {
             FROM gepjarmuvek g, arkategoriak a
             WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
         `,
-    [],
-    (err, rows) => {
-        if(err) res.status(400).send(err);
-        res.json(rows);
-    });
+        [],
+        (err, rows) => {
+            if (err) res.status(400).send(err);
+            res.json(rows);
+        });
 }
 
 const getVehicleBrands = (req, res) => {
@@ -35,7 +35,7 @@ const getVehicleBrands = (req, res) => {
         `,
         [],
         (err, rows) => {
-            if(err) res.status(400).send(err);
+            if (err) res.status(400).send(err);
             res.json(rows);
         }
     );
@@ -50,11 +50,11 @@ const getVehicleBrandTypes = (req, res) => {
         `,
         [req.params.marka],
         (err, rows) => {
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -71,7 +71,7 @@ const getVehiclePassengerSeatsCount = (req, res) => {
         `,
         [],
         (err, rows) => {
-            if(err) res.status(400).send(err);
+            if (err) res.status(400).send(err);
             res.json(rows);
         }
     );
@@ -85,11 +85,11 @@ const getVehicleEstates = (req, res) => {
         `,
         [req.params.marka],
         (err, rows) => {
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -107,11 +107,11 @@ const filterByBrandVehicles = (req, res) => {
         [req.params.keresettMarka],
         (err, rows) => {
 
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -129,11 +129,11 @@ const filterByBrandType = (req, res) => {
         [req.params.keresettModell],
         (err, rows) => {
 
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -151,11 +151,11 @@ const filterByPassengerCount = (req, res) => {
         [req.params.keresettFerohely],
         (err, rows) => {
 
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -178,11 +178,11 @@ const filterByBrandAndVehicleType = (req, res) => {
         [marka, tipus],
         (err, rows) => {
 
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
@@ -205,17 +205,56 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
         [ferohely, tipus],
         (err, rows) => {
 
-            if(err) {
+            if (err) {
                 res.status(400).send(err);
             } else {
-                if(rows.length == 0) {
-                    res.json({message: "Nincs ilyen adat!"});
+                if (rows.length == 0) {
+                    res.json({ message: "Nincs ilyen adat!" });
                 } else {
                     res.json(rows);
                 }
             }
         }
     );
+}
+
+
+//  Laci voltam szia
+
+const isAvailable = (req, res) => {
+    const { id } = req.params;
+    conn.query(
+        `
+            SELECT g.id, g.rendszam, g.marka, g.modell, g.kilometerora_allas, g.muszaki_ervenyesseg, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.thly_id, g.aka_gepjarmu_tipus, g.kep_url, in_b.berles_kezdete, in_b.berles_vege, in_b.gju_id, in_sz.kezdo_datum, in_sz.befejezo_datum, in_sz.gju_id
+            FROM gepjarmuvek g
+            JOIN (
+                SELECT *
+                FROM berlesnyugtak
+            ) in_b ON (g.id=in_b.gju_id)
+            JOIN (
+                SELECT *
+                FROM szervizelesek
+            ) in_sz ON (g.id=in_sz.gju_id)
+            WHERE g.id=?
+            AND (
+                in_b.berles_vege IS NULL
+            OR in_sz.befejezo_datum IS NULL
+            )
+        `,
+        [id],
+        (err, rows) => {
+            if (err) {
+                res.status(400).send(err);
+            } else {
+                if (rows.length == 0) {
+                    res.status(200).json({ isAvailable: true });
+                    // res.status(200).json(rows);
+                } else {
+                    res.status(200).json({ isAvailable: false });
+                    // res.status(200).json(rows);
+                }
+            }
+        });
 }
 
 // POST
@@ -252,7 +291,7 @@ const addNewVehicle = (req, res) => {
             thly_id,
             kep_url
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
             rendszam,
             marka,
@@ -266,12 +305,12 @@ const addNewVehicle = (req, res) => {
             gepjarmuTipus,
             thely,
             kepUrl
-        ], 
+        ],
         (err) => {
-            if(err){
-                res.status(400).json({message: "Sikertelen adatfelvitel!"});
+            if (err) {
+                res.status(400).json({ message: "Sikertelen adatfelvitel!" });
             } else {
-                res.json({message: "Sikeres adatfelvitel!"});
+                res.json({ message: "Sikeres adatfelvitel!" });
             }
         });
 }
@@ -310,7 +349,7 @@ const modifyVehicle = (req, res) => {
                 thly_id = ?,
                 kep_url = ?
             WHERE id = ?
-        `, 
+        `,
         [
             rendszam,
             marka,
@@ -325,32 +364,34 @@ const modifyVehicle = (req, res) => {
             thely,
             kepUrl,
             id
-        ], 
+        ],
         (err) => {
-            if(err) {
-                res.status(400).json({message: "Sikertelen módosítási próbálkozás!"});
+            if (err) {
+                res.status(400).json({ message: "Sikertelen módosítási próbálkozás!" });
             } else {
-                res.json({message: "Sikeres módosítás!"});
+                res.json({ message: "Sikeres módosítás!" });
             }
         });
 }
 
 const deleteVehicle = (req, res) => {
-    const {id} = req.body;
+    const { id } = req.body;
     conn.query(
         `
             DELETE FROM gepjarmuvek
             WHERE id = ?;
-        `, 
-        [id], 
+        `,
+        [id],
         (err) => {
-            if(err) {
-                res.status(400).json({message: "Sikertelen törlési kísérlet!"});
+            if (err) {
+                res.status(400).json({ message: "Sikertelen törlési kísérlet!" });
             } else {
-                res.json({message: "Sikeres törlés!"});
+                res.json({ message: "Sikeres törlés!" });
             }
         });
 }
+
+
 
 module.exports = {
     getVehicles,
@@ -365,5 +406,6 @@ module.exports = {
     filterByPassengerCountAndVehicleType,
     addNewVehicle,
     modifyVehicle,
-    deleteVehicle
+    deleteVehicle,
+    isAvailable
 }

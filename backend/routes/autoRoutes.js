@@ -13,7 +13,8 @@ const {
     addNewVehicle,
     modifyVehicle,
     deleteVehicle,
-    getVehicleEstates
+    getVehicleEstates,
+    isAvailable
 
 } = require('../controllers/autoController');
 
@@ -27,6 +28,7 @@ router.get('/modell/:keresettModell', filterByBrandType);
 router.get('/ferohely/:keresettFerohely', filterByPassengerCount);
 router.get('/markatipus/marka/:marka/tipus/:tipus', filterByBrandAndVehicleType);
 router.get('/ferohelytipus/ferohely/:ferohely/tipus/:tipus', filterByPassengerCountAndVehicleType);
+router.get('/jarmuvek/isavailable/:id', isAvailable);
 
 router.post('/jarmuvek', addNewVehicle);
 router.patch('/jarmuvek', modifyVehicle);

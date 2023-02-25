@@ -1,18 +1,39 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import FilterFormContext from "../context/FilterFormContext"
+import JarmuContext from "../context/JarmuContext"
 import KosarContext from "../context/KosarContext"
 import DeleteBtn from "./DeleteBtn"
 import UpdateBtn from "./UpdateBtn"
 
 const ItemCard = ({ jarmu }) => {
 
+    const [isAvailable, setIsAvailable] = useState(null);
+
     const token = sessionStorage.getItem('usertoken');
 
-    const {
-        addToBasket
-    } = useContext(KosarContext);
+    const { addToBasket } = useContext(KosarContext);
+
+
+    const { formData } = useContext(FilterFormContext);
 
     const navigate = useNavigate();
+
+
+    const getIsAvailable = async (id) => {
+        await fetch(`http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek/isavailable/${id}`)
+            .then(res => res.json())
+            .then(data => setIsAvailable(data.isAvailable))
+            .catch(err => console.log(err));
+        // console.log(isAvailable);
+    }
+
+
+
+    useEffect(() => {
+        if (isAvailable == null) getIsAvailable(jarmu.id);
+        // console.log(isAvailable);
+    })
 
 
 
@@ -40,7 +61,8 @@ const ItemCard = ({ jarmu }) => {
                         {/* <li className="list-group-item">A third item</li> */}
                     </ul>
                     {jarmu.kedvezmeny != null && jarmu.kedvezmeny != 0 && <div className="d-block badge bg-success p-2"><h5>{jarmu.kedvezmeny}% kedvezmény</h5></div>}
-                    <button className="btn btn-primary px-4 py-3 my-3" onClick={
+                    <div>{isAvailable != null && (isAvailable ? "" : "Jelenleg nem elérhető")}</div>
+                    <button className="btn btn-primary px-4 py-3 my-3" disabled={!isAvailable} onClick={
                         (e) => {
                             e.preventDefault();
                             if (token) addToBasket(jarmu);
@@ -50,11 +72,12 @@ const ItemCard = ({ jarmu }) => {
                     {
                         token ?
                             (
-                            <>
-                                <DeleteBtn gepj_id={jarmu.id}/>
-                                <UpdateBtn gepj={jarmu}/>       {/* csak bejelentkezéskor látható, átadjuk neki az adott gépjármű adatait, majd az UpdateBtn.jsx-ben használjuk tovább. */}
-                            </>
-                            ):
+                                <>
+                                    <DeleteBtn gepj_id={jarmu.id} />
+                                    <UpdateBtn gepj={jarmu} />       {/* csak bejelentkezéskor látható, átadjuk neki az adott gépjármű adatait, majd az UpdateBtn.jsx-ben használjuk tovább. */}
+                                </>
+                            )
+                            :
                             (
                                 <></>
                             )

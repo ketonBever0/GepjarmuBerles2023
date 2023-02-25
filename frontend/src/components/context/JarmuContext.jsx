@@ -17,8 +17,6 @@ export const JarmuProvider = ({ children }) => {
     const [osszesJarmu, setOsszesJarmu] = useState(null);
 
 
-    
-
     const fetchJarmuvek = async () => {
         setIsLoading(true);
         await fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek')
