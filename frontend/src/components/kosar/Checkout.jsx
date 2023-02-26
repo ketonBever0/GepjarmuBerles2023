@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import KosarContext from '../context/KosarContext'
+import UserContext from '../context/UserContext';
 
 function Checkout() {
 
@@ -10,6 +11,8 @@ function Checkout() {
         rentalData, setRentalData,
         sendRent
     } = useContext(KosarContext);
+
+    const { userData } = useContext(UserContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -58,16 +61,17 @@ function Checkout() {
 
     const [rentalTimes, setRentalTimes] = useState({
         berlesKezdete: formatedDate,
-        idotartam: 0
+        idotartam: null
     });
 
     useEffect(() => {
         setRentalData({
             kosar: kosarBackup || null,
-            rentalTimes: rentalTimes || null
+            rentalTimes: rentalTimes || null,
+            userData: userData || null
         });
         // console.log(formatedDate);
-    }, [kosarBackup, rentalTimes])
+    }, [kosarBackup, rentalTimes, userData])
 
 
     const handleChange = (e) => {
@@ -114,7 +118,7 @@ function Checkout() {
                 <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
                 <button className='btn btn-primary mb-5 w-75' style={{ height: "4rem", fontSize: "20pt" }} disabled={!kosarBackup || totalPrice == 0} onClick={e => {
                     e.preventDefault();
-                    sendRent(kosarBackup);
+                    sendRent(rentalData);
                 }}>Bérlés leadása</button>
                 {kosarBackup ?
                     kosarBackup.map((elem, index) => (
