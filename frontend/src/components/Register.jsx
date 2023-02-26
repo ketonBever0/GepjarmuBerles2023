@@ -82,7 +82,7 @@ const Register = () => {
 
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
-        console.log(formData);
+        
         if (e.target.value != "") {
             e.target.classList.add("inputStyleSignupContent");
         }
@@ -153,7 +153,7 @@ const Register = () => {
 
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label>Adószám (cég esetében):</label><br />
-                                                    <input onChange={writeData} value={formData.adoszam} type="text" id="adoszam" className="inputStyleSignup"
+                                                    <input onChange={writeData} value={formData.adoszam} type="number" id="adoszam" className="inputStyleSignup"
                                                     />
                                                 </div>
                                                 <div className="form-group pt-2">
