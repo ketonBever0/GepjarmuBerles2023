@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import Notify from '../allUse/Toast';
 import KosarContext from '../context/KosarContext'
 import UserContext from '../context/UserContext';
 
@@ -201,7 +202,8 @@ function Checkout() {
                                         async e => {
                                             e.preventDefault();
                                             // localStorage.removeItem("kosarBackup");
-                                            await setKosarBackup(kosarBackup.filter(x => x.rendszam != elem.rendszam));
+                                            await setKosarBackup(kosarBackup.filter(x => x.rendszam != elem.rendszam)).catch(err => console.log(err));
+                                            then(Notify.tCustom('🏎', "Sikeres rögzítés!"))
                                             // localStorage.setItem("kosarBackup", JSON.stringify(kosarBackup));
                                             update();
                                         }

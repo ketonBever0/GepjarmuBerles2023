@@ -40,16 +40,16 @@ export const KosarProvider = ({ children }) => {
                     body: JSON.stringify({
                         berlesKezdete: data.rentalTimes.berlesKezdete,
                         berlesVege: null,
-                        idotartam: data.rentalTimes.idotartam == null || data.rentalTimes.idotartam == 0 ? null : data.rentalTimes.idotartam,
+                        idotartam: (data.rentalTimes.idotartam == null || data.rentalTimes.idotartam == 0) ? null : data.rentalTimes.idotartam,
                         gepjarmu_allapot: null,
                         uzemanyagszint: null,
                         napiDij: item.egyedi_ar || item.kategoria_ar,
-                        kedvezmeny: item.kedvezmeny || null,
+                        kedvezmeny: (data.userData.kedvezmeny != null && item.kedvezmeny != null) ? ((data.userData.kedvezmeny > item.kedvezmeny) ? data.userData.kedvezmeny : item.kedvezmeny) : (data.userData.kedvezmeny || elem.kedvezmeny),
                         bloId: data.userData.id,
                         gjuId: item.id
 
                     })
-                })
+                }).then(res => console.log(res)).catch(err => console.log(err));
             });
     }
 

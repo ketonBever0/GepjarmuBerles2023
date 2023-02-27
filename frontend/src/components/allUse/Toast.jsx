@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 
 const tCustom = (icon, text) => {
-    toast.success(text, {
+    toast(text, {
         icon: icon, //  használd a Windows + . (pont) gombot és az emojit tedd idézőjelek vagy aposztrófok közé pl: Notify.tCustom('👍', "Szia!");
         style: {
             borderRadius: '10px',
