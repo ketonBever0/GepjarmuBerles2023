@@ -17,15 +17,42 @@ function Checkout() {
     const [totalPrice, setTotalPrice] = useState(0);
 
 
+    // setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)));
+
 
     useEffect(() => {
         setTotalPrice(0);
         kosarBackup && kosarBackup.map((elem) => {
-            if (elem.kedvezmeny) {
-                setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)));
-            } else {
-                setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar : elem.kategoria_ar));
-            }
+
+            setTotalPrice(prevPrice => prevPrice +
+
+
+                (elem.egyedi_ar ? (
+                    (userData?.kedvezmeny != null && elem?.kedvezmeny != null) ? (
+                        userData.kedvezmeny > elem.kedvezmeny ? (
+                            elem.egyedi_ar * (1 - userData?.kedvezmeny / 100)   // szorzó
+                        ) : (
+                            elem.egyedi_ar * (1 - elem.kedvezmeny / 100)   // szorzó
+                        )
+                    ) : (
+                        elem.egyedi_ar * (1 - (userData?.kedvezmeny || elem.kedvezmeny) / 100)   // szorzó
+                    )
+                ) : (
+                    (userData?.kedvezmeny != null && elem?.kedvezmeny != null) ? (
+                        userData?.kedvezmeny > elem.kedvezmeny ? (
+                            elem.kategoria_ar * (1 - userData?.kedvezmeny / 100)   // szorzó
+                        ) : (
+                            elem.kategoria_ar * (1 - elem.kedvezmeny / 100)   // szorzó
+                        )
+                    ) : (
+                        elem.kategoria_ar * (1 - (userData?.kedvezmeny || elem.kedvezmeny) / 100)   // szorzó
+                    )
+                ))
+
+
+
+
+            );
         });
     }, [refresh, kosarBackup]);
 
@@ -70,6 +97,7 @@ function Checkout() {
             rentalTimes: rentalTimes || null,
             userData: userData || null
         });
+        userData && console.log(userData);
         // console.log(formatedDate);
     }, [kosarBackup, rentalTimes, userData])
 
@@ -115,6 +143,7 @@ function Checkout() {
             </form>
 
             <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
+                {userData?.kedvezmeny && <h4 className="text-center mb-5">Ön <b>{userData?.kedvezmeny}%</b> kedvezménnyel rendelkezik.</h4>}
                 <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
                 <button className='btn btn-primary mb-5 w-75' style={{ height: "4rem", fontSize: "20pt" }} disabled={!kosarBackup || totalPrice == 0} onClick={e => {
                     e.preventDefault();

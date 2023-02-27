@@ -12,20 +12,20 @@ export const UserProvider = ({ children }) => {
     const update = prev => setRefresh(!prev);
 
     const logout = () => {
-         let kerdes = window.confirm("Biztosan ki szeretne lépni?");
-         if (kerdes) {
-            sessionStorage.removeItem('usertoken');
-            //update();
-         }
+
+        //  Nem kell window.confirm mert a react-confirm box kérdez
+        sessionStorage.removeItem('usertoken');
+        //update();
+
 
     }
 
     const [adatObj, setAdatObj] = useState({});     //adatObj lesz az adott gépjármű adat objektum
 
-    const {update} = useContext(JarmuContext);
+    // const {update} = useContext(JarmuContext);
 
     const settingCurrentVehicle = async (adat) => {      //beállítjuk a gépjármű adatokat itt, hogy az elérhető legyen az update felületnek (VehicleUpdateForm)
-        await sessionStorage.removeItem("adatSSN");
+        sessionStorage.removeItem("adatSSN");
         sessionStorage.setItem('adatSSN', JSON.stringify(adat));
         update();
     }

@@ -122,18 +122,18 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Település neve:</label><br />
-                                                    <input onChange={writeData} value={formData.telepules_nev} required type="text" id="telepulesNev" className="inputStyleSignup"
+                                                    <input onChange={writeData} value={formData.telepulesNev} required type="text" id="telepulesNev" className="inputStyleSignup"
                                                     />
                                                 </div>
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Közterület neve:</label><br />
-                                                    <input onChange={writeData} value={formData.kozterulet_nev} required type="text" id="kozteruletNev" className="inputStyleSignup"
+                                                    <input onChange={writeData} value={formData.kozteruletNev} required type="text" id="kozteruletNev" className="inputStyleSignup"
                                                     />
                                                 </div>
                                                 <div className="form-group pt-2 mx-auto">
                                                     <label><span className="redStar">* </span>Közterület
                                                         jellege:</label><br />
-                                                    <input onChange={writeData} value={formData.kozterulet_jelleg} required type="text" id="kozteruletJelleg" className="inputStyleSignup"
+                                                    <input onChange={writeData} value={formData.kozteruletJelleg} required type="text" id="kozteruletJelleg" className="inputStyleSignup"
                                                     />
                                                 </div>
 
