@@ -17,7 +17,8 @@ export const FilterFormProvider = ({ children }) => {
         marka: "",
         modell: "",
         ferohely: 0,
-        jarmutipus: ""
+        jarmutipus: "",
+        onlyAvailable: true
     });
 
 

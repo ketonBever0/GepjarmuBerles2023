@@ -12,20 +12,39 @@ const conn = mysql.createConnection({
 //SELECT
 const getVehicles = async (req, res) => {
     // const vehicles = await Vehicle.findAll({
-    //     include: Arkategoria
-    // });
-    conn.query(
-        `
-            SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij as "kategoria_ar", g.kep_url, g.thly_id
-            FROM gepjarmuvek g, arkategoriak a
-            WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
-        `,
-        [],
-        (err, rows) => {
-            if (err) res.status(400).send(err);
-            res.json(rows);
-        });
-}
+        //     include: Arkategoria
+        // });
+        conn.query(
+            `
+            SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij AS "kategoria_ar", g.kep_url, g.thly_id,
+            IF(
+                g.id IN(
+                SELECT in_g.id
+                FROM gepjarmuvek in_g
+                LEFT JOIN berlesnyugtak in_b ON (in_g.id = in_b.gju_id)
+                LEFT JOIN szervizelesek in_sz ON (in_g.id = in_sz.gju_id)
+                WHERE (in_b.berles_kezdete IS NOT NULL AND in_b.berles_vege IS NULL)
+                    OR (in_sz.kezdo_datum IS NOT NULL AND in_sz.befejezo_datum IS NULL)
+                    OR CURDATE() >= DATE_SUB(in_g.muszaki_ervenyesseg,INTERVAL 14 DAY)
+                ), FALSE, TRUE
+              ) AS "elerheto"
+            FROM gepjarmuvek g JOIN arkategoriak a ON (g.aka_gepjarmu_tipus = a.gepjarmu_tipus)
+            `,
+            [],
+            (err, rows) => {
+                if (err) res.status(400).send(err);
+                res.json(rows);
+            });
+        }
+        
+        /*
+        
+        SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij as "kategoria_ar", g.kep_url, g.thly_id
+        FROM gepjarmuvek g, arkategoriak a
+        WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
+        
+        */
+
 
 const getVehicleBrands = (req, res) => {
     conn.query(

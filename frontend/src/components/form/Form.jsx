@@ -25,6 +25,7 @@ const Form = () => {
         setFormData({
             ...formData,
             [event.target.id]: event.target.value,
+
         });
         update();
     };
@@ -83,6 +84,13 @@ const Form = () => {
                         {ferohelyek && ferohelyek.map((ferohely, index) => <option value={ferohely.ferohely} key={index}>{ferohely.ferohely}</option>)}
                     </select>
                 </div>
+
+
+            </div>
+
+            <div className='d-flex justify-content-center align-items-center mt-4'>
+                <label htmlFor="onlyAvailable">Csak az elérhetőek listázása</label><br></br>
+                <input style={{ height: "1.1rem" }} type="checkbox" id="onlyAvailable" onChange={e => setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.checked }))} checked={formData.onlyAvailable} />
             </div>
 
             <div className="row mt-3 d-flex justify-content-center align-items-center">

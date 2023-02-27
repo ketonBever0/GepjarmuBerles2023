@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2023 at 12:10 PM
+-- Generation Time: Feb 27, 2023 at 10:41 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
-
-CREATE DATABASE IF NOT EXISTS `gepjarmu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gepjarmu`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `gepjarmu`
 --
+CREATE DATABASE IF NOT EXISTS `gepjarmu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gepjarmu`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +40,7 @@ CREATE TABLE `arkategoriak` (
 
 INSERT INTO `arkategoriak` (`gepjarmu_tipus`, `berleti_dij`) VALUES
 ('sportautó', 20000),
-('személygépkocsi', 20000),
+('személygépkocsi', 8000),
 ('tehergépkocsi', 25000);
 
 -- --------------------------------------------------------
@@ -67,14 +66,12 @@ CREATE TABLE `berlesnyugtak` (
 --
 
 INSERT INTO `berlesnyugtak` (`berles_kezdete`, `berles_vege`, `idotartam`, `gepjarmu_allapot`, `uzemanyagszint`, `napi_dij`, `kedvezmeny`, `blo_id`, `gju_id`) VALUES
-('2020-03-05', '2020-03-10', 5, 'Jó', 'Fél', 27000, 0, 3, 3),
+('2020-03-05', '2020-03-10', 5, 'Jó', 'Fél', 27000, NULL, 3, 3),
 ('2022-03-15', '2022-03-20', 5, 'Jó', 'Háromnegyed', 20000, 10, 1, 1),
 ('2023-01-01', '2023-01-30', 30, 'Jó', 'Tele', 30000, 30, 2, 1),
 ('2023-01-09', '2023-01-25', 14, 'Jó', 'Tele', 20000, NULL, 4, 7),
-('2023-01-24', '2023-01-30', 7, 'Jó', 'Negyed', 30000, 0, 1, 3),
-('2023-02-24', NULL, NULL, NULL, NULL, 20000, NULL, 6, 2),
-('2023-02-24', NULL, NULL, NULL, NULL, 20000, NULL, 6, 3),
-('2023-04-13', NULL, 11, NULL, NULL, 20000, 10, 6, 2);
+('2023-01-24', '2023-01-30', 7, 'Jó', 'Negyed', 30000, NULL, 1, 3),
+('2023-02-24', NULL, NULL, NULL, NULL, 20000, NULL, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -107,7 +104,8 @@ INSERT INTO `berlok` (`id`, `nev`, `adoszam`, `iranyitoszam`, `telepules_nev`, `
 (3, 'Takács Vilmos', 3160971732, '6060', 'Tiszakécske', 'Hunyadi', 'sor', '20', '+36(20)734-5261', 'takacsvilmos@citromail.hu', 10, ''),
 (4, 'Halász Fanni', NULL, '8200', 'Veszprém', 'Corvin', 'köz', '10', '+36(20)345-7263', 'halaszfanni@hotmail.com', NULL, ''),
 (5, 'Nemes Attila', NULL, '1104', 'Budapest', 'Harmat', 'utca', '10', '+36(20)846-1356', NULL, NULL, ''),
-(6, 'Lakatos Brendon Bajnok', NULL, '1020', 'Budapest', 'Váci', 'út', '69', '+36 50 341 2231', 'kiabajnok@gmail.com', NULL, '$2b$10$YhtOeMq9juGwknBHSvyJN..2/tWT2Naue3jJoWUynTxDUf71bxSMi');
+(6, 'Lakatos Brendon Bajnok', NULL, '1020', 'Budapest', 'Váci', 'út', '69', '+36 50 341 2231', 'kiabajnok@gmail.com', NULL, '$2b$10$YhtOeMq9juGwknBHSvyJN..2/tWT2Naue3jJoWUynTxDUf71bxSMi'),
+(7, 'Takács Lajos', NULL, '4000', 'Debrecen', 'Puskin', 'út', '81', '+36 30 517 9216', 'tlajos00@gmail.com', 7, '$2b$10$4xe3oka.f2MuL1of/Q1bZOvmZ.RV1AGcjgnX6mBewOoQ9UTD0pF5y');
 
 -- --------------------------------------------------------
 
@@ -136,13 +134,15 @@ CREATE TABLE `gepjarmuvek` (
 --
 
 INSERT INTO `gepjarmuvek` (`id`, `rendszam`, `marka`, `modell`, `kilometerora_allas`, `muszaki_ervenyesseg`, `uzemanyag_kapacitas`, `ferohely`, `kedvezmeny`, `egyedi_ar`, `thly_id`, `aka_gepjarmu_tipus`, `kep_url`) VALUES
-(1, 'JLK-263', 'Cadillac', 'Escalade', '200928', '2023-03-10', 60, 5, 0, 0, 1, 'személygépkocsi', NULL),
-(2, 'SFO-328', 'Toyota', 'Century', '302100', '2024-02-01', 50, 4, 0, 0, 1, 'személygépkocsi', NULL),
-(3, 'HDD-124', 'Mazda', 'Carol', '198424', '2025-11-21', 30, 4, 0, 0, 1, 'személygépkocsi', NULL),
-(4, 'WAL-812', 'Audi', 'A8', '214234', '2026-03-04', 72, 4, 10, 0, 1, 'személygépkocsi', NULL),
-(5, 'SWU-462', 'SEAT', 'Altea', '200113', '2026-09-16', 87, 4, 0, 0, 1, 'személygépkocsi', NULL),
+(1, 'JLK-263', 'Cadillac', 'Escalade', '200928', '2023-03-10', 60, 5, NULL, NULL, 1, 'személygépkocsi', NULL),
+(2, 'SFO-328', 'Toyota', 'Century', '302100', '2024-02-01', 50, 4, NULL, NULL, 1, 'személygépkocsi', NULL),
+(3, 'HDD-124', 'Mazda', 'Carol', '198424', '2023-03-09', 30, 4, NULL, NULL, 1, 'személygépkocsi', NULL),
+(4, 'WAL-812', 'Audi', 'A8', '214234', '2026-03-04', 72, 4, 10, NULL, 1, 'személygépkocsi', NULL),
+(5, 'SWU-462', 'SEAT', 'Altea', '200113', '2026-09-16', 87, 4, NULL, NULL, 1, 'személygépkocsi', NULL),
 (6, 'GFE-523', 'Opel', 'Corsa', '305125', '2024-10-06', 40, 5, NULL, NULL, 1, 'személygépkocsi', 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Opel_Corsa_B_WorldCup_Facelift.JPG'),
-(7, 'ZFJ-634', 'Lamborghini', 'Gallardo', '361232', '2025-05-15', 45, 2, NULL, NULL, 1, 'sportautó', 'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/masterpieces/gallardo-lp-550-2-2/Gallardo%20LP%20550-2-HEADER.jpg');
+(7, 'ZFJ-634', 'Lamborghini', 'Gallardo', '361232', '2025-05-15', 45, 2, NULL, NULL, 1, 'sportautó', 'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/masterpieces/gallardo-lp-550-2-2/Gallardo%20LP%20550-2-HEADER.jpg'),
+(9, 'UFV-289', 'Fiat', 'Ducato', '495278', '2024-11-08', 81, 5, 10, NULL, 1, 'tehergépkocsi', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Fiat_Ducato_Kastenwagen_130_Multijet_%28III%2C_Facelift%29_%E2%80%93_Frontansicht%2C_13._Juli_2014%2C_D%C3%BCsseldorf.jpg'),
+(10, 'DFA-527', 'Wartburg', '311', '755862', '2023-05-27', 35, 2, 5, 11000, 1, 'személygépkocsi', 'https://prod.pictures.autoscout24.net/listing-images/c4afba09-9397-4ece-8f4d-0c0cf1342434_d3efbdd4-9c67-4337-ad14-c78b1921aee1.jpg/420x315.jpg');
 
 -- --------------------------------------------------------
 
@@ -254,13 +254,13 @@ ALTER TABLE `telephelyek`
 -- AUTO_INCREMENT for table `berlok`
 --
 ALTER TABLE `berlok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `gepjarmuvek`
 --
 ALTER TABLE `gepjarmuvek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `telephelyek`

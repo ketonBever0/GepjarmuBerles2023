@@ -18,7 +18,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
     formData
   } = useContext(FilterFormContext);
 
-  const { marka, modell, jarmutipus, ferohely } = formData;
+  const { marka, modell, jarmutipus, ferohely, onlyAvailable } = formData;
 
   useEffect(() => {
     fetchJarmuvek();
@@ -44,7 +44,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
           :
           (onlyDiscounts ?
             (osszesJarmu && osszesJarmu
-              .filter(x => x.kedvezmeny != null && x.kedvezmeny != 0)
+              .filter(x => x.kedvezmeny != null && x.kedvezmeny != 0 && x.elerheto)
               .map((jarmu, index) => (<ItemCard jarmu={jarmu} key={index} />))
             )
             :
@@ -53,6 +53,7 @@ const ItemContainer = ({ title, onlyDiscounts }) => {
               .filter(x => x.modell == (modell == "" ? x.modell : modell))
               .filter(x => x.aka_gepjarmu_tipus == (jarmutipus == "" ? x.aka_gepjarmu_tipus : jarmutipus))
               .filter(x => x.ferohely == (ferohely == 0 ? x.ferohely : ferohely))
+              .filter(x => !x.elerheto ? x.elerheto == onlyAvailable : 1 == 1)
               .map((jarmu, index) => (<ItemCard jarmu={jarmu} key={index} />))
             )
           )
