@@ -8,14 +8,18 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 
     const [refresh, setRefresh] = useState(false);
+    const [userData, setUserData] = useState(null);
 
     const update = prev => setRefresh(!prev);
+    const userUpdate = prev => setRefresh(!prev);
+
 
     const logout = () => {
 
         //  Nem kell window.confirm mert a react-confirm box kérdez
         sessionStorage.removeItem('usertoken');
         //update();
+        setUserData(null);
 
 
     }
@@ -42,7 +46,7 @@ export const UserProvider = ({ children }) => {
     //     }
     // })
 
-    const [userData, setUserData] = useState(null);
+
 
     useEffect(() => {
         if (token) {
@@ -67,14 +71,16 @@ export const UserProvider = ({ children }) => {
         } else {
 
         }
-    }, []);
+    }, [refresh]);
 
 
     return <UserContext.Provider value={{
         logout,
         adatObj,
         settingCurrentVehicle,
-        userData
+        userData,
+        refresh,
+        userUpdate
 
     }}>{children}</UserContext.Provider>
 

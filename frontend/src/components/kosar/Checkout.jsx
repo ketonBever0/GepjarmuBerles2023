@@ -12,7 +12,8 @@ function Checkout() {
         sendRent
     } = useContext(KosarContext);
 
-    const { userData } = useContext(UserContext);
+    const { userData, userUpdate } = useContext(UserContext);
+    userUpdate();
 
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -24,7 +25,7 @@ function Checkout() {
         setTotalPrice(0);
         kosarBackup && kosarBackup.map((elem) => {
 
-            setTotalPrice(prevPrice => prevPrice +
+            if (userData != null) setTotalPrice(prevPrice => prevPrice +
 
 
                 (elem.egyedi_ar ? (
@@ -50,11 +51,12 @@ function Checkout() {
                 ))
 
 
-
-
             );
         });
-    }, [refresh, kosarBackup]);
+
+        // userData!=null && console.log(userData.kedvezmeny);
+
+    }, [refresh, kosarBackup, userData]);
 
 
     useEffect(() => {
@@ -64,13 +66,27 @@ function Checkout() {
 
 
     const arazas = (elem) => {
-        if (elem.kedvezmeny) {
-            // setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)));
-            return elem.egyedi_ar ? elem.egyedi_ar * (1 - elem.kedvezmeny / 100) : elem.kategoria_ar * (1 - elem.kedvezmeny / 100)
-        } else {
-            // setTotalPrice(prevPrice => prevPrice + (elem.egyedi_ar ? elem.egyedi_ar : elem.kategoria_ar));
-            return elem.egyedi_ar ? elem.egyedi_ar : elem.kategoria_ar
-        }
+        if (userData != null) return (elem.egyedi_ar ? (
+            (userData?.kedvezmeny != null && elem?.kedvezmeny != null) ? (
+                userData.kedvezmeny > elem.kedvezmeny ? (
+                    elem.egyedi_ar * (1 - userData?.kedvezmeny / 100)   // szorzó
+                ) : (
+                    elem.egyedi_ar * (1 - elem.kedvezmeny / 100)   // szorzó
+                )
+            ) : (
+                elem.egyedi_ar * (1 - (userData?.kedvezmeny || elem.kedvezmeny) / 100)   // szorzó
+            )
+        ) : (
+            (userData?.kedvezmeny != null && elem?.kedvezmeny != null) ? (
+                userData?.kedvezmeny > elem.kedvezmeny ? (
+                    elem.kategoria_ar * (1 - userData?.kedvezmeny / 100)   // szorzó
+                ) : (
+                    elem.kategoria_ar * (1 - elem.kedvezmeny / 100)   // szorzó
+                )
+            ) : (
+                elem.kategoria_ar * (1 - (userData?.kedvezmeny || elem.kedvezmeny) / 100)   // szorzó
+            )
+        ))
     }
 
     const addLeadingZero = (digit) => {
@@ -135,14 +151,14 @@ function Checkout() {
                             <div className="form-group my-4 width-10rem mx-auto col">
                                 <label htmlFor="idotartam"><span className="redStar">* </span>Várható időtartam:</label>
                                 <input type="number" min={0} value={rentalTimes.idotartam} defaultValue={0} className="form-control bg-secondary2 border-secondary minwidth-50" id="idotartam" />
-                                <h6 className='mt-1'>Ha előre nem ismert, hagyja üresen vagy adjon meg 0-t.</h6>
+                                <h6 className='mt-1'>Ha előre nem ismert, legyen üres vagy 0.</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
 
-            <div className="row d-flex justify-content-center align-items-center g-3 my-5 p-3">
+            <div className="row d-flex justify-content-center align-items-center g-3 mt-5 p-3">
                 {userData?.kedvezmeny && <h4 className="text-center mb-5">Ön <b>{userData?.kedvezmeny}%</b> kedvezménnyel rendelkezik.</h4>}
                 <h3 className="text-center mb-5"><b>Végső ár:</b> {totalPrice} ft/nap</h3>
                 <button className='btn btn-primary mb-5 w-75' style={{ height: "4rem", fontSize: "20pt" }} disabled={!kosarBackup || totalPrice == 0} onClick={e => {
@@ -151,7 +167,7 @@ function Checkout() {
                 }}>Bérlés leadása</button>
                 {kosarBackup ?
                     kosarBackup.map((elem, index) => (
-                        <div className="col-md-4 d-flex justify-content-center h-">
+                        <div key={index} className="col-md-4 d-flex justify-content-center h-">
                             <div className="card" style={{ width: "18rem" }}>
                                 <img className="card-img-top" src={elem.kep_url ? elem.kep_url : "https://www.nicepng.com/png/detail/777-7772737_car-placeholder-image-lamborghini-gallardo.png"} alt="Card image cap" />
                                 <div className="card-body">
@@ -165,7 +181,21 @@ function Checkout() {
                                     </ul>
                                     {elem.kedvezmeny && <div className="d-block badge bg-success p-2"><h5>{elem.kedvezmeny}% kedvezmény</h5></div>}
                                     <ul className="list-group list-group-flush mb-4">
-                                        <div className='list-group-item mt-4'><h3><b>Ár:</b> {arazas(elem)} ft/nap</h3></div>
+                                        <div className='list-group-item mt-4'><h2><b>Ár:</b></h2></div>
+                                        <div className='text-sm my-2'>
+                                            <h5>{userData && (userData.kedvezmeny || elem.kedvezmeny) &&
+                                                (<>{elem.egyedi_ar || elem.kategoria_ar} - {
+                                                    (userData?.kedvezmeny != null && elem?.kedvezmeny != null) ?
+                                                        userData?.kedvezmeny > elem.kedvezmeny ?
+                                                            userData.kedvezmeny
+                                                            :
+                                                            elem.kedvezmeny
+                                                        :
+                                                        userData.kedvezmeny || elem.kedvezmeny
+
+                                                }%</>)}
+                                            </h5></div>
+                                        <div><h2>{arazas(elem)} ft/nap</h2></div>
                                     </ul>
                                     <button className="btn btn-danger px-4 py-3 my-3" onClick={
                                         async e => {
