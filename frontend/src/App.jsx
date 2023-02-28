@@ -18,6 +18,7 @@ import CartContainer from './components/kosar/CartContainer';
 import VehicleUpdateForm from './components/VehicleUpdateForm';
 import Checkout from './components/kosar/Checkout';
 import { UserProvider } from './components/context/UserContext';
+import ScrollToElement from './components/allUse/ScrollToElement';
 
 
 
@@ -31,6 +32,7 @@ function App() {
 
               <Router>
                 <Header />
+                <ScrollToElement />
                 <Routes>
                   <Route path="*" element={<Main />} />
                   <Route path="/" element={<Main />} />
