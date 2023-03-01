@@ -28,9 +28,10 @@ const VehicleAddForm = () => {
 
     const adatKuldes = (adat, method) => {
 
+
         fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek', {
             method: method,
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-type': 'multipart/form-data' },
             body: JSON.stringify(adat)
         })
             .then(response => response.json())
@@ -155,7 +156,7 @@ const VehicleAddForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="thely">
+                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required>
                                     {
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
                                     }
@@ -178,7 +179,7 @@ const VehicleAddForm = () => {
                     <div className="input-group mb-3 bg-primary3 rounded">
                         <div className="rounded my-4 width-10rem mx-auto">
                             <label className="custom-file-label" htmlFor="kepUrl"><span className="redStar">* </span>Kép:</label>
-                            <input type="file" className="custom-file-input" id="kepUrl" />
+                            <input id="kepUrl" onChange={e => setFormData({ ...formData, [e.target.id]: e.target.files[0] })} type="file" className="custom-file-input" />
                         </div>
                     </div>
 

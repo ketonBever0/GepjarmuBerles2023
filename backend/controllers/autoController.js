@@ -2,6 +2,9 @@ const mysql = require('mysql');
 const db = require('../models/sequelizeConfig');
 const Vehicle = db.vehicles;
 const Arkategoria = db.arkategoriak;
+const fs = require('fs');
+const { dirname } = require('path');
+const appDir = dirname(require.main.filename);
 const conn = mysql.createConnection({
     "host": "localhost",
     "user": "root",
@@ -12,10 +15,10 @@ const conn = mysql.createConnection({
 //SELECT
 const getVehicles = async (req, res) => {
     // const vehicles = await Vehicle.findAll({
-        //     include: Arkategoria
-        // });
-        conn.query(
-            `
+    //     include: Arkategoria
+    // });
+    conn.query(
+        `
             SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij AS "kategoria_ar", g.kep_url, g.thly_id,
             IF(
                 g.id IN(
@@ -30,20 +33,20 @@ const getVehicles = async (req, res) => {
               ) AS "elerheto"
             FROM gepjarmuvek g JOIN arkategoriak a ON (g.aka_gepjarmu_tipus = a.gepjarmu_tipus)
             `,
-            [],
-            (err, rows) => {
-                if (err) res.status(400).send(err);
-                res.json(rows);
-            });
-        }
-        
-        /*
-        
-        SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij as "kategoria_ar", g.kep_url, g.thly_id
-        FROM gepjarmuvek g, arkategoriak a
-        WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
-        
-        */
+        [],
+        (err, rows) => {
+            if (err) res.status(400).send(err);
+            res.json(rows);
+        });
+}
+
+/*
+ 
+SELECT g.id, g.rendszam, g.marka, g.modell, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.aka_gepjarmu_tipus, g.kilometerora_allas, g.muszaki_ervenyesseg, a.berleti_dij as "kategoria_ar", g.kep_url, g.thly_id
+FROM gepjarmuvek g, arkategoriak a
+WHERE g.aka_gepjarmu_tipus = a.gepjarmu_tipus;
+ 
+*/
 
 
 const getVehicleBrands = (req, res) => {
@@ -241,9 +244,10 @@ const filterByPassengerCountAndVehicleType = (req, res) => {
 //  Laci voltam szia
 
 const isAvailable = (req, res) => {
-    const { id } = req.params;
-    conn.query(
-        `
+    if (req.files) {
+        const { id } = req.params;
+        conn.query(
+            `
             SELECT g.id, g.rendszam, g.marka, g.modell, g.kilometerora_allas, g.muszaki_ervenyesseg, g.uzemanyag_kapacitas, g.ferohely, g.kedvezmeny, g.egyedi_ar, g.thly_id, g.aka_gepjarmu_tipus, g.kep_url, b.berles_kezdete, b.idotartam, b.berles_vege, b.blo_id, sz.kezdo_datum, sz.befejezo_datum
             FROM gepjarmuvek g
             LEFT JOIN berlesnyugtak b ON (g.id=b.gju_id)
@@ -255,20 +259,21 @@ const isAvailable = (req, res) => {
                 OR CURDATE() >= DATE_SUB(g.muszaki_ervenyesseg, INTERVAL 14 DAY)
             )
         `,
-        [id],
-        (err, rows) => {
-            if (err) {
-                res.status(400).send(err);
-            } else {
-                if (rows.length == 0) {
-                    res.status(200).json({ isAvailable: true });
-                    // res.status(200).json(rows);
+            [id],
+            (err, rows) => {
+                if (err) {
+                    res.status(400).send(err);
                 } else {
-                    res.status(200).json({ isAvailable: false });
-                    // res.status(200).json(rows);
+                    if (rows.length == 0) {
+                        res.status(200).json({ isAvailable: true });
+                        // res.status(200).json(rows);
+                    } else {
+                        res.status(200).json({ isAvailable: false });
+                        // res.status(200).json(rows);
+                    }
                 }
-            }
-        });
+            });
+    }
 }
 
 // POST
@@ -285,12 +290,26 @@ const addNewVehicle = (req, res) => {
         kedvezmeny,
         egyediAr,
         thely,
-        gepjarmuTipus,
-        kepUrl
+        gepjarmuTipus
     } = req.body;
 
-    conn.query(
-        `INSERT INTO gepjarmuvek 
+    var path = appDir + "/images/";
+
+    if (!fs.existsSync(path)) {
+        fs.mkdirSync(path, { recursive: true });
+    }
+
+    console.log(req.files);
+
+    const imgFile = req.files.kepUrl;
+    const filename = `${Date.now()}_${imgFile}`;
+
+    try {
+
+        fs.writeFile(`${path}/${filename}`, imgFile.data, err => console.log(err));
+
+        conn.query(
+            `INSERT INTO gepjarmuvek 
         (   
             rendszam,
             marka,
@@ -306,27 +325,30 @@ const addNewVehicle = (req, res) => {
             kep_url
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-            rendszam,
-            marka,
-            modell,
-            kmallas,
-            muszakiErvenyesseg,
-            uzemanyagkapacitas,
-            ferohely,
-            kedvezmeny,
-            egyediAr,
-            gepjarmuTipus,
-            thely,
-            kepUrl
-        ],
-        (err) => {
-            if (err) {
-                res.status(400).json({ message: "Sikertelen adatfelvitel!" });
-            } else {
-                res.json({ message: "Sikeres adatfelvitel!" });
-            }
-        });
+            [
+                rendszam,
+                marka,
+                modell,
+                kmallas,
+                muszakiErvenyesseg,
+                uzemanyagkapacitas,
+                ferohely,
+                kedvezmeny,
+                egyediAr,
+                gepjarmuTipus,
+                thely,
+                filename
+            ],
+            (err) => {
+                if (err) {
+                    res.status(400).json({ message: "Sikertelen adatfelvitel!" });
+                } else {
+                    res.json({ message: "Sikeres adatfelvitel!" });
+                }
+            });
+    } catch {
+        res.status(400).json({ message: "Fájlfeltöltés elhasalt!" });
+    }
 }
 
 // PATCH

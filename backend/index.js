@@ -2,11 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const dotenv = require('dotenv').config();
+const fileUpload = require('express-fileupload');
+const path=require('path');
 
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use('/files', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/gepjarmuberles/gepjarmuvek', require('./routes/autoRoutes'));
 app.use('/api/gepjarmuberles/gepjarmutipusok', require('./routes/arkategoriaRoutes'));
