@@ -293,62 +293,64 @@ const addNewVehicle = (req, res) => {
         gepjarmuTipus
     } = req.body;
 
-    var path = appDir + "/images/";
+    console.log(req.body);
 
-    if (!fs.existsSync(path)) {
-        fs.mkdirSync(path, { recursive: true });
-    }
+    // var path = appDir + "/images/";
 
-    console.log(req.files);
+    // if (!fs.existsSync(path)) {
+    //     fs.mkdirSync(path, { recursive: true });
+    // }
 
-    const imgFile = req.files.kepUrl;
-    const filename = `${Date.now()}_${imgFile}`;
+    // console.log(req.files);
 
-    try {
+    // const imgFile = req.files.kepUrl;
+    // const filename = `${Date.now()}_${imgFile}`;
 
-        fs.writeFile(`${path}/${filename}`, imgFile.data, err => console.log(err));
+    // try {
 
-        conn.query(
-            `INSERT INTO gepjarmuvek 
-        (   
-            rendszam,
-            marka,
-            modell,
-            kilometerora_allas,
-            muszaki_ervenyesseg,
-            uzemanyag_kapacitas,
-            ferohely,
-            kedvezmeny,
-            egyedi_ar,
-            aka_gepjarmu_tipus,
-            thly_id,
-            kep_url
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
-                rendszam,
-                marka,
-                modell,
-                kmallas,
-                muszakiErvenyesseg,
-                uzemanyagkapacitas,
-                ferohely,
-                kedvezmeny,
-                egyediAr,
-                gepjarmuTipus,
-                thely,
-                filename
-            ],
-            (err) => {
-                if (err) {
-                    res.status(400).json({ message: "Sikertelen adatfelvitel!" });
-                } else {
-                    res.json({ message: "Sikeres adatfelvitel!" });
-                }
-            });
-    } catch {
-        res.status(400).json({ message: "Fájlfeltöltés elhasalt!" });
-    }
+    //     fs.writeFile(`${path}/${filename}`, imgFile.data, err => console.log(err));
+
+    //     conn.query(
+    //         `INSERT INTO gepjarmuvek 
+    //     (   
+    //         rendszam,
+    //         marka,
+    //         modell,
+    //         kilometerora_allas,
+    //         muszaki_ervenyesseg,
+    //         uzemanyag_kapacitas,
+    //         ferohely,
+    //         kedvezmeny,
+    //         egyedi_ar,
+    //         aka_gepjarmu_tipus,
+    //         thly_id,
+    //         kep_url
+    //     )
+    //     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    //         [
+    //             rendszam,
+    //             marka,
+    //             modell,
+    //             kmallas,
+    //             muszakiErvenyesseg,
+    //             uzemanyagkapacitas,
+    //             ferohely,
+    //             kedvezmeny,
+    //             egyediAr,
+    //             gepjarmuTipus,
+    //             thely,
+    //             filename
+    //         ],
+    //         (err) => {
+    //             if (err) {
+    //                 res.status(400).json({ message: "Sikertelen adatfelvitel!" });
+    //             } else {
+    //                 res.json({ message: "Sikeres adatfelvitel!" });
+    //             }
+    //         });
+    // } catch {
+    //     res.status(400).json({ message: "Fájlfeltöltés elhasalt!" });
+    // }
 }
 
 // PATCH

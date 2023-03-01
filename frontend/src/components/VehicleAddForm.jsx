@@ -28,15 +28,17 @@ const VehicleAddForm = () => {
 
     const adatKuldes = (adat, method) => {
 
+        const fd = new FormData;
+        fd.append('form', adat);
+
 
         fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek', {
             method: method,
             headers: { 'Content-type': 'multipart/form-data' },
-            body: JSON.stringify(adat)
+            body: {fd:fd}
         })
             .then(response => response.json())
             .then(response => console.log(JSON.stringify(response)))
-            .then(console.log(adat))
             .catch(err => console.log(err));
 
 
@@ -49,7 +51,7 @@ const VehicleAddForm = () => {
 
     const writeData = (e) => {
         setFormData((prevState) => ({ ...prevState, [e.target.id]: e.target.value }));
-        console.log(e.target.value, e.target.type);
+        // console.log(e.target.value, e.target.type);
     }
 
     const navigate = useNavigate();
@@ -156,7 +158,7 @@ const VehicleAddForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required>
+                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="thely" required>
                                     {
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
                                     }
@@ -165,16 +167,14 @@ const VehicleAddForm = () => {
                             </div>
                         </div>
 
-
-
-                        {/* <div className="col-sm bg-secondary2 rounded">
+                    </div>
+                    {/* <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kepUrl"><span className="redStar">* </span>Kép:</label>
                                 <input onChange={writeData} type="file" className="custom-file-input bg-secondary2 border-secondary minwidth-50" required
                                     id="kepUrl" />
                             </div>
                         </div> */}
-                    </div>
 
                     <div className="input-group mb-3 bg-primary3 rounded">
                         <div className="rounded my-4 width-10rem mx-auto">
