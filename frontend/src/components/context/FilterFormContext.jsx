@@ -29,7 +29,7 @@ export const FilterFormProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => setMarkak(data))
             .catch(err => console.log(err));
-    })
+    }, [])
 
 
     useEffect(() => {
@@ -51,7 +51,7 @@ export const FilterFormProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => setTipusok(data))
             .catch(err => console.log(err));
-    })
+    }, [])
 
 
     useEffect(() => {
@@ -59,14 +59,14 @@ export const FilterFormProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => setFerohelyek(data))
             .catch(err => console.log(err));
-    })
+    }, [])
 
     useEffect(() => {
         fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/telephelyek')
             .then(res => res.json())
             .then(data => setTelephelyek(data))
             .catch(err => console.log(err));
-    })
+    }, [])
 
 
     return <FilterFormContext.Provider value={{

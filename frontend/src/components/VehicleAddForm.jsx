@@ -9,7 +9,7 @@ const VehicleAddForm = () => {
     const { tipusok, telephelyek } = useContext(FilterFormContext);
 
 
-    let formObj = {
+    const [formData, setFormData] = useState({
         rendszam: "",
         marka: "",
         modell: "",
@@ -17,25 +17,28 @@ const VehicleAddForm = () => {
         muszakiErvenyesseg: "",
         uzemanyagkapacitas: 0,
         ferohely: 0,
-        kedvezmeny: 0,
-        egyediAr: 0,
+        kedvezmeny: null,
+        egyediAr: null,
         gepjarmuTipus: "",
         thely: "",
-        kepUrl: ""
-    };
+    });
 
-    const [formData, setFormData] = useState(formObj);
+    const [file, setFile] = useState(null);
 
     const adatKuldes = (adat, method) => {
 
-        const fd = new FormData;
-        fd.append('form', adat);
+        if (!file) return;
+
+        var fd = new FormData();
+        fd.append('form', JSON.stringify(adat));
+        fd.append('filename', file.name);
+        fd.append('file', file);
 
 
         fetch('http://localhost:8000/api/gepjarmuberles/gepjarmuvek/jarmuvek', {
             method: method,
-            headers: { 'Content-type': 'multipart/form-data' },
-            body: {fd:fd}
+            // headers: { 'Content-type': 'multipart/form-data' },  Öcséém agyam eldobom 😂😂
+            body: fd
         })
             .then(response => response.json())
             .then(response => console.log(JSON.stringify(response)))
@@ -127,7 +130,11 @@ const VehicleAddForm = () => {
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="kedvezmeny">Kedvezmény (%):</label>
-                                <input onChange={writeData} type="number" placeholder="(opcionális)"
+                                <input onChange={e => setFormData({
+                                    ...formData,
+                                    [e.target.id]: (e.target.value == 0 || e.target.value == "") ? null : e.target.value
+                                })
+                                } type="number" placeholder="(opcionális)"
                                     className="form-control bg-secondary2 border-secondary minwidth-50" id="kedvezmeny" />
                             </div>
                         </div>
@@ -137,7 +144,11 @@ const VehicleAddForm = () => {
                         <div className="col-sm bg-primary3 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="egyediAr">Egyedi ár:</label>
-                                <input onChange={writeData} type='number' placeholder="(opcionális)"
+                                <input onChange={e => setFormData({
+                                    ...formData,
+                                    [e.target.id]: (e.target.value == 0 || e.target.value == "") ? null : e.target.value
+                                })
+                                } type='number' placeholder="(opcionális)"
                                     className="form-control bg-secondary2 border-secondary minwidth-50" id="egyediAr" />
                             </div>
                         </div>
@@ -145,7 +156,8 @@ const VehicleAddForm = () => {
                         <div className="col-sm bg-secondary2 rounded">
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="gepjarmuTipus"><span className="redStar">* </span>Gépjármű típus:</label>
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" required id="gepjarmuTipus">
+                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" defaultValue={""} required id="gepjarmuTipus">
+                                    <option value={""} disabled>Válasszon...</option>
                                     {
                                         tipusok && tipusok.map((tipus, index) => (<option key={index} value={tipus.gepjarmu_tipus}>{tipus.gepjarmu_tipus}</option>))
                                     }
@@ -158,7 +170,8 @@ const VehicleAddForm = () => {
                             <div className="form-group my-4 width-10rem mx-auto">
                                 <label htmlFor="thely"><span className="redStar">* </span>Telephely:</label>
 
-                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="thely" required>
+                                <select onChange={writeData} className="form-control bg-secondary2 border-secondary minwidth-50 pointer" id="thely" defaultValue={""} required>
+                                    <option value={""} disabled>Válasszon...</option>
                                     {
                                         telephelyek && telephelyek.map((telephely, index) => (<option key={index} value={telephely.id}>{telephely.telepules_neve}</option>))
                                     }
@@ -179,7 +192,7 @@ const VehicleAddForm = () => {
                     <div className="input-group mb-3 bg-primary3 rounded">
                         <div className="rounded my-4 width-10rem mx-auto">
                             <label className="custom-file-label" htmlFor="kepUrl"><span className="redStar">* </span>Kép:</label>
-                            <input id="kepUrl" onChange={e => setFormData({ ...formData, [e.target.id]: e.target.files[0] })} type="file" className="custom-file-input" />
+                            <input id="kepUrl" onChange={e => setFile(e.target.files[0])} type="file" className="custom-file-input" />
                         </div>
                     </div>
 
